@@ -1,0 +1,49 @@
+---
+
+- name: Post INIT Stage 50
+  hosts: bootstrap
+  tasks:
+  - block:
+     - import_tasks: playbooks/post-init-kube-050.yaml
+    when:
+     - DEPLOY_HELM|bool == true
+  - block:
+     - import_tasks: playbooks/post-init-kube-051.yaml
+    when:
+     - DEPLOY_CILIUM|bool == true
+
+  - block:
+     - import_tasks: playbooks/post-init-kube-052.yaml
+
+  - block:
+     - import_tasks: playbooks/post-init-kube-053.yaml
+    when:
+     - DEPLOY_CSI_NFS|bool == true
+
+  - block:
+     - import_tasks: playbooks/post-init-kube-054.yaml
+    when:
+     - DEPLOY_PriorityClass|bool == true
+
+
+  - block:
+     - import_tasks: playbooks/post-init-kube-055.yaml
+    when:
+     - DEPLOY_METRICSERVER|bool == true
+
+  - block:
+     - import_tasks: playbooks/post-init-kube-056.yaml
+    when:
+     - DEPLOY_CERMANAGER|bool == true
+
+
+  - block:
+     - import_tasks: playbooks/post-init-kube-057.yaml
+    when:
+     - DEPLOY_METALLB|bool == true
+
+  - block:
+     - import_tasks: playbooks/post-init-kube-058.yaml
+    when:
+     - DEPLOY_Nginx_Ingress|bool == true
+

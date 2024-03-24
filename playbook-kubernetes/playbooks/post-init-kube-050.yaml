@@ -1,0 +1,40 @@
+
+    - name: Check disk space
+      command: df -h
+      register: result
+    - debug: var=result.stdout_lines
+
+    - name: kubectl get node
+      command: kubectl get node -A -o wide
+      register: result
+    - debug: var=result.stdout_lines
+
+
+    - name: Copy Helm
+      ansible.builtin.copy:
+        src: "UTILS/{{HELMFILE}}"
+        dest: "/tmp/{{HELMFILE}}"
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: install helm
+      environment:
+        HELMVERSION: "{{HELMVERSION}}"
+        HELMFILE: "{{HELMFILE}}"
+      shell: |
+         cd /tmp
+         ls -la
+         tar -zxvf {{HELMFILE}}
+         mv linux-{{platform}}/helm /usr/bin/helm-v{{HELMVERSION}}
+         rm -R linux-{{platform}}
+         chmod +x /usr/bin/helm-v{{HELMVERSION}}
+         cp /usr/bin/helm-v{{HELMVERSION}} /usr/bin/helm
+      register: result
+    - debug: var=result.stdout_lines
+
+    - name: Helm repo add cloudstack
+      kubernetes.core.helm_repository:
+        name: cloudstack
+        repo_url: "{{HELM_CHARTMUSEUM}}"
+

@@ -1,0 +1,8 @@
+
+  - block:
+    - name: ansible copy file from remote to local.
+      fetch:
+        src: "{{ item }}"
+        dest: /tmp/deploy/{{ item }}
+        flat: yes
+      loop: "{{ kubernetes_pki }}"

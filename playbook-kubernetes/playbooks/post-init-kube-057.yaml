@@ -1,0 +1,49 @@
+
+    - name: Deploy MetalLB
+      environment:
+        KUBECONFIG: /etc/kubernetes/admin.conf
+      community.kubernetes.helm:
+        name: cloudstack
+        chart_ref: "cloudstack/metallb"
+        release_state: present
+        update_repo_cache: true
+        release_namespace: metallb-system
+        create_namespace: yes
+        chart_version: "{{CNI.METALLB.chart_version}}"
+        values:
+          prometheus:
+            rbacProxy:
+              repository: "{{CNI.METALLB.prometheus_repository}}"
+              tag: "{{CNI.METALLB.prometheus_tag}}"
+          controller:
+            enabled: true
+            logLevel: info
+            image:
+              repository: "{{CNI.METALLB.controller_repository}}"
+              tag: "{{CNI.METALLB.controller_tag}}"
+          speaker:
+            enabled: true
+            logLevel: info
+            tolerateMaster: true
+            image:
+              repository: "{{CNI.METALLB.speaker_repository}}"
+              tag: "{{CNI.METALLB.speaker_tag}}"
+            frr:
+              enabled: true
+              image:
+                repository: "{{CNI.METALLB.frr_repository}}"
+                tag: "{{CNI.METALLB.frr_tag}}"
+      register: result
+    - debug: var=result.stdout_lines
+
+    - name: Sleep 60 second, init CNI
+      pause:
+        seconds: 60
+
+    - name: Create MetalLB IP Pool
+      kubernetes.core.k8s:
+        state: present
+        apply: true
+        template:
+          path: 'CNI-METALLB/ippool.yaml.j2'
+      loop: "{{ CNI.METALLB.ippools | dict2items | subelements('value') }}"

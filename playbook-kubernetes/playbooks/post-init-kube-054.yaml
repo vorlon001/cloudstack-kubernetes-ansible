@@ -1,0 +1,8 @@
+
+    - name: Create PriorityClass
+      kubernetes.core.k8s:
+        state: present
+        apply: true
+        template:
+          path: 'POST-INIT/PriorityClass.yaml.j2'
+

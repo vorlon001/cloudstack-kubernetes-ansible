@@ -1,0 +1,78 @@
+---
+- name: Install systemd timesyncd
+  hosts: kubernetes
+  port: 22
+  gather_facts: True
+  become: true
+  tasks:
+  - block:
+     - import_tasks: playbooks/init-kube-000.yaml
+     - import_tasks: playbooks/init-kube-001.yaml
+     - import_tasks: playbooks/init-kube-002.yaml
+    when:
+     - INIT_NODE_KUBERNETES|bool == true
+- name: Init Kubernetes
+  hosts: bootstrap
+  port: 22
+  gather_facts: True
+  become: true
+  tasks:
+  - block:
+     - import_tasks: playbooks/init-kube-003.yaml
+     - import_tasks: playbooks/init-kube-004.yaml
+    when:
+     - INIT_KUBERNETES|bool == true
+
+- name: Join worker nodes
+  hosts: kubernetes
+  port: 22
+  gather_facts: True
+  become: true
+  tasks:
+  - block:
+     - import_tasks: playbooks/init-kube-005.yaml
+    when:
+     - JOIN_WORKER_NODES_KUBERNETES|bool == true
+
+
+- name: Copy Cert's stage 1
+  hosts: localhost
+  tasks:
+  - block:
+     - import_tasks: playbooks/init-kube-006.yaml
+       delegate_to: localhost
+    when:
+     - INIT_JOIN_MASTER_NODES_KUBERNETES|bool == true
+
+- name: Copy Cert's stage 2
+  hosts: bootstrap
+  tasks:
+  - block:
+     - import_tasks: playbooks/init-kube-007.yaml
+    when:
+     - INIT_JOIN_MASTER_NODES_KUBERNETES|bool == true
+
+- name: Copy Cert's stage 3
+  hosts: masterjoin
+  tasks:
+  - block:
+     - import_tasks: playbooks/init-kube-008.yaml
+    when:
+     - INIT_JOIN_MASTER_NODES_KUBERNETES|bool == true
+
+- name: Copy Cert's stage 4
+  hosts: masterjoin
+  tasks:
+  - block:
+     - import_tasks: playbooks/init-kube-009.yaml
+    when:
+     - INIT_JOIN_MASTER_NODES_KUBERNETES|bool == true
+
+- name: Join Master Nodes
+  hosts: kubernetes
+  tasks:
+  - block:
+     - import_tasks: playbooks/init-kube-010.yaml
+    when:
+     - JOIN_MASTER_NODES_KUBERNETES|bool == true
+

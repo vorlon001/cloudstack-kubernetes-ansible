@@ -1,0 +1,45 @@
+
+    - name: Create namespace NFS
+      kubernetes.core.k8s:
+        state: present
+        template:
+          path: 'CSI-NFS/01-namespace.yaml.j2'
+
+    - name: Create NFS CSI 02-ServiceAccount.yaml.j2
+      kubernetes.core.k8s:
+        state: present
+        apply: true
+        template:
+          path: 'CSI-NFS/02-ServiceAccount.yaml.j2'
+
+    - name: Create NFS CSI 03-Role.yaml
+      kubernetes.core.k8s:
+        state: present
+        apply: true
+        template:
+          path: 'CSI-NFS/03-Role.yaml.j2'
+
+    - name: Create NFS CSI 04-Deployment.yaml
+      kubernetes.core.k8s:
+        state: present
+        apply: true
+        template:
+          path: 'CSI-NFS/04-Deployment.yaml.j2'
+
+    - name: Create NFS CSI 05-StorageClass.yaml
+      kubernetes.core.k8s:
+        state: present
+        apply: true
+        template:
+          path: 'CSI-NFS/05-StorageClass.yaml.j2'
+
+    - name: add label to existing namespace
+      kubernetes.core.k8s:
+        state: patched
+        kind: StorageClass
+        name: managed-nfs-storage
+        definition:
+          metadata:
+            annotations:
+              "storageclass.kubernetes.io/is-default-class": "true"
+

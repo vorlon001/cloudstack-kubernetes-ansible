@@ -1,0 +1,8 @@
+
+    - name: Create Metrics Server
+      kubernetes.core.k8s:
+        state: present
+        apply: true
+        template:
+          path: 'POST-INIT/v0.6.4-high-availability.yaml.j2'
+

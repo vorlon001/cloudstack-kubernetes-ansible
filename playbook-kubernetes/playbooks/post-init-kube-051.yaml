@@ -1,0 +1,82 @@
+
+    - name: Deploy cilium
+      environment:
+        KUBECONFIG: /etc/kubernetes/admin.conf
+      community.kubernetes.helm:
+        name: cloudstack
+        chart_ref: "cloudstack/cilium"
+        release_state: present
+        update_repo_cache: true
+        release_namespace: kube-system
+        create_namespace: yes
+        chart_version: "{{CNI.CILIUM.chart_version}}"
+        values:
+          kubeProxyReplacement: strict
+          clusterDomain: "KUBERNETES_clusterDomain"
+          k8sServiceHost: "{{KUBERNETES_VIP}}"
+          k8sServicePort: 6443
+          rollOutCiliumPods: "true"
+          tunnel: vxlan
+          image:
+              repository: "{{CNI.CILIUM.REPO}}"
+          hubble:
+              enabled: "false"
+              tls:
+                  auto:
+                    enabled: "false"
+
+              relay:
+                  image:
+                      repository: "{{CNI.CILIUM.hubble_relay}}"
+              ui:
+                  backend:
+                      image:
+                          repository: "{{CNI.CILIUM.hubble_backend}}"
+                  frontend:
+                      image:
+                          repository: "{{CNI.CILIUM.hubble_frontend}}"
+          bpf:
+              masquerade: true
+          egressGateway:
+              enabled: true
+          operator:
+              rollOutPods: "true"
+              image:
+                  repository: "{{CNI.CILIUM.operator}}"
+          ipam:
+              operator:
+                  clusterPoolIPv4PodCIDRList: "{{CNI.CILIUM.clusterPoolIPv4PodCIDRList}}"
+                  clusterPoolIPv4MaskSize: "{{CNI.CILIUM.clusterPoolIPv4MaskSize}}"
+          clustermesh:
+              apiserver:
+                  etcd:
+                      image:
+                          repository: "{{CNI.CILIUM.etcd}}"
+              image:
+                  repository: "{{CNI.CILIUM.clustermesh}}"
+              kvstoremesh:
+                  image:
+                      repository: "{{CNI.CILIUM.kvstoremesh}}"
+          certgen:
+                  image:
+                      repository: "{{CNI.CILIUM.certgen}}"
+          envoy:
+                  image:
+                      repository: "{{CNI.CILIUM.REPO}}-envoy"
+          etcd:
+                  image:
+                      repository: "{{CNI.CILIUM.REPO}}-etcd-operator"
+          nodeinit:
+                  image:
+                      repository: "{{CNI.CILIUM.nodeinit}}"
+          preflight:
+                  image:
+                      repository: "{{CNI.CILIUM.REPO}}"
+
+      register: result
+    - debug: var=result.stdout_lines
+
+    - name: Sleep 90 second, init CNI
+      pause:
+        seconds: 90
+

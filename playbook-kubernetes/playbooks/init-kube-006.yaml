@@ -1,0 +1,11 @@
+
+  - block:
+    - name: Creates directory
+      file:
+        path: /tmp/deploy/etc/kubernetes/pki/etcd
+        state: directory
+        owner: root
+        group: root
+        mode: 0775
+        recurse: yes
+    when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'

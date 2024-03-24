@@ -1,0 +1,37 @@
+[node3]
+node170 ansible_ssh_host=192.168.200.170
+node171 ansible_ssh_host=192.168.200.171
+node172 ansible_ssh_host=192.168.200.172
+
+[node4]
+node180 ansible_ssh_host=192.168.200.180
+node181 ansible_ssh_host=192.168.200.181
+node182 ansible_ssh_host=192.168.200.182
+
+
+[node-update:children]
+node3
+node4
+
+[ntp-exporter:children]
+node3
+node4
+
+
+[kubernetes:children]
+node3
+node4
+
+[master:children]
+bootstrap
+masterjoin
+
+[worker:children]
+node3
+
+[bootstrap]
+node180 ansible_ssh_host=192.168.200.180
+
+[masterjoin]
+node181 ansible_ssh_host=192.168.200.181
+node182 ansible_ssh_host=192.168.200.182

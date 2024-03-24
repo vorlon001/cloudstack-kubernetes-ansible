@@ -1,0 +1,153 @@
+
+
+HELMVERSION: "3.14.3"
+platform: "amd64"
+KUBERNETES_VIP: "192.168.200.187"
+KUBERNETES_clusterDomain: cluster.local
+HELMFILE: "helm-v{{HELMVERSION}}-linux-{{platform}}.tar.gz"
+HELM_CHARTMUSEUM: "http://192.168.200.6:8080/"
+
+
+INIT_NODE_KUBERNETES: true
+INIT_KUBERNETES: true
+JOIN_WORKER_NODES_KUBERNETES: true
+INIT_JOIN_MASTER_NODES_KUBERNETES: true
+JOIN_MASTER_NODES_KUBERNETES: true
+
+DEPLOY_HELM: true
+DEPLOY_CSI_NFS: true
+DEPLOY_PriorityClass: true
+DEPLOY_METRICSERVER: true
+DEPLOY_CERMANAGER: true
+DEPLOY_CILIUM: true
+DEPLOY_METALLB: true
+DEPLOY_Nginx_Ingress: true
+
+CSI:
+    NFS:
+        NAMESPACE: nfs-client
+        image: harbor.iblog.pro/gcrio/k8s-staging-sig-storage/nfs-subdir-external-provisioner:v4.0.2
+        PROVISIONER_NAME: iblog.pro/nfs
+        SERVER: 192.168.200.1
+        SERVER_path: /cloud/nfsshare
+        replicas: 2
+
+CERMANAGER:
+    cainjector_image: "harbor.iblog.pro/quayio/jetstack/cert-manager-cainjector:v1.14.3"
+    controller_image: "harbor.iblog.pro/quayio/jetstack/cert-manager-controller:v1.14.3"
+    webhook_image: "harbor.iblog.pro/quayio/jetstack/cert-manager-webhook:v1.14.3"
+    acme_image: quay.io/jetstack/cert-manager-acmesolver:v1.14.3
+
+METRICSERVER:
+    image: harbor.iblog.pro/registryk8sio/metrics-server/metrics-server:v0.6.4
+
+INGRESS:
+    NGINX:
+        controller_registry: registry.k8s.io
+        controller_image: ingress-nginx/controller
+        controller_tag: "v1.10.0"
+        controller_digest: sha256:42b3f0e5d0846876b1791cd3afeb5f1cbbe4259d6f35651dcc1b5c980925379c
+        controller_digestChroot: sha256:7eb46ff733429e0e46892903c7394aff149ac6d284d92b3946f3baf7ff26a096
+        INGRESS_IPPOOL: default
+        INGRESS_pools:
+          ingress-nginx-1:
+          - 11.0.2.95
+          ingress-nginx-2:
+          - 11.0.2.100
+          system-ingress:
+          - 11.0.2.90
+
+
+CNI:
+    CILIUM:
+        chart_version: 1.14.6
+        REPO: "harbor.iblog.pro/quayio/cilium/cilium"
+        nodeinit: "harbor.iblog.pro/quayio/cilium/startup-script"
+        certgen: "harbor.iblog.pro/quayio/cilium/certgen"
+        kvstoremesh: "harbor.iblog.pro/quayio/cilium/kvstoremesh"
+        clustermesh: "harbor.iblog.pro/quayio/cilium/clustermesh-apiserver-ci"
+        etcd: "harbor.iblog.pro/quayio/coreos/etcd"
+        operator: "harbor.iblog.pro/quayio/cilium/operator"
+        clusterPoolIPv4PodCIDRList: "10.96.0.0/17"
+        clusterPoolIPv4MaskSize: "24"
+        hubble_relay: "harbor.iblog.pro/quayio/cilium/hubble-relay"
+        hubble_backend: "harbor.iblog.pro/quayio/cilium/hubble-ui-backend"
+        hubble_frontend: "harbor.iblog.pro/quayio/cilium/hubble-ui"
+    METALLB:
+        chart_version: "0.14.3"
+        prometheus_repository: harbor.iblog.pro/gcrio/kubebuilder/kube-rbac-proxy
+        prometheus_tag: "v0.12.0"
+        controller_repository: harbor.iblog.pro/quayio/metallb/controller
+        controller_tag: "v0.14.3"
+        speaker_repository: harbor.iblog.pro/quayio/metallb/speaker
+        speaker_tag: "v0.14.3"
+        frr_repository: harbor.iblog.pro/quayio/frrouting/frr
+        frr_tag: "8.5.2"
+        ippools:
+          default:
+          - 11.0.0.0/22
+          internet:
+          - 11.0.10.1/32
+          internet2:
+          - 11.0.11.2/32
+          coredns-kube:
+          - 11.0.11.22/32
+
+
+ubuntu_mirror: "https://nexus3.iblog.pro/repository/archive.ubuntu.com/"
+ubuntu_mirror_security: "https://nexus3.iblog.pro/repository/security.ubuntu.com/"
+
+system_timezone: Etc/UTC
+ntp_servers:
+- "pool.ntp.org"
+- "pool.ntp.org"
+ntp_fallback_servers:
+- "pool.ntp.org"
+- "pool.ntp.org"
+
+KUBERNETES_VERSION: 1.29.3
+
+kube_version: "v{{ KUBERNETES_VERSION }}"
+crictl_version: "v1.29.0"
+containerd_version: "1.7.14"
+image_arch: "amd64"
+runc_version: "1.1.12"
+cni_version: "1.4.1"
+k8s_regestry: "harbor.iblog.pro/registry.k8s.io"
+etcd_version: "3.5.12"
+LANG: ru_RU.UTF-8
+VERSION: noble
+# VERSION: jammy
+NAMESERVER: "192.168.1.10"
+
+IPREFIX: "192.168.200"
+CLUSTERIP: "187"
+NODE: "130"
+clusterName: "cluster.local"
+podSubnet: "10.96.0.0/17"
+serviceSubnet: "10.96.128.0/17"
+APITOKEN: "bu5tiw.iq1i8h3t740fgy0l"
+
+VIPIP_KEEPALIVE: "192.168.200.187"
+APISERVER_DEST_PORT: 6443
+keepalived_auth_type: AH
+keepalived_auth_pass: "e470f1261"
+KEEPALIVE_id: 51
+
+kubernetesVersion: "{{ KUBERNETES_VERSION }}"
+CONTROL_PLANE_IP: 192.168.200.187
+
+
+kubernetes_pki:
+  - /etc/kubernetes/pki/sa.pub
+  - /etc/kubernetes/pki/sa.key
+  - /etc/kubernetes/pki/etcd/ca.key
+  - /etc/kubernetes/pki/etcd/ca.crt
+  - /etc/kubernetes/pki/front-proxy-ca.crt
+  - /etc/kubernetes/pki/apiserver-etcd-client.crt
+  - /etc/kubernetes/pki/apiserver-etcd-client.key
+  - /etc/kubernetes/pki/ca.key
+  - /etc/kubernetes/pki/ca.crt
+  - /etc/kubernetes/pki/front-proxy-ca.key
+
+
