@@ -10,7 +10,18 @@
   - block:
      - import_tasks: playbooks/post-init-kube-051.yaml
     when:
-     - DEPLOY_CILIUM|bool == true
+     - DEPLOY_CNI_CILIUM|bool == true
+
+  - block:
+     - import_tasks: playbooks/post-init-kube-060.yaml
+    when:
+     - DEPLOY_CNI_ANTREA|bool == true
+
+  - block:
+     - import_tasks: playbooks/post-init-kube-061.yaml
+    when:
+     - DEPLOY_CNI_KUBEOVN|bool == true
+
 
   - block:
      - import_tasks: playbooks/post-init-kube-052.yaml
@@ -19,6 +30,12 @@
      - import_tasks: playbooks/post-init-kube-053.yaml
     when:
      - DEPLOY_CSI_NFS|bool == true
+
+  - block:
+     - import_tasks: playbooks/post-init-kube-059.yaml
+    when:
+     - DEPLOY_NFS_HELM|bool == true
+
 
   - block:
      - import_tasks: playbooks/post-init-kube-054.yaml
@@ -46,4 +63,5 @@
      - import_tasks: playbooks/post-init-kube-058.yaml
     when:
      - DEPLOY_Nginx_Ingress|bool == true
+
 

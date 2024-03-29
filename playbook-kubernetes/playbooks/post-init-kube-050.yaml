@@ -35,6 +35,6 @@
 
     - name: Helm repo add cloudstack
       kubernetes.core.helm_repository:
-        name: cloudstack
+        name: "{{HELM_CHARTMUSEUM_NAME}}"
         repo_url: "{{HELM_CHARTMUSEUM}}"
 

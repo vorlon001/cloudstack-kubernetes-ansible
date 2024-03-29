@@ -1,0 +1,40 @@
+
+    - name: Deploy CNI Antrea
+      environment:
+        KUBECONFIG: /etc/kubernetes/admin.conf
+      community.kubernetes.helm:
+        name: antrea
+        chart_ref: "cloudstack/antrea"
+        release_state: present
+        update_repo_cache: true
+        release_namespace: kube-system
+        create_namespace: no
+        chart_version: 1.15.1
+        values:
+          agentImage:
+            repository: "harbor.iblog.pro/dockerio/antrea/antrea-agent-ubuntu"
+            pullPolicy: "IfNotPresent"
+            tag: "v1.15.1"
+          controllerImage:
+            repository: "harbor.iblog.pro/dockerio/antrea/antrea-controller-ubuntu"
+            pullPolicy: "IfNotPresent"
+            tag: ""
+          trafficEncapMode: "encap"
+          tunnelType: "geneve"
+          trafficEncryptionMode: "none"
+          antreaProxy:
+            enable: true
+            proxyAll: false
+            nodePortAddresses: []
+            skipServices: []
+            proxyLoadBalancerIPs: true
+            serviceProxyName: ""
+            defaultLoadBalancerMode: "nat"
+          nodeIPAM:
+            enable: false
+            clusterCIDRs: []
+            serviceCIDR: ""
+            serviceCIDRv6: ""
+            nodeCIDRMaskSizeIPv4: 24
+            nodeCIDRMaskSizeIPv6: 64
+

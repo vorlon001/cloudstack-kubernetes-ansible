@@ -3,7 +3,7 @@
       environment:
         KUBECONFIG: /etc/kubernetes/admin.conf
       community.kubernetes.helm:
-        name: cloudstack
+        name: metallb
         chart_ref: "cloudstack/metallb"
         release_state: present
         update_repo_cache: true

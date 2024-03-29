@@ -5,6 +5,7 @@ platform: "amd64"
 KUBERNETES_VIP: "192.168.200.187"
 KUBERNETES_clusterDomain: cluster.local
 HELMFILE: "helm-v{{HELMVERSION}}-linux-{{platform}}.tar.gz"
+HELM_CHARTMUSEUM_NAME: "cloudstack"
 HELM_CHARTMUSEUM: "http://192.168.200.6:8080/"
 
 
@@ -14,12 +15,43 @@ JOIN_WORKER_NODES_KUBERNETES: true
 INIT_JOIN_MASTER_NODES_KUBERNETES: true
 JOIN_MASTER_NODES_KUBERNETES: true
 
+#INIT_NODE_KUBERNETES: false
+#INIT_KUBERNETES: false
+#JOIN_WORKER_NODES_KUBERNETES: false
+#INIT_JOIN_MASTER_NODES_KUBERNETES: false
+#JOIN_MASTER_NODES_KUBERNETES: false
+
+
+#DEPLOY_HELM: false
+
+#DEPLOY_CSI_NFS: false
+#DEPLOY_NFS_HELM: false
+
+#DEPLOY_CSI_NFS: false
+#DEPLOY_PriorityClass: false
+#DEPLOY_METRICSERVER: false
+#DEPLOY_CERMANAGER: false
+
+#DEPLOY_CNI_CILIUM: false
+#DEPLOY_CNI_ANTREA: false
+#DEPLOY_CNI_KUBEOVN: false
+
+#DEPLOY_METALLB: false
+#DEPLOY_Nginx_Ingress: false
+
 DEPLOY_HELM: true
-DEPLOY_CSI_NFS: true
+
+DEPLOY_CSI_NFS: false
+DEPLOY_NFS_HELM: true
+
 DEPLOY_PriorityClass: true
 DEPLOY_METRICSERVER: true
 DEPLOY_CERMANAGER: true
-DEPLOY_CILIUM: true
+
+DEPLOY_CNI_CILIUM: false
+DEPLOY_CNI_ANTREA: false
+DEPLOY_CNI_KUBEOVN: true
+
 DEPLOY_METALLB: true
 DEPLOY_Nginx_Ingress: true
 
@@ -59,6 +91,8 @@ INGRESS:
 
 
 CNI:
+    KUBEOVN:
+        MASTERS: "192.168.200.130,192.168.200.131,192.168.200.132"
     CILIUM:
         chart_version: 1.14.6
         REPO: "harbor.iblog.pro/quayio/cilium/cilium"
