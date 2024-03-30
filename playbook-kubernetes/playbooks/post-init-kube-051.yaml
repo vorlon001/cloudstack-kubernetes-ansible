@@ -3,12 +3,12 @@
       environment:
         KUBECONFIG: /etc/kubernetes/admin.conf
       community.kubernetes.helm:
-        name: cloudstack
-        chart_ref: "cloudstack/cilium"
-        release_state: present
-        update_repo_cache: true
-        release_namespace: kube-system
-        create_namespace: yes
+        name: cloudstack-cilium
+        chart_ref: "{{CNI.CILIUM.chart_ref}}"
+        release_state: "{{CNI.CILIUM.release_state}}"
+        update_repo_cache: "{{CNI.CILIUM.update_repo_cache}}"
+        release_namespace: "{{CNI.CILIUM.release_namespace}}"
+        create_namespace: "{{CNI.CILIUM.create_namespace}}"
         chart_version: "{{CNI.CILIUM.chart_version}}"
         values:
           kubeProxyReplacement: strict
@@ -16,64 +16,86 @@
           k8sServiceHost: "{{KUBERNETES_VIP}}"
           k8sServicePort: 6443
           rollOutCiliumPods: "true"
-          tunnel: vxlan
-          image:
-              repository: "{{CNI.CILIUM.REPO}}"
-          hubble:
-              enabled: "false"
-              tls:
-                  auto:
-                    enabled: "false"
-
-              relay:
-                  image:
-                      repository: "{{CNI.CILIUM.hubble_relay}}"
-              ui:
-                  backend:
-                      image:
-                          repository: "{{CNI.CILIUM.hubble_backend}}"
-                  frontend:
-                      image:
-                          repository: "{{CNI.CILIUM.hubble_frontend}}"
+          tunnelProtocol: "vxlan"
+          l7Proxy: true
+          localRedirectPolicy: false
           bpf:
               masquerade: true
+          ingressController:
+            enabled: false
+          hostFirewall:
+            enabled: false
+          hostPort:
+            enabled: false
+          socketLB:
+            enabled: false
           egressGateway:
               enabled: true
-          operator:
-              rollOutPods: "true"
-              image:
-                  repository: "{{CNI.CILIUM.operator}}"
           ipam:
               operator:
                   clusterPoolIPv4PodCIDRList: "{{CNI.CILIUM.clusterPoolIPv4PodCIDRList}}"
                   clusterPoolIPv4MaskSize: "{{CNI.CILIUM.clusterPoolIPv4MaskSize}}"
-          clustermesh:
-              apiserver:
-                  etcd:
-                      image:
-                          repository: "{{CNI.CILIUM.etcd}}"
-              image:
-                  repository: "{{CNI.CILIUM.clustermesh}}"
-              kvstoremesh:
-                  image:
-                      repository: "{{CNI.CILIUM.kvstoremesh}}"
+          debug:
+            enabled: false
+          monitor:
+            enabled: false
+          image:
+            repository: "{{CNI.CILIUM.cilium_repository}}"
           certgen:
-                  image:
-                      repository: "{{CNI.CILIUM.certgen}}"
+            image:
+              repository: "{{CNI.CILIUM.certgen_repository}}"
+          hubble:
+            enabled: true
+            relay:
+              enabled: false
+              image:
+                repository: "{{CNI.CILIUM.hubble_relay_repository}}"
+            ui:
+              enabled: false
+              frontend:
+                image:
+                  repository: "{{CNI.CILIUM.hubble_ui_repository}}"
+              backend:
+                image:
+                  repository: "{{CNI.CILIUM.hubble_ui_backend_repository}}"
           envoy:
-                  image:
-                      repository: "{{CNI.CILIUM.REPO}}-envoy"
+            enabled: false
+            image:
+              repository: "{{CNI.CILIUM.cilium_envoy_repository}}"
           etcd:
-                  image:
-                      repository: "{{CNI.CILIUM.REPO}}-etcd-operator"
+            enabled: false
+            image:
+              repository: "{{CNI.CILIUM.cilium_etcd_operator_repository}}"
+          operator:
+            enabled: true
+            image:
+              repository: "{{CNI.CILIUM.operator_repository}}"
           nodeinit:
-                  image:
-                      repository: "{{CNI.CILIUM.nodeinit}}"
-          preflight:
-                  image:
-                      repository: "{{CNI.CILIUM.REPO}}"
-
+            enabled: false
+            image:
+              repository: "{{CNI.CILIUM.startup_script_repository}}"
+          clustermesh:
+            useAPIServer: false
+            apiserver:
+              image:
+                repository: "{{CNI.CILIUM.clustermesh_apiserver_repository}}"
+            mutual:
+              spire:
+                enabled: false
+                install:
+                  enabled: true
+                  namespace: cilium-spire
+                  existingNamespace: false
+                  initImage:
+                    repository: "{{CNI.CILIUM.busybox_repository}}"
+                  agent:
+                    image:
+                      repository: "{{CNI.CILIUM.spire_agent_repository}}"
+                  server:
+                    image:
+                      repository: "{{CNI.CILIUM.spire_server_repository}}"
       register: result
+
     - debug: var=result.stdout_lines
 
     - name: Sleep 90 second, init CNI

@@ -22,6 +22,10 @@
     when:
      - DEPLOY_CNI_KUBEOVN|bool == true
 
+  - block:
+     - import_tasks: playbooks/post-init-kube-062.yaml
+    when:
+     - DEPLOY_CNI_CALICO|bool == true
 
   - block:
      - import_tasks: playbooks/post-init-kube-052.yaml

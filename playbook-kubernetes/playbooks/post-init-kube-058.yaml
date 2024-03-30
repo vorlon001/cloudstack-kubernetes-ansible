@@ -4,12 +4,12 @@
         KUBECONFIG: /etc/kubernetes/admin.conf
       community.kubernetes.helm:
         name: "cloudstack-{{item.0.key}}"
-        chart_ref: "cloudstack/ingress-nginx"
-        release_state: present
-        update_repo_cache: true
+        chart_ref: "{{INGRESS.NGINX.chart_ref}}"
+        release_state: "{{INGRESS.NGINX.release_state}}"
+        update_repo_cache: "{{INGRESS.NGINX.update_repo_cache}}"
         release_namespace: "{{item.0.key}}"
-        create_namespace: yes
-        chart_version: "4.10.0"
+        create_namespace: "{{INGRESS.NGINX.create_namespace}}"
+        chart_version: "{{INGRESS.NGINX.chart_version}}"
         values:
           controller:
             image:

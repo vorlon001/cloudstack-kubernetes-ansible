@@ -287,8 +287,8 @@
     - debug: var=logs.stdout_lines
 
 
-    - name: Run ctr images pull docker.io/library/redis:alpine
-      ansible.builtin.shell: ctr images pull docker.io/library/redis:alpine
+    - name: Run ctr images pull {{TEST_HARBOR}}
+      ansible.builtin.shell: ctr images pull {{TEST_HARBOR}}
       args:
         executable: /bin/bash
       register: logs

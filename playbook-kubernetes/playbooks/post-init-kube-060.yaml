@@ -4,21 +4,21 @@
         KUBECONFIG: /etc/kubernetes/admin.conf
       community.kubernetes.helm:
         name: antrea
-        chart_ref: "cloudstack/antrea"
-        release_state: present
-        update_repo_cache: true
-        release_namespace: kube-system
-        create_namespace: no
-        chart_version: 1.15.1
+        chart_ref: "{{CNI.ANTREA.chart_ref}}"
+        release_state: "{{CNI.ANTREA.release_state}}"
+        update_repo_cache: "{{CNI.ANTREA.update_repo_cache}}"
+        release_namespace: "{{CNI.ANTREA.release_namespace}}"
+        create_namespace: "{{CNI.ANTREA.create_namespace}}"
+        chart_version: "{{CNI.ANTREA.chart_version}}"
         values:
           agentImage:
-            repository: "harbor.iblog.pro/dockerio/antrea/antrea-agent-ubuntu"
-            pullPolicy: "IfNotPresent"
-            tag: "v1.15.1"
+            repository: "{{CNI.ANTREA.helm_values.agentImage.repository}}"
+            pullPolicy: "{{CNI.ANTREA.helm_values.agentImage.pullPolicy}}"
+            tag:        "{{CNI.ANTREA.helm_values.agentImage.tag}}"
           controllerImage:
-            repository: "harbor.iblog.pro/dockerio/antrea/antrea-controller-ubuntu"
-            pullPolicy: "IfNotPresent"
-            tag: ""
+            repository: "{{CNI.ANTREA.helm_values.controllerImage.repository}}"
+            pullPolicy: "{{CNI.ANTREA.helm_values.controllerImage.pullPolicy}}"
+            tag:        "{{CNI.ANTREA.helm_values.controllerImage.tag}}"
           trafficEncapMode: "encap"
           tunnelType: "geneve"
           trafficEncryptionMode: "none"
@@ -37,4 +37,5 @@
             serviceCIDRv6: ""
             nodeCIDRMaskSizeIPv4: 24
             nodeCIDRMaskSizeIPv6: 64
+
 

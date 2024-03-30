@@ -1,0 +1,52 @@
+
+    - name: Deploy CNI Calico
+      environment:
+        KUBECONFIG: /etc/kubernetes/admin.conf
+      community.kubernetes.helm:
+        name: cni-calico
+        chart_ref: "cloudstack/tigera-operator"
+        release_state: present
+        update_repo_cache: true
+        release_namespace: calico-system
+        create_namespace: yes
+        chart_version: "v3.27.2"
+        values:
+          installation:
+            enabled: true
+            registry: harbor.iblog.pro/dockerio/
+            calicoNetwork:
+              linuxDataplane: Iptables
+              #    // +kubebuilder:validation:Enum=Iptables;BPF;VPP
+              bgp: Disabled
+              # Note: The ipPools section cannot be modified post-install.
+              ipPools:
+              - blockSize: 26
+                cidr: 10.96.0.0/17
+                #     // +kubebuilder:validation:Enum=IPIPCrossSubnet;IPIP;VXLAN;VXLANCrossSubnet;None
+                encapsulation: VXLANCrossSubnet
+                natOutgoing: Enabled
+                nodeSelector: all()
+              nodeAddressAutodetectionV4:
+                interface: "(enp1s0.800)"
+          apiServer:
+            enabled: true
+          tolerations:
+          - effect: NoExecute
+            operator: Exists
+          - effect: NoSchedule
+            operator: Exists
+          nodeSelector:
+            kubernetes.io/os: linux
+          tigeraOperator:
+            image: quayio/tigera/operator
+            version: v1.32.5
+            registry: harbor.iblog.pro
+          calicoctl:
+            image: harbor.iblog.pro/dockerio/calico/ctl
+            tag: v3.27.2
+          kubeletVolumePluginPath: /var/lib/kubelet
+
+    - name: Sleep 90 second, init CNI
+      pause:
+        seconds: 90
+

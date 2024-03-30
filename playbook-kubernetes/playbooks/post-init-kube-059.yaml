@@ -4,41 +4,41 @@
         KUBECONFIG: /etc/kubernetes/admin.conf
       community.kubernetes.helm:
         name: csi-driver-nfs
-        chart_ref: "cloudstack/csi-driver-nfs"
+        chart_ref: "{{CSI.NFS_HELM.chart_ref}}"
         release_state: present
         update_repo_cache: true
-        release_namespace: csi-driver-nfs
-        create_namespace: yes
-        chart_version: "v4.6.0"
+        release_namespace: "{{CSI.NFS_HELM.release_namespace}}"
+        create_namespace: "{{CSI.NFS_HELM.create_namespace}}"
+        chart_version: "{{CSI.NFS_HELM.chart_version}}"
         values:
           image:
-              baseRepo: harbor.iblog.pro/registryk8sio
+              baseRepo: "{{CSI.NFS_HELM.helm_values.image.baseRepo}}"
               nfs:
-                  repository: harbor.iblog.pro/registryk8sio/sig-storage/nfsplugin
-                  tag: v4.6.0
-                  pullPolicy: IfNotPresent
+                  repository: "{{CSI.NFS_HELM.helm_values.image.nfs.repository}}"
+                  tag: "{{CSI.NFS_HELM.helm_values.image.nfs.tag}}"
+                  pullPolicy: "{{CSI.NFS_HELM.helm_values.image.nfs.pullPolicy}}"
               csiProvisioner:
-                  repository: harbor.iblog.pro/registryk8sio/sig-storage/csi-provisioner
-                  tag: v4.0.0
-                  pullPolicy: IfNotPresent
+                  repository: "{{CSI.NFS_HELM.helm_values.image.csiProvisioner.repository}}"
+                  tag: "{{CSI.NFS_HELM.helm_values.image.csiProvisioner.tag}}"
+                  pullPolicy: "{{CSI.NFS_HELM.helm_values.image.csiProvisioner.pullPolicy}}"
               csiSnapshotter:
-                  repository: harbor.iblog.pro/registryk8sio/sig-storage/csi-snapshotter
-                  tag: v6.3.3
-                  pullPolicy: IfNotPresent
+                  repository: "{{CSI.NFS_HELM.helm_values.image.csiSnapshotter.repository}}"
+                  tag: "{{CSI.NFS_HELM.helm_values.image.csiSnapshotter.tag}}"
+                  pullPolicy: "{{CSI.NFS_HELM.helm_values.image.csiSnapshotter.pullPolicy}}"
               livenessProbe:
-                  repository: harbor.iblog.pro/registryk8sio/sig-storage/livenessprobe
-                  tag: v2.12.0
-                  pullPolicy: IfNotPresent
+                  repository: "{{CSI.NFS_HELM.helm_values.image.livenessProbe.repository}}"
+                  tag: "{{CSI.NFS_HELM.helm_values.image.livenessProbe.tag}}"
+                  pullPolicy: "{{CSI.NFS_HELM.helm_values.image.livenessProbe.pullPolicy}}"
               nodeDriverRegistrar:
-                  repository: harbor.iblog.pro/registryk8sio/sig-storage/csi-node-driver-registrar
-                  tag: v2.10.0
-                  pullPolicy: IfNotPresent
+                  repository: "{{CSI.NFS_HELM.helm_values.image.nodeDriverRegistrar.repository}}"
+                  tag: "{{CSI.NFS_HELM.helm_values.image.nodeDriverRegistrar.tag}}"
+                  pullPolicy: "{{CSI.NFS_HELM.helm_values.image.nodeDriverRegistrar.pullPolicy}}"
               externalSnapshotter:
-                  repository: harbor.iblog.pro/registryk8sio/sig-storage/snapshot-controller
-                  tag: v6.3.3
-                  pullPolicy: IfNotPresent
+                  repository: "{{CSI.NFS_HELM.helm_values.image.externalSnapshotter.repository}}"
+                  tag: "{{CSI.NFS_HELM.helm_values.image.externalSnapshotter.tag}}"
+                  pullPolicy: "{{CSI.NFS_HELM.helm_values.image.externalSnapshotter.pullPolicy}}"
 
-    - name: Sleep 60 second, init CNI
+    - name: Sleep 60 second, init NFS HELM
       pause:
         seconds: 60
 

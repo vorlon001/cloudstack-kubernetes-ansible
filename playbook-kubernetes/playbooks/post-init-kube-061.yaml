@@ -31,47 +31,47 @@
         KUBECONFIG: /etc/kubernetes/admin.conf
       community.kubernetes.helm:
         name: kube-ovn
-        chart_ref: "cloudstack/kube-ovn"
-        release_state: present
-        update_repo_cache: true
-        release_namespace: default
+        chart_ref: "{{CNI.KUBEOVN.chart_ref}}"
+        release_state: "{{CNI.KUBEOVN.release_state}}"
+        update_repo_cache: "{{CNI.KUBEOVN.update_repo_cache}}"
+        release_namespace: "{{CNI.KUBEOVN.release_namespace}}"
         # kube-system
-        create_namespace: no
-        chart_version: v1.12.11
+        create_namespace: "{{CNI.KUBEOVN.create_namespace}}"
+        chart_version: "{{CNI.KUBEOVN.chart_version}}"
         values:
           global:
             registry:
-              address: harbor.iblog.pro/dockerio/kubeovn
+              address: "{{CNI.KUBEOVN.helm_values.global.registry.address}}"
             images:
               kubeovn:
-                repository: kube-ovn
-                dpdkRepository: kube-ovn-dpdk
-                vpcRepository: vpc-nat-gateway
-                tag: v1.12.11
-                support_arm: true
-                thirdparty: true
+                repository: "{{CNI.KUBEOVN.helm_values.global.images.kubeovn.repository}}"
+                dpdkRepository: "{{CNI.KUBEOVN.helm_values.global.images.kubeovn.dpdkRepository}}"
+                vpcRepository: "{{CNI.KUBEOVN.helm_values.global.images.kubeovn.vpcRepository}}"
+                tag: "{{CNI.KUBEOVN.helm_values.global.images.kubeovn.tag}}"
+                support_arm: "{{CNI.KUBEOVN.helm_values.global.images.kubeovn.support_arm}}"
+                thirdparty: "{{CNI.KUBEOVN.helm_values.global.images.kubeovn.thirdparty}}"
           replicaCount: 3
           MASTER_NODES: "{{CNI.KUBEOVN.MASTERS}}"
           func:
-            ENABLE_LB: true
-            ENABLE_NP: true
-            ENABLE_EXTERNAL_VPC: true
-            HW_OFFLOAD: false
-            ENABLE_LB_SVC: false
-            ENABLE_KEEP_VM_IP: true
-            LS_DNAT_MOD_DL_DST: true
-            LS_CT_SKIP_DST_LPORT_IPS: true
-            ENABLE_BIND_LOCAL_IP: true
-            U2O_INTERCONNECTION: false
-            ENABLE_TPROXY: false
-            ENABLE_IC: false
+            ENABLE_LB: "{{CNI.KUBEOVN.helm_values.func.ENABLE_LB}}"
+            ENABLE_NP: "{{CNI.KUBEOVN.helm_values.func.ENABLE_NP}}"
+            ENABLE_EXTERNAL_VPC: "{{CNI.KUBEOVN.helm_values.func.ENABLE_EXTERNAL_VPC}}"
+            HW_OFFLOAD: "{{CNI.KUBEOVN.helm_values.func.HW_OFFLOAD}}"
+            ENABLE_LB_SVC: "{{CNI.KUBEOVN.helm_values.func.ENABLE_LB_SVC}}"
+            ENABLE_KEEP_VM_IP: "{{CNI.KUBEOVN.helm_values.func.ENABLE_KEEP_VM_IP}}"
+            LS_DNAT_MOD_DL_DST: "{{CNI.KUBEOVN.helm_values.func.LS_DNAT_MOD_DL_DST}}"
+            LS_CT_SKIP_DST_LPORT_IPS: "{{CNI.KUBEOVN.helm_values.func.LS_CT_SKIP_DST_LPORT_IPS}}"
+            ENABLE_BIND_LOCAL_IP: "{{CNI.KUBEOVN.helm_values.func.ENABLE_BIND_LOCAL_IP}}"
+            U2O_INTERCONNECTION: "{{CNI.KUBEOVN.helm_values.func.U2O_INTERCONNECTION}}"
+            ENABLE_TPROXY: "{{CNI.KUBEOVN.helm_values.func.ENABLE_TPROXY}}"
+            ENABLE_IC: "{{CNI.KUBEOVN.helm_values.func.ENABLE_IC}}"
           ipv4:
-            POD_CIDR: "10.96.0.0/17"
-            POD_GATEWAY: "10.96.0.1"
-            SVC_CIDR: "10.96.128.0/17"
-            JOIN_CIDR: "100.64.0.0/16"
-            PINGER_EXTERNAL_ADDRESS: "192.168.200.1"
-            PINGER_EXTERNAL_DOMAIN: "node1.cloud.local."
+            POD_CIDR: "{{CNI.KUBEOVN.helm_values.ipv4.POD_CIDR}}"
+            POD_GATEWAY: "{{CNI.KUBEOVN.helm_values.ipv4.POD_GATEWAY}}"
+            SVC_CIDR: "{{CNI.KUBEOVN.helm_values.ipv4.SVC_CIDR}}"
+            JOIN_CIDR: "{{CNI.KUBEOVN.helm_values.ipv4.JOIN_CIDR}}"
+            PINGER_EXTERNAL_ADDRESS: "{{CNI.KUBEOVN.helm_values.ipv4.PINGER_EXTERNAL_ADDRESS}}"
+            PINGER_EXTERNAL_DOMAIN: "{{CNI.KUBEOVN.helm_values.ipv4.PINGER_EXTERNAL_DOMAIN}}"
           networking:
             # NET_STACK could be dual_stack, ipv4, ipv6
             NET_STACK: ipv4
