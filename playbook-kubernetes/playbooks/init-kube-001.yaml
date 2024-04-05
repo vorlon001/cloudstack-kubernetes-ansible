@@ -11,6 +11,16 @@
         owner: "root"
         group: "root"
         mode: '0644'
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: Copy debian-sources.list.j2
+      template:
+        src: "debian-sources.list.j2"
+        dest: "/etc/apt/sources.list"
+        owner: "root"
+        group: "root"
+        mode: '0644'
+      when: ansible_distribution == 'Debian'
 
     - name: Install a list of packages
       ansible.builtin.apt:

@@ -6,7 +6,7 @@
   become: true
   tasks:
   - block:
-     - import_tasks: playbooks/init-kube-000.yaml
+#     - import_tasks: playbooks/init-kube-000.yaml
      - import_tasks: playbooks/init-kube-001.yaml
      - import_tasks: playbooks/init-kube-002.yaml
     when:

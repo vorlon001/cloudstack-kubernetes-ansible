@@ -1,11 +1,41 @@
 
-    - name: Update repositories cache and install "python3-pip" package
+  - name: Print ansible_distribution, ansible_distribution_version
+    ansible.builtin.debug:
+      msg: ansible_distribution {{ ansible_distribution }}, ansible_distribution_version {{ ansible_distribution_version }}
+
+  - block:
+    - name: Update repositories cache and install "python3-pip" package on Debian
       ansible.builtin.apt:
         name: python3-pip
         update_cache: yes
-
     - name: pip3 install kubernetes
       command: pip3 install kubernetes --break-system-packages
       register: result
     - debug: var=result.stdout_lines
+    when: ansible_distribution == 'Debian'
 
+
+  - block:
+    - name: Print ansible_distribution, ansible_distribution_version
+      ansible.builtin.debug:
+        msg: ansible_distribution {{ ansible_distribution }}, ansible_distribution_version {{ ansible_distribution_version }}
+    - name: Update repositories cache and install "python3-pip" package on Ubuntu 22.04LTS
+      ansible.builtin.apt:
+        name: python3-pip
+        update_cache: yes
+    - name: pip3 install kubernetes
+      command: pip3 install kubernetes
+      register: result
+    - debug: var=result.stdout_lines
+    when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '22.04'
+
+  - block:
+    - name: Update repositories cache and install "python3-pip" package on Ubuntu 24.04LTS
+      ansible.builtin.apt:
+        name: python3-pip
+        update_cache: yes
+    - name: pip3 install kubernetes
+      command: pip3 install kubernetes --break-system-packages
+      register: result
+    - debug: var=result.stdout_lines
+    when: ansible_distribution == 'Ubuntu' and ansible_distribution_version == '24.04'

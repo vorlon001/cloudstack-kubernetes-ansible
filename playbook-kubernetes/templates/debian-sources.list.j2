@@ -1,0 +1,8 @@
+deb {{ debian_mirror }} {{ DEBIAN_VERSION }} main
+deb {{ debian_mirror }} {{ DEBIAN_VERSION }} non-free
+deb {{ debian_mirror }} {{ DEBIAN_VERSION }}-updates main
+deb {{ debian_mirror }} {{ DEBIAN_VERSION }}-updates non-free
+deb {{ debian_mirror }} {{ DEBIAN_VERSION }}-backports main
+deb {{ debian_mirror }} {{ DEBIAN_VERSION }}-backports non-free
+deb {{ debian_mirror_security }} {{ DEBIAN_VERSION }}-security main
+deb {{ debian_mirror_security }} {{ DEBIAN_VERSION }}-security non-free

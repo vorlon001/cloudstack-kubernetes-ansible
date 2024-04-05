@@ -196,7 +196,7 @@ CNI:
         update_repo_cache: true
         release_namespace: kube-system
         create_namespace: yes
-        chart_version: 1.15.2
+        chart_version: 1.15.3
 
         clusterPoolIPv4PodCIDRList: "10.96.0.0/17"
         clusterPoolIPv4MaskSize: "24"
@@ -237,6 +237,8 @@ CNI:
 
 ubuntu_mirror: "https://nexus3.iblog.pro/repository/archive.ubuntu.com/"
 ubuntu_mirror_security: "https://nexus3.iblog.pro/repository/security.ubuntu.com/"
+debian_mirror: "https://nexus3.iblog.pro/repository/deb.debian.org/debian"
+debian_mirror_security: "https://nexus3.iblog.pro/repository/deb.debian.org/debian-security"
 
 system_timezone: Etc/UTC
 ntp_servers:
@@ -257,7 +259,9 @@ cni_version: "1.4.1"
 k8s_regestry: "harbor.iblog.pro/registry.k8s.io"
 etcd_version: "3.5.12"
 LANG: ru_RU.UTF-8
-VERSION: noble
+UBUNTU_VERSION: jammy
+#noble
+DEBIAN_VERSION: bookworm
 # VERSION: jammy
 NAMESERVER: "192.168.1.10"
 
