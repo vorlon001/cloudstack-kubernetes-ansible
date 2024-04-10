@@ -1,0 +1,40 @@
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: InitConfiguration
+bootstrapTokens:
+- groups:
+  - system:bootstrappers:kubeadm:default-node-token
+  token: {{ APITOKEN }}
+  ttl: 120h0m0s
+  usages:
+  - signing
+  - authentication
+localAPIEndpoint:
+  advertiseAddress: {{IPREFIX}}.{{NODE}}
+  bindPort: 6443
+nodeRegistration:
+#  criSocket: /run/containerd/containerd.sock
+  imagePullPolicy: IfNotPresent
+  name: node{{NODE}}
+  taints:
+  - effect: NoSchedule
+    key: node-role.kubernetes.io/master
+---
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+imageRepository: {{k8s_regestry}}
+clusterName: {{clusterName}}
+kubernetesVersion: "{{kube_version}}"
+controlPlaneEndpoint: {{IPREFIX}}.{{CLUSTERIP}}:6443
+{{ KUBEADM_ClusterConfiguration | to_nice_yaml }}
+networking:
+  dnsDomain: {{clusterName}}
+  podSubnet: {{podSubnet}}
+  serviceSubnet: {{serviceSubnet}}
+---
+apiVersion: kubelet.config.k8s.io/v1beta1
+kind: KubeletConfiguration
+{{ KubeletConfiguration | to_nice_yaml }}
+---
+apiVersion: kubeproxy.config.k8s.io/v1alpha1
+kind: KubeProxyConfiguration
+{{ KubeProxyConfiguration | to_nice_yaml }}
