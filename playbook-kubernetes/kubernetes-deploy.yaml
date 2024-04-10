@@ -4,9 +4,13 @@
   port: 22
   gather_facts: True
   become: true
+  pre_tasks:
+    - name: Include all vars files.
+      ansible.builtin.include_vars:
+        dir: vars
   tasks:
   - block:
-#     - import_tasks: playbooks/init-kube-000.yaml
+     - import_tasks: playbooks/init-kube-000.yaml
      - import_tasks: playbooks/init-kube-001.yaml
      - import_tasks: playbooks/init-kube-002.yaml
     when:
@@ -16,6 +20,10 @@
   port: 22
   gather_facts: True
   become: true
+  pre_tasks:
+    - name: Include all vars files.
+      ansible.builtin.include_vars:
+        dir: vars
   tasks:
   - block:
      - import_tasks: playbooks/init-kube-003.yaml
@@ -28,6 +36,10 @@
   port: 22
   gather_facts: True
   become: true
+  pre_tasks:
+    - name: Include all vars files.
+      ansible.builtin.include_vars:
+        dir: vars
   tasks:
   - block:
      - import_tasks: playbooks/init-kube-005.yaml
@@ -37,6 +49,10 @@
 
 - name: Copy Cert's stage 1
   hosts: localhost
+  pre_tasks:
+    - name: Include all vars files.
+      ansible.builtin.include_vars:
+        dir: vars
   tasks:
   - block:
      - import_tasks: playbooks/init-kube-006.yaml
@@ -46,6 +62,10 @@
 
 - name: Copy Cert's stage 2
   hosts: bootstrap
+  pre_tasks:
+    - name: Include all vars files.
+      ansible.builtin.include_vars:
+        dir: vars
   tasks:
   - block:
      - import_tasks: playbooks/init-kube-007.yaml
@@ -54,6 +74,10 @@
 
 - name: Copy Cert's stage 3
   hosts: masterjoin
+  pre_tasks:
+    - name: Include all vars files.
+      ansible.builtin.include_vars:
+        dir: vars
   tasks:
   - block:
      - import_tasks: playbooks/init-kube-008.yaml
@@ -62,6 +86,10 @@
 
 - name: Copy Cert's stage 4
   hosts: masterjoin
+  pre_tasks:
+    - name: Include all vars files.
+      ansible.builtin.include_vars:
+        dir: vars
   tasks:
   - block:
      - import_tasks: playbooks/init-kube-009.yaml
@@ -70,6 +98,10 @@
 
 - name: Join Master Nodes
   hosts: kubernetes
+  pre_tasks:
+    - name: Include all vars files.
+      ansible.builtin.include_vars:
+        dir: vars
   tasks:
   - block:
      - import_tasks: playbooks/init-kube-010.yaml

@@ -1,0 +1,13 @@
+ubuntu_mirror: "https://nexus3.iblog.pro/repository/archive.ubuntu.com/"
+ubuntu_mirror_security: "https://nexus3.iblog.pro/repository/security.ubuntu.com/"
+debian_mirror: "https://nexus3.iblog.pro/repository/deb.debian.org/debian"
+debian_mirror_security: "https://nexus3.iblog.pro/repository/deb.debian.org/debian-security"
+
+system_timezone: Etc/UTC
+ntp_servers:
+- "pool.ntp.org"
+- "pool.ntp.org"
+ntp_fallback_servers:
+- "pool.ntp.org"
+- "pool.ntp.org"
+

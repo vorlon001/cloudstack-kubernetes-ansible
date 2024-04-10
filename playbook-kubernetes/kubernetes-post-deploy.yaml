@@ -1,7 +1,10 @@
 ---
-
 - name: Post INIT Stage 50
   hosts: bootstrap
+  pre_tasks:
+    - name: Include all vars files.
+      ansible.builtin.include_vars:
+        dir: vars
   tasks:
   - block:
      - import_tasks: playbooks/post-init-kube-050.yaml
