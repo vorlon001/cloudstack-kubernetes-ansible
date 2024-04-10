@@ -45,6 +45,10 @@ apiServer:
     name: logs
     pathType: DirectoryOrCreate
   timeoutForControlPlane: 4m0s
+  certSANs:
+  - "k8s.cloud.local"
+  - "192.168.200.190"
+  - "k8s.iblog.pro"
 controllerManager:
   extraArgs:
     bind-address: 0.0.0.0

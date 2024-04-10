@@ -28,7 +28,7 @@
 
     - name: Copy kubeadm.yml
       template:
-        src: "kubeadm.yml.j2"
+        src: "kubeadm.yml.{{KUBEADM_CONFIG_VERSION}}.j2"
         dest: /root/kubeadm.yml
         mode: '0644'
 
