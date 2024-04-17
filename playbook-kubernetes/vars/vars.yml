@@ -59,16 +59,16 @@ DEPLOY_CNI_CALICO: true
 DEPLOY_METALLB: true
 DEPLOY_Nginx_Ingress: true
 
-KUBERNETES_VERSION: 1.29.3
+KUBERNETES_VERSION: 1.30.0
 
 kube_version: "v{{ KUBERNETES_VERSION }}"
 crictl_version: "v1.29.0"
-containerd_version: "1.7.14"
+containerd_version: "1.7.15"
 image_arch: "amd64"
 runc_version: "1.1.12"
 cni_version: "1.4.1"
 k8s_regestry: "harbor.iblog.pro/registry.k8s.io"
-etcd_version: "3.5.12"
+etcd_version: "3.5.13"
 LANG: ru_RU.UTF-8
 #UBUNTU_VERSION: jammy
 #noble
