@@ -7,7 +7,7 @@ set -x
 export kube_version="v1.30.0"
 export kube_version2="1.30.0"
 export crictl_version="v1.29.0"
-export containerd_version="1.7.15"
+export containerd_version="1.7.16"
 export image_arch="amd64"
 export runc_version="1.1.12"
 export cni_version="1.4.1"

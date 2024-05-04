@@ -2,17 +2,28 @@ KUBEADM_CERTSANs: &KUBEADM_CERTSANs
   - "k8s.cloud.local"
   - "192.168.200.190"
   - "k8s.iblog.pro"
-
+# https://kubernetes.io/docs/reference/config-api/kube-controller-manager-config.v1alpha1/
+# https://kubernetes.io/docs/reference/config-api/apiserver-config.v1beta1/
 KUBEADM_ClusterConfiguration:
     certificatesDir: /etc/kubernetes/pki
     apiServer:
       extraArgs:
+        # https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/
         audit-log-format: json
         audit-log-maxage: "7"
         audit-log-maxbackup: "10"
         audit-log-maxsize: "100"
         audit-log-path: /var/log/kube-audit/audit.log
         audit-policy-file: /etc/kubernetes/policies/audit-policy.yaml
+        # anonymous-auth: "false"
+        service-account-key-file: /etc/kubernetes/pki/sa.pub
+        service-account-signing-key-file: /etc/kubernetes/pki/sa.key
+        profiling: "false"
+        request-timeout: "300s"
+        authorization-webhook-cache-authorized-ttl: "5m0s"
+        authorization-webhook-cache-unauthorized-ttl: "30s"
+        tls-cipher-suites: "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384"
+        tls-min-version: VersionTLS13
       extraVolumes:
       - hostPath: /etc/kubernetes/policies
         mountPath: /etc/kubernetes/policies
@@ -27,18 +38,27 @@ KUBEADM_ClusterConfiguration:
       certSANs: *KUBEADM_CERTSANs
     controllerManager:
       extraArgs:
+        # https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/
         bind-address: 0.0.0.0
+        profiling: "false"
         node-cidr-mask-size-ipv4: "24"
+        node-monitor-period: "{{nodeMonitorPeriod}}"
+        node-monitor-grace-period: "{{nodeMonitorGracePeriod}}"
     etcd:
       local:
         extraArgs:
           listen-metrics-urls: http://0.0.0.0:2381
+          quota-backend-bytes: "{{etcdquotaBackendBytes}}"
+          metrics: extensive
     scheduler:
       extraArgs:
+        # https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/
+        profiling: "false"
         bind-address: 0.0.0.0
     dns: {}
 
 KubeletConfiguration:
+    # https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/
     registerNode: true
     cgroupDriver: "systemd"
     cgroupsPerQOS: true
@@ -49,6 +69,11 @@ KubeletConfiguration:
     httpCheckFrequency: "0s"
     imageMinimumGCAge: "0s"
     memorySwap: {}
+    # "promiscuous-bridge": make the container bridge promiscuous.
+    # "hairpin-veth": set the hairpin flag on container veth interfaces.
+    # "none": do nothing.
+    hairpinMode: "hairpin-veth"
+    nodeStatusMaxImages: 50
     nodeStatusReportFrequency: "20s"
     nodeStatusUpdateFrequency: "30s"
     resolvConf: "/run/systemd/resolve/resolv.conf"
@@ -135,6 +160,8 @@ KubeletConfiguration:
       "imagefs.inodesFree": "2m30s"
 
 KubeProxyConfiguration:
+    # https://kubernetes.io/docs/reference/config-api/kube-proxy-config.v1alpha1
+    # https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/
     mode: ipvs
     metricsBindAddress: 0.0.0.0:10249
 

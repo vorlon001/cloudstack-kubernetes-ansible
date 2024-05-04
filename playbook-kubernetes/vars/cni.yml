@@ -5,16 +5,16 @@ CNI:
         update_repo_cache: true
         release_namespace: kube-system
         create_namespace: no
-        chart_version: 1.15.1
+        chart_version: 2.0.0
         helm_values:
           agentImage:
             repository: "harbor.iblog.pro/dockerio/antrea/antrea-agent-ubuntu"
             pullPolicy: "IfNotPresent"
-            tag: "v1.15.1"
+            tag: "v2.0.0"
           controllerImage:
             repository: "harbor.iblog.pro/dockerio/antrea/antrea-controller-ubuntu"
             pullPolicy: "IfNotPresent"
-            tag: "v1.15.1"
+            tag: "v2.0.0"
     KUBEOVN:
         MASTERS: "192.168.200.180,192.168.200.181,192.168.200.182"
         chart_ref: "cloudstack/kube-ovn"
@@ -63,7 +63,7 @@ CNI:
         update_repo_cache: true
         release_namespace: kube-system
         create_namespace: yes
-        chart_version: 1.15.3
+        chart_version: 1.15.4
 
         clusterPoolIPv4PodCIDRList: "10.96.0.0/17"
         clusterPoolIPv4MaskSize: "24"
@@ -83,15 +83,15 @@ CNI:
         spire_server_repository: "harbor.iblog.pro/ghcrio/spiffe/spire-server"
 
     METALLB:
-        chart_version: "0.14.3"
+        chart_version: "0.14.5"
         prometheus_repository: harbor.iblog.pro/gcrio/kubebuilder/kube-rbac-proxy
         prometheus_tag: "v0.12.0"
         controller_repository: harbor.iblog.pro/quayio/metallb/controller
-        controller_tag: "v0.14.3"
+        controller_tag: "v0.14.5"
         speaker_repository: harbor.iblog.pro/quayio/metallb/speaker
-        speaker_tag: "v0.14.3"
+        speaker_tag: "v0.14.5"
         frr_repository: harbor.iblog.pro/quayio/frrouting/frr
-        frr_tag: "8.5.2"
+        frr_tag: "9.0.2"
         ippools:
           default:
           - 11.0.0.0/22

@@ -63,7 +63,7 @@ KUBERNETES_VERSION: 1.30.0
 
 kube_version: "v{{ KUBERNETES_VERSION }}"
 crictl_version: "v1.29.0"
-containerd_version: "1.7.15"
+containerd_version: "1.7.16"
 image_arch: "amd64"
 runc_version: "1.1.12"
 cni_version: "1.4.1"
@@ -83,6 +83,11 @@ clusterName: "cluster.local"
 #podSubnet: "10.96.0.0/17"
 #serviceSubnet: "10.96.128.0/17"
 APITOKEN: "bu5tiw.iq1i8h3t740fgy0l"
+
+etcdquotaBackendBytes: "33554432"
+
+nodeMonitorPeriod:  "40s"
+nodeMonitorGracePeriod: "5s"
 
 #VIPIP_KEEPALIVE: "192.168.200.186"
 APISERVER_DEST_PORT: 6443
