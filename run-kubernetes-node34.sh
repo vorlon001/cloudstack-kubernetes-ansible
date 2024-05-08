@@ -15,6 +15,8 @@ function check_error {
 }
 export DEBIAN_FRONTEND=noninteractive
 
+ansible-galaxy collection install community.kubernetes || throw ${LINENO}
+
 ansible  -i node-hosts-all-kube-node3-4.yaml --become -m shell -a 'uptime' kubernetes || throw ${LINENO}
 
 ANSIBLE_LOG_PATH=./install-kubebernetes-noide34.log ansible-playbook -i  node-hosts-all-kube-node3-4.yaml playbook-kubernetes/kubernetes-deploy.yaml --extra-vars "@run-kubernetes-node34.vars.yaml" || throw ${LINENO}

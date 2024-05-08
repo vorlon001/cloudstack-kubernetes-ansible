@@ -25,7 +25,8 @@ DEPLOY_METALLB: true
 DEPLOY_Nginx_Ingress: true
 
 KUBERNETES_VIP: "192.168.200.186"
-UBUNTU_VERSION: jammy
+UBUNTU_VERSION: noble
+#jammy
 #noble
 DEBIAN_VERSION: bookworm
 # VERSION: jammy

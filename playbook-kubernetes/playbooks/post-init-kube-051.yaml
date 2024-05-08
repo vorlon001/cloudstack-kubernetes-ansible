@@ -1,4 +1,3 @@
-
     - name: Deploy cilium
       environment:
         KUBECONFIG: /etc/kubernetes/admin.conf
