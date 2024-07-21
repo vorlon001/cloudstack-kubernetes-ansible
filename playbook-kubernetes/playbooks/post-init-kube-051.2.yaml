@@ -1,4 +1,4 @@
-    - name: Deploy cilium
+    - name: Deploy cilium and clustermesh
       environment:
         KUBECONFIG: /etc/kubernetes/admin.conf
       community.kubernetes.helm:
@@ -10,26 +10,35 @@
         create_namespace: "{{CNI.CILIUM.create_namespace}}"
         chart_version: "{{CNI.CILIUM.chart_version}}"
         values:
-          kubeProxyReplacement: strict
-          clusterDomain: "KUBERNETES_clusterDomain"
+          kubeProxyReplacement: "{{CNI_CILIUM_MULTICLASTER_kubeProxyReplacement}}"
+          clusterDomain: "{{CNI_CILIUM_MULTICLASTER_clusterDomain}}"
           k8sServiceHost: "{{KUBERNETES_VIP}}"
           k8sServicePort: 6443
           rollOutCiliumPods: "true"
-          tunnelProtocol: "vxlan"
-          l7Proxy: true
-          localRedirectPolicy: false
+          tunnelProtocol: "{{CNI_CILIUM_MULTICLASTER_tunnel}}"
+          l7Proxy: "{{CNI_CILIUM_MULTICLASTER_l7Proxy}}"
+          localRedirectPolicy: "{{CNI_CILIUM_MULTICLASTER_localRedirectPolicy}}"
+          cluster:
+            name: "{{CNI_CILIUM_MULTICLASTER_cluster_name}}"
+            id: "{{CNI_CILIUM_MULTICLASTER_cluster_id}}"
           bpf:
               masquerade: true
           ingressController:
-            enabled: false
+            enabled: "{{CNI_CILIUM_MULTICLASTER_ingressController}}"
           hostFirewall:
             enabled: false
           hostPort:
-            enabled: false
+            enabled: "{{CNI_CILIUM_MULTICLASTER_hostPort}}"
           socketLB:
-            enabled: false
+            enabled: "{{CNI_CILIUM_MULTICLASTER_socketLB}}"
+          externalIPs:
+            enabled: "{{CNI_CILIUM_MULTICLASTER_externalIPs}}"
+          nodePort:
+            enabled: "{{CNI_CILIUM_MULTICLASTER_nodePort}}"
+          hostServices:
+            enabled: "{{CNI_CILIUM_MULTICLASTER_hostServices}}"
           egressGateway:
-              enabled: true
+              enabled: "{{CNI_CILIUM_MULTICLASTER_egressGateway}}"
           ipam:
               operator:
                   clusterPoolIPv4PodCIDRList: "{{CNI.CILIUM.clusterPoolIPv4PodCIDRList}}"
@@ -44,13 +53,13 @@
             image:
               repository: "{{CNI.CILIUM.certgen_repository}}"
           hubble:
-            enabled: true
+            enabled: "{{CNI_CILIUM_MULTICLASTER_hubble}}"
             relay:
-              enabled: false
+              enabled: "{{CNI_CILIUM_MULTICLASTER_hubble_relay}}"
               image:
                 repository: "{{CNI.CILIUM.hubble_relay_repository}}"
             ui:
-              enabled: false
+              enabled: "{{CNI_CILIUM_MULTICLASTER_hubble_ui}}"
               frontend:
                 image:
                   repository: "{{CNI.CILIUM.hubble_ui_repository}}"
@@ -70,14 +79,19 @@
             image:
               repository: "{{CNI.CILIUM.operator_repository}}"
           nodeinit:
-            enabled: false
+            enabled: "{{CNI_CILIUM_MULTICLASTER_nodeinit}}"
             image:
               repository: "{{CNI.CILIUM.startup_script_repository}}"
           clustermesh:
-            useAPIServer: false
+            useAPIServer: "{{CNI_CILIUM_MULTICLASTER_clustermesh_useAPIServer}}"
+            config:
+              enabled: "{{CNI_CILIUM_MULTICLASTER_clustermesh_enabled}}"
+              domain: "{{CNI_CILIUM_MULTICLASTER_clustermesh_domain}}"
             apiserver:
+              replicas: 2
               image:
                 repository: "{{CNI.CILIUM.clustermesh_apiserver_repository}}"
+          authentication:
             mutual:
               spire:
                 enabled: false
@@ -100,4 +114,3 @@
     - name: Sleep 90 second, init CNI
       pause:
         seconds: 90
-

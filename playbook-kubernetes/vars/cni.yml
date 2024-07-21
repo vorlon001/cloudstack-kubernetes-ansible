@@ -1,104 +1,127 @@
 CNI:
     ANTREA:
-        chart_ref: "cloudstack/antrea"
-        release_state: present
+        chart_ref: "{{CNI_ANTREA_chart_ref}}"
+        release_state: "{{CNI_ANTREA_release_state}}"
         update_repo_cache: true
-        release_namespace: kube-system
-        create_namespace: no
-        chart_version: 2.0.0
+        release_namespace: "{{CNI_ANTREA_release_namespace}}"
+        create_namespace: "{{CNI_ANTREA_create_namespace}}"
+        chart_version: "{{CNI_ANTREA_chart_version}}"
         helm_values:
           agentImage:
-            repository: "harbor.iblog.pro/dockerio/antrea/antrea-agent-ubuntu"
-            pullPolicy: "IfNotPresent"
-            tag: "v2.0.0"
+            repository: "{{CNI_ANTREA_agentImage_repository}}"
+            pullPolicy: "{{CNI_ANTREA_agentImage_pullPolicy}}"
+            tag: "{{CNI_ANTREA_agentImage_tag}}"
           controllerImage:
-            repository: "harbor.iblog.pro/dockerio/antrea/antrea-controller-ubuntu"
-            pullPolicy: "IfNotPresent"
-            tag: "v2.0.0"
+            repository: "{{CNI_ANTREA_controllerImage_repository}}"
+            pullPolicy: "{{CNI_ANTREA_controllerImage_pullPolicy}}"
+            tag: "{{CNI_ANTREA_controllerImage_tag}}"
+
     KUBEOVN:
-        MASTERS: "192.168.200.180,192.168.200.181,192.168.200.182"
-        chart_ref: "cloudstack/kube-ovn"
-        release_state: present
+        MASTERS: "{{CNI_KUBEOVN_MASTERS}}"
+        chart_ref: "{{CNI_KUBEOVN_chart_ref}}"
+        release_state: "{{CNI_KUBEOVN_release_state}}"
         update_repo_cache: true
-        release_namespace: default
-        # kube-system
-        create_namespace: no
-        chart_version: v1.12.11
+        release_namespace: "{{CNI_KUBEOVN_release_namespace}}"
+        create_namespace: "{{CNI_KUBEOVN_create_namespace}}"
+        chart_version: "{{CNI_KUBEOVN_chart_version}}"
         helm_values:
           global:
             registry:
-              address: harbor.iblog.pro/dockerio/kubeovn
+              address: "{{CNI_KUBEOVN_chart_global_registry}}"
             images:
               kubeovn:
-                repository: kube-ovn
-                dpdkRepository: kube-ovn-dpdk
-                vpcRepository: vpc-nat-gateway
-                tag: v1.12.11
+                repository: "{{CNI_KUBEOVN_chart_kubeovn_repository}}"
+                dpdkRepository: "{{CNI_KUBEOVN_chart_kubeovn_dpdkRepository}}"
+                vpcRepository: "{{CNI_KUBEOVN_chart_kubeovn_vpcRepository}}"
+                tag: "{{CNI_KUBEOVN_chart_kubeovn_tag}}"
                 support_arm: true
                 thirdparty: true
           func:
-            ENABLE_LB: true
-            ENABLE_NP: true
-            ENABLE_EXTERNAL_VPC: true
-            HW_OFFLOAD: false
-            ENABLE_LB_SVC: false
-            ENABLE_KEEP_VM_IP: true
-            LS_DNAT_MOD_DL_DST: true
-            LS_CT_SKIP_DST_LPORT_IPS: true
-            ENABLE_BIND_LOCAL_IP: true
-            U2O_INTERCONNECTION: false
-            ENABLE_TPROXY: false
-            ENABLE_IC: false
+            ENABLE_LB: "{{CNI_KUBEOVN_func_ENABLE_LB}}"
+            ENABLE_NP: "{{CNI_KUBEOVN_func_ENABLE_NP}}"
+            ENABLE_EXTERNAL_VPC: "{{CNI_KUBEOVN_func_ENABLE_EXTERNAL_VPC}}"
+            HW_OFFLOAD: "{{CNI_KUBEOVN_func_HW_OFFLOAD}}"
+            ENABLE_LB_SVC: "{{CNI_KUBEOVN_func_ENABLE_LB_SVC}}"
+            ENABLE_KEEP_VM_IP: "{{CNI_KUBEOVN_func_ENABLE_KEEP_VM_IP}}"
+            LS_DNAT_MOD_DL_DST: "{{CNI_KUBEOVN_func_LS_DNAT_MOD_DL_DST}}"
+            LS_CT_SKIP_DST_LPORT_IPS: "{{CNI_KUBEOVN_func_LS_CT_SKIP_DST_LPORT_IPS}}"
+            ENABLE_BIND_LOCAL_IP: "{{CNI_KUBEOVN_func_ENABLE_BIND_LOCAL_IP}}"
+            U2O_INTERCONNECTION: "{{CNI_KUBEOVN_func_U2O_INTERCONNECTION}}"
+            ENABLE_TPROXY: "{{CNI_KUBEOVN_func_ENABLE_TPROXY}}"
+            ENABLE_IC: "{{CNI_KUBEOVN_func_ENABLE_IC}}"
           ipv4:
-            POD_CIDR: "10.96.0.0/17"
-            POD_GATEWAY: "10.96.0.1"
-            SVC_CIDR: "10.96.128.0/17"
-            JOIN_CIDR: "100.64.0.0/16"
-            PINGER_EXTERNAL_ADDRESS: "192.168.200.1"
-            PINGER_EXTERNAL_DOMAIN: "node1.cloud.local."
+            POD_CIDR: "{{CNI_KUBEOVN_ipv4_POD_CIDR}}"
+            POD_GATEWAY: "{{CNI_KUBEOVN_ipv4_POD_GATEWAY}}"
+            SVC_CIDR: "{{CNI_KUBEOVN_ipv4_SVC_CIDR}}"
+            JOIN_CIDR: "{{CNI_KUBEOVN_ipv4_JOIN_CIDR}}"
+            PINGER_EXTERNAL_ADDRESS: "{{CNI_KUBEOVN_ipv4_PINGER_EXTERNAL_ADDRESS}}"
+            PINGER_EXTERNAL_DOMAIN: "{{CNI_KUBEOVN_ipv4_PINGER_EXTERNAL_DOMAIN}}"
 
     CILIUM:
-        chart_ref: "cloudstack/cilium"
-        release_state: present
+        chart_ref: "{{CNI_CILIUM_chart_ref}}"
+        release_state: "{{CNI_CILIUM_release_state}}"
         update_repo_cache: true
-        release_namespace: kube-system
-        create_namespace: yes
-        chart_version: 1.15.4
+        release_namespace: "{{CNI_CILIUM_release_namespace}}"
+        create_namespace: "{{CNI_CILIUM_create_namespace}}"
+        chart_version: "{{CNI_CILIUM_chart_version}}"
 
-        clusterPoolIPv4PodCIDRList: "10.96.0.0/17"
-        clusterPoolIPv4MaskSize: "24"
+        clusterPoolIPv4PodCIDRList: "{{CNI_CILIUM_clusterPoolIPv4PodCIDRList}}"
+        clusterPoolIPv4MaskSize: "{{CNI_CILIUM_clusterPoolIPv4MaskSize}}"
 
-        cilium_repository: "harbor.iblog.pro/quayio/cilium/cilium"
-        certgen_repository: "harbor.iblog.pro/quayio/cilium/certgen"
-        hubble_relay_repository: "harbor.iblog.pro/quayio/cilium/hubble-relay"
-        hubble_ui_backend_repository: "harbor.iblog.pro/quayio/cilium/hubble-ui-backend"
-        hubble_ui_repository: "harbor.iblog.pro/quayio/cilium/hubble-ui"
+        cilium_repository: "{{CNI_CILIUM_cilium_repository}}"
+        certgen_repository: "{{CNI_CILIUM_certgen_repository}}"
+        hubble_relay_repository: "{{CNI_CILIUM_hubble_relay_repository}}"
+        hubble_ui_backend_repository: "{{CNI_CILIUM_hubble_ui_backend_repository}}"
+        hubble_ui_repository: "{{CNI_CILIUM_hubble_ui_repository}}"
+        cilium_envoy_repository: "{{CNI_CILIUM_cilium_envoy_repository}}"
+        cilium_etcd_operator_repository: "{{CNI_CILIUM_cilium_etcd_operator_repository}}"
+        operator_repository: "{{CNI_CILIUM_operator_repository}}"
+        startup_script_repository: "{{CNI_CILIUM_startup_script_repository}}"
+        clustermesh_apiserver_repository: "{{CNI_CILIUM_clustermesh_apiserver_repository}}"
+        busybox_repository: "{{CNI_CILIUM_busybox_repository}}"
+        spire_agent_repository: "{{CNI_CILIUM_spire_agent_repository}}"
+        spire_server_repository: "{{CNI_CILIUM_spire_server_repository}}"
+
+        cilium_tunnelProtocol: "vxlan"
+        cilium_l7Proxy: true
+        cilium_ingressController: true
+        cilium_ingressController_loadbalancerMode: "dedicated"
+
+        cilium_nodePort: true
+        cilium_egressGateway: true
+        # cilium_kubeProxyReplacement: strict
+        cilium_kubeProxyReplacement: true
+
+        cilium_hubble: true
+        cilium_hubble_relay: true
+        cilium_hubble_ui: true
+
+        cilium_envoy: true
         cilium_envoy_repository: "harbor.iblog.pro/quayio/cilium/cilium-envoy"
-        cilium_etcd_operator_repository: "harbor.iblog.pro/quayio/cilium/cilium-etcd-operator"
-        operator_repository: "harbor.iblog.pro/quayio/cilium/operator"
-        startup_script_repository: "harbor.iblog.pro/quayio/cilium/startup-script"
-        clustermesh_apiserver_repository: "harbor.iblog.pro/quayio/cilium/clustermesh-apiserver"
-        busybox_repository: "harbor.iblog.pro/dockerio/library/busybox"
-        spire_agent_repository: "harbor.iblog.pro/ghcrio/spiffe/spire-agent"
-        spire_server_repository: "harbor.iblog.pro/ghcrio/spiffe/spire-server"
+
+        # cilium_loadBalancer_l7_backend: "envoy"
+        cilium_loadBalancer_l7_backend: "disabled"
+
 
     METALLB:
-        chart_version: "0.14.5"
-        prometheus_repository: harbor.iblog.pro/gcrio/kubebuilder/kube-rbac-proxy
-        prometheus_tag: "v0.12.0"
-        controller_repository: harbor.iblog.pro/quayio/metallb/controller
-        controller_tag: "v0.14.5"
-        speaker_repository: harbor.iblog.pro/quayio/metallb/speaker
-        speaker_tag: "v0.14.5"
-        frr_repository: harbor.iblog.pro/quayio/frrouting/frr
-        frr_tag: "9.0.2"
+        chart_version: "{{CNI_METALLB_chart_version}}"
+        prometheus_repository: "{{CNI_METALLB_prometheus_repository}}"
+        prometheus_tag: "{{CNI_METALLB_prometheus_tag}}"
+        controller_repository: "{{CNI_METALLB_controller_repository}}"
+        controller_tag: "{{CNI_METALLB_controller_tag}}"
+        speaker_repository: "{{CNI_METALLB_speaker_repository}}"
+        speaker_tag: "{{CNI_METALLB_speaker_tag}}"
+        frr_repository: "{{CNI_METALLB_frr_repository}}"
+        frr_tag: "{{CNI_METALLB_frr_tag}}"
         ippools:
           default:
-          - 11.0.0.0/22
+          - "{{ METALLB_BLOCK1 }}"
           internet:
-          - 11.0.10.1/32
+          - "{{ METALLB_BLOCK2 }}"
           internet2:
-          - 11.0.11.2/32
+          - "{{ METALLB_BLOCK3 }}"
           coredns-kube:
-          - 11.0.11.22/32
+          - "{{ METALLB_BLOCK4 }}"
+
+
 

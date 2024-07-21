@@ -13,8 +13,8 @@ INGRESS:
         INGRESS_IPPOOL: default
         INGRESS_pools:
           ingress-nginx-1:
-          - 11.0.2.95
+          - "{{ INGRESS_BLOCK1 }}"
           ingress-nginx-2:
-          - 11.0.2.100
+          - "{{ INGRESS_BLOCK2 }}"
           system-ingress:
-          - 11.0.2.90
+          - "{{ INGRESS_BLOCK3 }}"

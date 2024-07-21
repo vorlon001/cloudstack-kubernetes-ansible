@@ -1,0 +1,113 @@
+    - name: Deploy cilium w/o cluster mesh
+      environment:
+        KUBECONFIG: /etc/kubernetes/admin.conf
+      community.kubernetes.helm:
+        name: cloudstack-cilium
+        chart_ref: "{{CNI.CILIUM.chart_ref}}"
+        release_state: "{{CNI.CILIUM.release_state}}"
+        update_repo_cache: "{{CNI.CILIUM.update_repo_cache}}"
+        release_namespace: "{{CNI.CILIUM.release_namespace}}"
+        create_namespace: "{{CNI.CILIUM.create_namespace}}"
+        chart_version: "{{CNI.CILIUM.chart_version}}"
+        values:
+          kubeProxyReplacement: "{{CNI.CILIUM.cilium_kubeProxyReplacement}}"
+          clusterDomain: "KUBERNETES_clusterDomain"
+          k8sServiceHost: "{{KUBERNETES_VIP}}"
+          k8sServicePort: 6443
+          rollOutCiliumPods: "true"
+          tunnelProtocol: "{{CNI.CILIUM.cilium_tunnelProtocol}}"
+          l7Proxy: "{{CNI.CILIUM.cilium_l7Proxy}}"
+          localRedirectPolicy: false
+          bpf:
+            masquerade: true
+          ingressController:
+            enabled: "{{CNI.CILIUM.cilium_ingressController}}"
+            loadbalancerMode: "{{CNI.CILIUM.cilium_ingressController_loadbalancerMode}}"
+          hostFirewall:
+            enabled: false
+          hostPort:
+            enabled: false
+          socketLB:
+            enabled: false
+          nodePort:
+            enabled: "{{CNI.CILIUM.cilium_nodePort}}"
+          egressGateway:
+              enabled: "{{CNI.CILIUM.cilium_egressGateway}}"
+          ipam:
+              operator:
+                  clusterPoolIPv4PodCIDRList: "{{CNI.CILIUM.clusterPoolIPv4PodCIDRList}}"
+                  clusterPoolIPv4MaskSize: "{{CNI.CILIUM.clusterPoolIPv4MaskSize}}"
+          debug:
+            enabled: false
+          monitor:
+            enabled: false
+          image:
+            repository: "{{CNI.CILIUM.cilium_repository}}"
+          certgen:
+            image:
+              repository: "{{CNI.CILIUM.certgen_repository}}"
+          hubble:
+            enabled: "{{CNI.CILIUM.cilium_hubble}}"
+            relay:
+              enabled: "{{CNI.CILIUM.cilium_hubble_relay}}"
+              image:
+                repository: "{{CNI.CILIUM.hubble_relay_repository}}"
+            ui:
+              enabled: "{{CNI.CILIUM.cilium_hubble_ui}}"
+              frontend:
+                image:
+                  repository: "{{CNI.CILIUM.hubble_ui_repository}}"
+              backend:
+                image:
+                  repository: "{{CNI.CILIUM.hubble_ui_backend_repository}}"
+          envoy:
+            enabled: false
+            image:
+              repository: "{{CNI.CILIUM.cilium_envoy_repository}}"
+          etcd:
+            enabled: false
+            image:
+              repository: "{{CNI.CILIUM.cilium_etcd_operator_repository}}"
+          operator:
+            enabled: true
+            image:
+              repository: "{{CNI.CILIUM.operator_repository}}"
+          nodeinit:
+            enabled: false
+            image:
+              repository: "{{CNI.CILIUM.startup_script_repository}}"
+          loadBalancer:
+            l7:
+              backend: "envoy"
+          envoy:
+            enabled: "{{CNI.CILIUM.cilium_envoy}}"
+            image:
+              repository: "{{CNI.CILIUM.cilium_envoy_repository}}"
+          clustermesh:
+            useAPIServer: false
+            apiserver:
+              image:
+                repository: "{{CNI.CILIUM.clustermesh_apiserver_repository}}"
+            mutual:
+              spire:
+                enabled: false
+                install:
+                  enabled: true
+                  namespace: cilium-spire
+                  existingNamespace: false
+                  initImage:
+                    repository: "{{CNI.CILIUM.busybox_repository}}"
+                  agent:
+                    image:
+                      repository: "{{CNI.CILIUM.spire_agent_repository}}"
+                  server:
+                    image:
+                      repository: "{{CNI.CILIUM.spire_server_repository}}"
+      register: result
+
+    - debug: var=result.stdout_lines
+
+    - name: Sleep 90 second, init CNI
+      pause:
+        seconds: 90
+

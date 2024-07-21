@@ -10,10 +10,18 @@
      - import_tasks: playbooks/post-init-kube-050.yaml
     when:
      - DEPLOY_HELM|bool == true
+
   - block:
-     - import_tasks: playbooks/post-init-kube-051.yaml
+     - import_tasks: playbooks/post-init-kube-051.1.yaml
     when:
      - DEPLOY_CNI_CILIUM|bool == true
+     - CNI_CILIUM_MULTICLASTER|bool == false
+
+  - block:
+     - import_tasks: playbooks/post-init-kube-051.2.yaml
+    when:
+     - DEPLOY_CNI_CILIUM|bool == true
+     - CNI_CILIUM_MULTICLASTER|bool == true
 
   - block:
      - import_tasks: playbooks/post-init-kube-060.yaml

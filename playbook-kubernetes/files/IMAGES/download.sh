@@ -4,15 +4,15 @@ set -x
 # ./kubeadm.amd64.v1.25.0 config images list
 #https://storage.googleapis.com/kubernetes-release/release/v1.26.0-rc.0/bin/linux/amd64/kubelet
 
-export kube_version="v1.30.0"
-export kube_version2="1.30.0"
-export crictl_version="v1.29.0"
-export containerd_version="1.7.16"
+export kube_version="v1.30.3"
+export kube_version2="1.30.3"
+export crictl_version="v1.30.1"
+export containerd_version="1.7.20"
 export image_arch="amd64"
-export runc_version="1.1.12"
-export cni_version="1.4.1"
+export runc_version="1.1.13"
+export cni_version="1.5.1"
 export k8s_regestry="harbor.iblog.pro/registry.k8s.io"
-export etcd_version="3.5.13"
+export etcd_version="3.5.15"
 
 wget -q --show-progress --https-only --timestamping https://github.com/containerd/containerd/releases/download/v${containerd_version}/containerd-${containerd_version}-linux-amd64.tar.gz
 wget -q --show-progress --https-only --timestamping https://github.com/opencontainers/runc/releases/download/v${runc_version}/runc.${image_arch}
