@@ -4,9 +4,9 @@ set -x
 # ./kubeadm.amd64.v1.25.0 config images list
 #https://storage.googleapis.com/kubernetes-release/release/v1.26.0-rc.0/bin/linux/amd64/kubelet
 
-export kube_version="v1.30.3"
-export kube_version2="1.30.3"
-export crictl_version="v1.30.1"
+export kube_version="v1.31.0"
+export kube_version2="1.31.0"
+export crictl_version="v1.31.1"
 export containerd_version="1.7.20"
 export image_arch="amd64"
 export runc_version="1.1.13"
