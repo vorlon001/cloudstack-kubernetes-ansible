@@ -1,4 +1,4 @@
-KUBEADM_CONFIG_VERSION: "v92"
+KUBEADM_CONFIG_VERSION: "v111"
 
 INIT_NODE_KUBERNETES: true
 INIT_KUBERNETES: true
@@ -91,7 +91,7 @@ CNI_CILIUM_chart_ref: "cloudstack/cilium"
 CNI_CILIUM_release_state: present
 CNI_CILIUM_release_namespace: kube-system
 CNI_CILIUM_create_namespace: yes
-CNI_CILIUM_chart_version: 1.15.6
+CNI_CILIUM_chart_version: 1.16.1
 
 CNI_CILIUM_clusterPoolIPv4PodCIDRList: "10.97.0.0/17"
 CNI_CILIUM_clusterPoolIPv4MaskSize: "24"

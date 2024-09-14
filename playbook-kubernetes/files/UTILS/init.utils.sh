@@ -1,13 +1,13 @@
 #!/usr/bin/bash
 
 set -x
-export HELMVERSION="3.15.2"
+export HELMVERSION="3.16.1"
 export platform="amd64"
 
 export HELMFILE="helm-v${HELMVERSION}-linux-${platform}.tar.gz"
 curl -o ${HELMFILE} https://get.helm.sh/${HELMFILE}
 
-kustomize_version=( "5.4.2" "5.3.0" "5.2.1" "5.1.1" "5.0.3" "4.5.7" "4.5.5" "4.5.3" "4.4.1" "4.0.5" "3.10.0" "3.9.4" "3.8.10")
+kustomize_version=( "5.4.3" "5.3.0" "5.2.1" "5.1.1" "5.0.3" "4.5.7" "4.5.5" "4.5.3" "4.4.1" "4.0.5" "3.10.0" "3.9.4" "3.8.10")
 
 
 for item in ${kustomize_version[*]}
