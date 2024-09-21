@@ -14,7 +14,7 @@
           clusterDomain: "KUBERNETES_clusterDomain"
           k8sServiceHost: "{{KUBERNETES_VIP}}"
           k8sServicePort: 6443
-          rollOutCiliumPods: "true"
+          rollOutCiliumPods: true
           tunnelProtocol: "{{CNI.CILIUM.cilium_tunnelProtocol}}"
           l7Proxy: "{{CNI.CILIUM.cilium_l7Proxy}}"
           localRedirectPolicy: false
@@ -36,7 +36,8 @@
           ipam:
               operator:
                   clusterPoolIPv4PodCIDRList: "{{CNI.CILIUM.clusterPoolIPv4PodCIDRList}}"
-                  clusterPoolIPv4MaskSize: "{{CNI.CILIUM.clusterPoolIPv4MaskSize}}"
+#                  clusterPoolIPv4MaskSize: "{{CNI.CILIUM.clusterPoolIPv4MaskSize}}"
+# fatal: [node130]: FAILED! => {"changed": false, "command": "/usr/bin/helm --version=1.16.1 upgrade -i --reset-values --create-namespace -f=/tmp/tmp34z_scqh.yml cloudstack-cilium cloudstack/cilium", "msg": "Failure when executing Helm command. Exited 1.\nstdout: \nstderr: Error: UPGRADE FAILED: values don't meet the specifications of the schema(s) in the following chart(s):\ncilium:\n- ipam.operator.clusterPoolIPv4MaskSize: Invalid type. Expected: integer, given: string\n\n", "stderr": "Error: UPGRADE FAILED: values don't meet the specifications of the schema(s) in the following chart(s):\ncilium:\n- ipam.operator.clusterPoolIPv4MaskSize: Invalid type. Expected: integer, given: string\n\n", "stderr_lines": ["Error: UPGRADE FAILED: values don't meet the specifications of the schema(s) in the following chart(s):", "cilium:", "- ipam.operator.clusterPoolIPv4MaskSize: Invalid type. Expected: integer, given: string", ""], "stdout": "", "stdout_lines": []}
           debug:
             enabled: false
           monitor:

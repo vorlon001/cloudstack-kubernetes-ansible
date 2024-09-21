@@ -16,6 +16,7 @@ INIT_KUBERNETES: true
 JOIN_WORKER_NODES_KUBERNETES: true
 INIT_JOIN_MASTER_NODES_KUBERNETES: true
 JOIN_MASTER_NODES_KUBERNETES: true
+SEC_PATCH_KUBERNETES: true
 
 #INIT_NODE_KUBERNETES: false
 #INIT_KUBERNETES: false
@@ -59,16 +60,16 @@ DEPLOY_CNI_CALICO: true
 DEPLOY_METALLB: true
 DEPLOY_Nginx_Ingress: true
 
-KUBERNETES_VERSION: 1.31.0
+KUBERNETES_VERSION: 1.31.1
 
 kube_version: "v{{ KUBERNETES_VERSION }}"
 crictl_version: "v1.31.1"
-containerd_version: "1.7.20"
+containerd_version: "1.7.22"
 image_arch: "amd64"
 runc_version: "1.1.13"
 cni_version: "1.5.1"
 k8s_regestry: "harbor.iblog.pro/registry.k8s.io"
-etcd_version: "3.5.15"
+etcd_version: "3.5.16"
 LANG: ru_RU.UTF-8
 #UBUNTU_VERSION: jammy
 #noble

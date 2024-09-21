@@ -1,0 +1,33 @@
+  - block:
+    - name: Run Sec. Patch
+      shell: |
+         chmod 600 /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+         chmod 600 /etc/kubernetes/admin.conf
+         chown root:root /etc/kubernetes/admin.conf
+         chmod 600 /var/lib/kubelet/config.yaml
+         chmod 600 /var/lib/kubelet/pki/kubelet.crt
+         chmod 600 /var/lib/kubelet/pki/kubelet.key
+         chmod 600 /etc/kubernetes/pki/*crt
+      throttle: 1
+      register: logs
+      when:
+      - inventory_hostname in groups['master']
+    - debug: var=logs.stdout_lines
+    when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+  - block:
+    - name: Run Sec. Patch
+      shell: |
+         chmod 600 /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+         chmod 600 /etc/kubernetes/admin.conf
+         chown root:root /etc/kubernetes/admin.conf
+         chmod 600 /var/lib/kubelet/config.yaml
+         chmod 600 /var/lib/kubelet/pki/kubelet.crt
+         chmod 600 /var/lib/kubelet/pki/kubelet.key
+         chmod 600 /etc/kubernetes/pki/*crt
+      throttle: 1
+      register: logs
+      when:
+      - inventory_hostname in groups['worker']
+    - debug: var=logs.stdout_lines
+    when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
