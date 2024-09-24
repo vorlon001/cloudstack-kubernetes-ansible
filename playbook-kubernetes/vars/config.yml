@@ -5,25 +5,40 @@ KUBEADM_CERTSANs: &KUBEADM_CERTSANs
 # https://kubernetes.io/docs/reference/config-api/kube-controller-manager-config.v1alpha1/
 # https://kubernetes.io/docs/reference/config-api/apiserver-config.v1beta1/
 KUBEADM_ClusterConfiguration:
-    certificatesDir: /etc/kubernetes/pki
     apiServer:
+      certSANs:
+      - k8s.cloud.local
+      - 192.168.200.190
+      - k8s.iblog.pro
       extraArgs:
-        # https://kubernetes.io/docs/reference/command-line-tools-reference/kube-apiserver/
-        audit-log-format: json
-        audit-log-maxage: "7"
-        audit-log-maxbackup: "10"
-        audit-log-maxsize: "100"
-        audit-log-path: /var/log/kube-audit/audit.log
-        audit-policy-file: /etc/kubernetes/policies/audit-policy.yaml
-        # anonymous-auth: "false"
-        service-account-key-file: /etc/kubernetes/pki/sa.pub
-        service-account-signing-key-file: /etc/kubernetes/pki/sa.key
-        profiling: "false"
-        request-timeout: "300s"
-        authorization-webhook-cache-authorized-ttl: "5m0s"
-        authorization-webhook-cache-unauthorized-ttl: "30s"
-        tls-cipher-suites: "TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384"
-        tls-min-version: VersionTLS13
+      - name: audit-log-format
+        value: json
+      - name: audit-log-maxage
+        value: "7"
+      - name: audit-log-maxbackup
+        value: "10"
+      - name: audit-log-maxsize
+        value: "100"
+      - name: audit-log-path
+        value: /var/log/kube-audit/audit.log
+      - name: audit-policy-file
+        value: /etc/kubernetes/policies/audit-policy.yaml
+      - name: authorization-webhook-cache-authorized-ttl
+        value: 5m0s
+      - name: authorization-webhook-cache-unauthorized-ttl
+        value: 30s
+      - name: profiling
+        value: "false"
+      - name: request-timeout
+        value: 300s
+      - name: service-account-key-file
+        value: /etc/kubernetes/pki/sa.pub
+      - name: service-account-signing-key-file
+        value: /etc/kubernetes/pki/sa.key
+      - name: tls-cipher-suites
+        value: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
+      - name: tls-min-version
+        value: VersionTLS13
       extraVolumes:
       - hostPath: /etc/kubernetes/policies
         mountPath: /etc/kubernetes/policies
@@ -34,28 +49,48 @@ KUBEADM_ClusterConfiguration:
         mountPath: /var/log/kube-audit
         name: logs
         pathType: DirectoryOrCreate
-      timeoutForControlPlane: 4m0s
-      certSANs: *KUBEADM_CERTSANs
+    # 87600h0m0s:10years, 438000h0m0s:50years
+    caCertificateValidityPeriod: 438000h0m0s
+    # 8760h0m0s:1years, 87600h0m0s:10years
+    certificateValidityPeriod: 87600h0m0s
+    certificatesDir: /etc/kubernetes/pki
     controllerManager:
       extraArgs:
-        # https://kubernetes.io/docs/reference/command-line-tools-reference/kube-controller-manager/
-        bind-address: 0.0.0.0
-        profiling: "false"
-        node-cidr-mask-size-ipv4: "24"
-        node-monitor-period: "{{nodeMonitorPeriod}}"
-        node-monitor-grace-period: "{{nodeMonitorGracePeriod}}"
+      - name: bind-address
+        value: 0.0.0.0
+      - name: node-cidr-mask-size-ipv4
+        value: "24"
+      - name: node-monitor-grace-period
+        value: 5s
+      - name: node-monitor-period
+        value: 40s
+      - name: profiling
+        value: "false"
+    # RSA-2048|RSA-3072|RSA-4096|ECDSA-P256
+    encryptionAlgorithm: ECDSA-P256
+    dns: {}
+#      imageRepository: harbor.iblog.pro/registry.k8s.io/coredns
+#      imageTag: v1.11.3
+#      disabled: false
+    proxy: {}
+#      disabled: false
     etcd:
       local:
+        dataDir: /var/lib/etcd
         extraArgs:
-          listen-metrics-urls: http://0.0.0.0:2381
-          quota-backend-bytes: "{{etcdquotaBackendBytes}}"
-          metrics: extensive
+        - name: listen-metrics-urls
+          value: http://0.0.0.0:2381
+        - name: metrics
+          value: extensive
+        - name: quota-backend-bytes
+          value: "33554432"
     scheduler:
       extraArgs:
-        # https://kubernetes.io/docs/reference/command-line-tools-reference/kube-scheduler/
-        profiling: "false"
-        bind-address: 0.0.0.0
-    dns: {}
+      - name: bind-address
+        value: 0.0.0.0
+      - name: profiling
+        value: "false"
+
 
 KubeletConfiguration:
     # https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/

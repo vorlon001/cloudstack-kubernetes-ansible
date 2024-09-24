@@ -9,7 +9,7 @@ HELM_CHARTMUSEUM: "http://192.168.200.6:8080/"
 
 TEST_HARBOR: harbor.iblog.pro/test/alpine:main.scratch.3.19.stage.4
 
-KUBEADM_CONFIG_VERSION: "v92"
+KUBEADM_CONFIG_VERSION: "v114"
 
 INIT_NODE_KUBERNETES: true
 INIT_KUBERNETES: true

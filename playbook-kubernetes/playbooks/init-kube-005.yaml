@@ -1,16 +1,28 @@
 
   - block:
+
     - name: Run openssl x509 -in /etc/kubernetes/pki/ca.crt -noout -pubkey | openssl rsa -pubin -outform DER 2>/dev/null | sha256sum | cut -d' ' -f1
       shell: |
         openssl x509 -in /etc/kubernetes/pki/ca.crt -noout -pubkey | openssl rsa -pubin -outform DER 2>/dev/null | sha256sum | cut -d' ' -f1
       register: SHA256_TOKENS
       when:
       - inventory_hostname in groups['bootstrap']
+      - KUBEADM_ClusterConfiguration.encryptionAlgorithm != "ECDSA-P256"
+
+    - name: Run openssl x509 -in /etc/kubernetes/pki/ca.crt -noout -pubkey | openssl ec -pubin -outform DER 2>/dev/null | sha256sum | cut -d' ' -f1
+      shell: |
+        openssl x509 -in /etc/kubernetes/pki/ca.crt -noout -pubkey | openssl ec -pubin -outform DER 2>/dev/null | sha256sum | cut -d' ' -f1
+      register: SHA256_TOKENS
+      when:
+      - inventory_hostname in groups['bootstrap']
+      - KUBEADM_ClusterConfiguration.encryptionAlgorithm == "ECDSA-P256"
+
     - name: Print return information from the previous task
       ansible.builtin.debug:
         var: SHA256_TOKENS['stdout']
       when:
       - inventory_hostname in groups['bootstrap']
+
     - name: Run kubeadm init phase upload-certs --upload-certs 2>&1 | grep -o -E '^[[:alnum:]]{64}'
       shell: |
         kubeadm init phase upload-certs --upload-certs 2>&1 | grep -o -E '^[[:alnum:]]{64}'
@@ -55,7 +67,7 @@
       - inventory_hostname in groups['worker']
     - name: Copy /root/join-worker.yaml
       template:
-        src: "join-worker.yaml.j2"
+        src: "join-worker.{{KUBEADM_CONFIG_VERSION}}.yaml.j2"
         dest: /root/join-worker.yaml
         owner: root
         group: root

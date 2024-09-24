@@ -22,6 +22,8 @@ set -x
 #wget https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.6.1/high-availability.yaml
 #mv high-availability.yaml INIT.2.4/v0.6.1-high-availability.yaml
 
+# https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.7.2/high-availability-1.21+.yaml
+
 #kubectl apply -f INIT.2.4/v0.6.1-components.yaml
 kubectl apply -f INIT.2.4/v0.6.4-high-availability.yaml
 
