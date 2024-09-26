@@ -1,0 +1,67 @@
+
+KubeApiserver:
+    spec:
+      containers:
+        - name: kube-apiserver
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+
+KubeControllerManager:
+    spec:
+      containers:
+        - name: kube-controller-manager
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+
+KubeScheduler:
+    spec:
+      containers:
+        - name: kube-scheduler
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1024Mi"
+              cpu: "1000m"
+
+KubeСoredns:
+    spec:
+      progressDeadlineSeconds: 600
+      replicas: 2
+      revisionHistoryLimit: 10
+      template:
+          containers:
+          - name: coredns
+            resources:
+              limits:
+                memory: 256Mi
+                cpu: 500m
+              requests:
+                cpu: 200m
+                memory: 128Mi
+
+
+KubeEtcd:
+    spec:
+      containers:
+        - name: etcd
+          resources:
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: 500m
+            requests:
+              cpu: 200m
+              memory: 128Mi
+

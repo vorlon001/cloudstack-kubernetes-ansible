@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kube-apiserver
+  namespace: kube-system
+{{ KubeApiserver | to_nice_yaml }}

@@ -1,9 +1,64 @@
 
   - block:
-    - name: install keepalived
-      package:
-        name: keepalived
-        state: present
+
+    - name: Run mkdir -p /etc/kubernetes/kubeadm/patches/
+      ansible.builtin.shell: mkdir -p /etc/kubernetes/kubeadm/patches/
+      args:
+        executable: /bin/bash
+      register: logs
+      when:
+      - inventory_hostname in groups['master']
+      - KUBEADM_Patch_init== "yes"
+    - debug: var=logs.stdout_lines
+      when:
+      - inventory_hostname in groups['master']
+      - KUBEADM_Patch_init== "yes"
+
+    - name: Copy Patch kube-apiserver.yaml
+      template:
+        src: "patch-kube-apiserver.yaml.{{KUBEADM_CONFIG_VERSION}}.j2"
+        dest: /etc/kubernetes/kubeadm/patches/kube-apiserver.yaml
+        mode: '0644'
+      when:
+      - inventory_hostname in groups['master']
+      - KUBEADM_Patch_init== "yes"
+
+    - name: Copy Patch kube-controller-manager.yaml
+      template:
+        src: "patch-kube-controller-manager.yaml.{{KUBEADM_CONFIG_VERSION}}.j2"
+        dest: /etc/kubernetes/kubeadm/patches/kube-controller-manager.yaml
+        mode: '0644'
+      when:
+      - inventory_hostname in groups['master']
+      - KUBEADM_Patch_init== "yes"
+
+    - name: Copy Patch kube-scheduler.yaml
+      template:
+        src: "patch-kube-scheduler.yaml.{{KUBEADM_CONFIG_VERSION}}.j2"
+        dest: /etc/kubernetes/kubeadm/patches/kube-scheduler.yaml
+        mode: '0644'
+      when:
+      - inventory_hostname in groups['master']
+      - KUBEADM_Patch_init== "yes"
+
+    - name: Copy Patch corednsdeployment.yaml
+      template:
+        src: "patch-corednsdeployment.yaml.{{KUBEADM_CONFIG_VERSION}}.j2"
+        dest: /etc/kubernetes/kubeadm/patches/corednsdeployment.yaml
+        mode: '0644'
+      when:
+      - inventory_hostname in groups['master']
+      - KUBEADM_Patch_init== "yes"
+
+    - name: Copy Patch etcd.yaml
+      template:
+        src: "patch-etcd.yaml.{{KUBEADM_CONFIG_VERSION}}.j2"
+        dest: /etc/kubernetes/kubeadm/patches/etcd.yaml
+        mode: '0644'
+      when:
+      - inventory_hostname in groups['master']
+      - KUBEADM_Patch_init== "yes"
+
 
     - name: Run mkdir -p /etc/kubernetes/policies/
       ansible.builtin.shell: mkdir -p /etc/kubernetes/policies/

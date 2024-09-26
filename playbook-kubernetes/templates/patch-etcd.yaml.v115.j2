@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: etcd
+  namespace: kube-system
+{{ KubeEtcd | to_nice_yaml }}

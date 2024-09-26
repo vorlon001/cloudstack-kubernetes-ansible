@@ -27,3 +27,5 @@ timeouts:
   kubernetesAPICall: 1m0s
   tlsBootstrap: 5m0s
   upgradeManifests: 5m0s
+{% if KUBEADM_Patch_init == "yes" %}patches:
+  directory: /etc/kubernetes/kubeadm/patches/{% endif %}

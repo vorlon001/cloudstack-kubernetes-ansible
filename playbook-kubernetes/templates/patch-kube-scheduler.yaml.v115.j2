@@ -1,0 +1,7 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: kube-scheduler
+  namespace: kube-system
+{{ KubeScheduler | to_nice_yaml }}
