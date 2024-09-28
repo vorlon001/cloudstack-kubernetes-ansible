@@ -11,6 +11,61 @@
         create_namespace: "{{CSI.NFS_HELM.create_namespace}}"
         chart_version: "{{CSI.NFS_HELM.chart_version}}"
         values:
+          controller:
+            name: csi-nfs-controller
+            replicas: 2
+            resources:
+              csiProvisioner:
+                limits:
+                  cpu: 100m
+                  memory: 400Mi
+                requests:
+                  cpu: 10m
+                  memory: 20Mi
+              csiSnapshotter:
+                limits:
+                  cpu: 100m
+                  memory: 200Mi
+                requests:
+                  cpu: 10m
+                  memory: 20Mi
+              livenessProbe:
+                limits:
+                  cpu: 100m
+                  memory: 100Mi
+                requests:
+                  cpu: 10m
+                  memory: 20Mi
+              nfs:
+                limits:
+                  cpu: 100m
+                  memory: 200Mi
+                requests:
+                  cpu: 10m
+                  memory: 20Mi
+          node:
+            resources:
+              livenessProbe:
+                limits:
+                  cpu: 100m
+                  memory: 100Mi
+                requests:
+                  cpu: 10m
+                  memory: 20Mi
+              nodeDriverRegistrar:
+                limits:
+                  cpu: 100m
+                  memory: 100Mi
+                requests:
+                  cpu: 10m
+                  memory: 20Mi
+              nfs:
+                limits:
+                  cpu: 100m
+                  memory: 300Mi
+                requests:
+                  cpu: 10m
+                  memory: 20Mi
           image:
               baseRepo: "{{CSI.NFS_HELM.helm_values.image.baseRepo}}"
               nfs:

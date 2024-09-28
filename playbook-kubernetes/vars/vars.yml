@@ -9,7 +9,12 @@ HELM_CHARTMUSEUM: "http://192.168.200.6:8080/"
 
 TEST_HARBOR: harbor.iblog.pro/test/alpine:main.scratch.3.19.stage.4
 
+HABOR_MAIN: harbor.iblog.pro/registry.k8s.io
+
 KUBEADM_CONFIG_VERSION: "v114"
+
+KUBERNETES_COREDNS_ENABLE_PATCH: true
+
 
 INIT_NODE_KUBERNETES: true
 INIT_KUBERNETES: true
@@ -61,6 +66,7 @@ DEPLOY_METALLB: true
 DEPLOY_Nginx_Ingress: true
 
 KUBERNETES_VERSION: 1.31.1
+KUBERNETES_COREDNS_VERSION: 1.11.3
 
 kube_version: "v{{ KUBERNETES_VERSION }}"
 crictl_version: "v1.31.1"

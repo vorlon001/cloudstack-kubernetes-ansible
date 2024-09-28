@@ -121,4 +121,5 @@
         executable: /bin/bash
       register: logs
     - debug: var=logs.stdout_lines
+
     when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'

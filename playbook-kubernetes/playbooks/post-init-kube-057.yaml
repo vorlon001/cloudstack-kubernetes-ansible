@@ -21,10 +21,24 @@
             image:
               repository: "{{CNI.METALLB.controller_repository}}"
               tag: "{{CNI.METALLB.controller_tag}}"
+            resources:
+               limits:
+                 cpu: 200m
+                 memory: 100Mi
+               requests:
+                 cpu: 100m
+                 memory: 32Mi
           speaker:
             enabled: true
             logLevel: info
             tolerateMaster: true
+            resources:
+               limits:
+                 cpu: 200m
+                 memory: 100Mi
+               requests:
+                 cpu: 100m
+                 memory: 32Mi
             image:
               repository: "{{CNI.METALLB.speaker_repository}}"
               tag: "{{CNI.METALLB.speaker_tag}}"
@@ -33,6 +47,29 @@
               image:
                 repository: "{{CNI.METALLB.frr_repository}}"
                 tag: "{{CNI.METALLB.frr_tag}}"
+                resources:
+                   limits:
+                     cpu: 200m
+                     memory: 100Mi
+                   requests:
+                     cpu: 100m
+                     memory: 32Mi
+              reloader:
+                resources:
+                   limits:
+                     cpu: 200m
+                     memory: 100Mi
+                   requests:
+                     cpu: 100m
+                     memory: 32Mi
+              frrMetrics:
+                resources:
+                   limits:
+                     cpu: 200m
+                     memory: 100Mi
+                   requests:
+                     cpu: 100m
+                     memory: 32Mi
       register: result
     - debug: var=result.stdout_lines
 

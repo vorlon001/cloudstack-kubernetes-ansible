@@ -47,24 +47,49 @@
           certgen:
             image:
               repository: "{{CNI.CILIUM.certgen_repository}}"
+          resources:
+             limits:
+               cpu: 1000m
+               memory: 1Gi
+             requests:
+               cpu: 100m
+               memory: 512Mi
           hubble:
             enabled: "{{CNI.CILIUM.cilium_hubble}}"
             relay:
               enabled: "{{CNI.CILIUM.cilium_hubble_relay}}"
               image:
                 repository: "{{CNI.CILIUM.hubble_relay_repository}}"
+              resources:
+                 limits:
+                   cpu: 250m
+                   memory: 256Mi
+                 requests:
+                   cpu: 100m
+                   memory: 128Mi
+              replicas: 2
             ui:
               enabled: "{{CNI.CILIUM.cilium_hubble_ui}}"
               frontend:
                 image:
                   repository: "{{CNI.CILIUM.hubble_ui_repository}}"
+                resources:
+                   limits:
+                     cpu: 300m
+                     memory: 256Mi
+                   requests:
+                     cpu: 100m
+                     memory: 128Mi
               backend:
                 image:
                   repository: "{{CNI.CILIUM.hubble_ui_backend_repository}}"
-          envoy:
-            enabled: false
-            image:
-              repository: "{{CNI.CILIUM.cilium_envoy_repository}}"
+                resources:
+                   limits:
+                     cpu: 300m
+                     memory: 256Mi
+                   requests:
+                     cpu: 100m
+                     memory: 128Mi
           etcd:
             enabled: false
             image:
@@ -73,10 +98,28 @@
             enabled: true
             image:
               repository: "{{CNI.CILIUM.operator_repository}}"
+            podDisruptionBudget:
+              enabled: true
+#              minAvailable: 1
+#              maxUnavailable: 1
+            resources:
+               limits:
+                 cpu: 1000m
+                 memory: 1Gi
+               requests:
+                 cpu: 100m
+                 memory: 128Mi
           nodeinit:
             enabled: false
             image:
               repository: "{{CNI.CILIUM.startup_script_repository}}"
+            resources:
+              requests:
+                 cpu: 100m
+                 memory: 100Mi
+              limits:
+                 cpu: 1000m
+                 memory: 1Gi
           loadBalancer:
             l7:
               backend: "envoy"
@@ -84,6 +127,13 @@
             enabled: "{{CNI.CILIUM.cilium_envoy}}"
             image:
               repository: "{{CNI.CILIUM.cilium_envoy_repository}}"
+            resources:
+               limits:
+                 cpu: 1000m #4000m
+                 memory: 1Gi #4Gi
+               requests:
+                 cpu: 100m
+                 memory: 512Mi
           clustermesh:
             useAPIServer: false
             apiserver:

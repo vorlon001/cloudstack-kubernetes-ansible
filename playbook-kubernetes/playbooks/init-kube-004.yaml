@@ -19,8 +19,8 @@
       register: logs
     - debug: var=logs.stdout_lines
 
-    - name: Run chown 0:0 /root/.kube/config 
-      ansible.builtin.shell: chown 0:0 /root/.kube/config 
+    - name: Run chown 0:0 /root/.kube/config
+      ansible.builtin.shell: chown 0:0 /root/.kube/config
       args:
         executable: /bin/bash
       register: logs
@@ -46,4 +46,28 @@
         executable: /bin/bash
       register: logs
     - debug: var=logs.stdout_lines
+
+    - name: Run sleep 20 second
+      ansible.builtin.shell: cd /root; sleep 20
+      args:
+        executable: /bin/bash
+      register: logs
+      when:
+      - KUBERNETES_COREDNS_ENABLE_PATCH|bool == true
+    - debug: var=logs.stdout_lines
+      when:
+      - KUBERNETES_COREDNS_ENABLE_PATCH|bool == true
+
+    - name: Run kubectl patch coredns
+      ansible.builtin.shell: |
+          kubectl patch  -n kube-system deployment coredns --type='merge' -p '{"spec":{"replicas": 3, "template":{"spec": {"containers":[{"name":"coredns", "image": "{{HABOR_MAIN}}/coredns:v{{KUBERNETES_COREDNS_VERSION}}", "resources": {"limits":{"cpu": "200m", "memory": "170Mi"}, "requests": {"cpu": "100m", "memory": "70Mi"}} }] } }}}'
+      args:
+        executable: /bin/bash
+      register: logs
+      when:
+      - KUBERNETES_COREDNS_ENABLE_PATCH|bool == true
+    - debug: var=logs.stdout_lines
+      when:
+      - KUBERNETES_COREDNS_ENABLE_PATCH|bool == true
+
     when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
