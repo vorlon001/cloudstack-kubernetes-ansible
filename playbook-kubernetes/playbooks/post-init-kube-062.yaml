@@ -13,13 +13,68 @@
           installation:
             enabled: true
             registry: "{{CNI_CALICO_registry}}"
+            # https://docs.tigera.io/calico/latest/reference/installation/api#operator.tigera.io/v1.CalicoNetworkSpec
+            # https://docs.tigera.io/calico/latest/reference/installation/api#operator.tigera.io/v1.CSINodeDriverDaemonSetContainer
+            calicoNodeDaemonSet:
+              spec:
+                template:
+                  spec:
+                    containers:
+                    - name: calico-node
+                      resources:
+                        limits:
+                           cpu: 250m
+                           memory: 256Mi
+                        requests:
+                           cpu: 100m
+                           memory: 128Mi
+            csiNodeDriverDaemonSet:
+              spec:
+                template:
+                  spec:
+                    containers:
+                    - name: csi-node-driver
+                      resources:
+                        limits:
+                           cpu: 250m
+                           memory: 256Mi
+                        requests:
+                           cpu: 100m
+                           memory: 128Mi
+            calicoKubeControllersDeployment:
+              spec:
+                template:
+                  spec:
+                    containers:
+                    - name: calico-kube-controllers
+                      resources:
+                        limits:
+                           cpu: 250m
+                           memory: 256Mi
+                        requests:
+                           cpu: 100m
+                           memory: 128Mi
+            typhaDeployment:
+              spec:
+                template:
+                  spec:
+                    containers:
+                    - name: calico-typha
+                      resources:
+                        limits:
+                           cpu: 250m
+                           memory: 256Mi
+                        requests:
+                           cpu: 100m
+                           memory: 128Mi
             calicoNetwork:
               linuxDataplane: Iptables
               #    // +kubebuilder:validation:Enum=Iptables;BPF;VPP
               bgp: Disabled
               # Note: The ipPools section cannot be modified post-install.
               ipPools:
-              - blockSize: "{{CNI_CALICO_BLOCKSIZE}}"
+              - name: default-ipv4-ippool
+                blockSize: "{{CNI_CALICO_BLOCKSIZE}}"
                 cidr: "{{CNI_CALICO_CIDR}}"
                 #     // +kubebuilder:validation:Enum=IPIPCrossSubnet;IPIP;VXLAN;VXLANCrossSubnet;None
                 encapsulation: VXLANCrossSubnet
@@ -27,8 +82,18 @@
                 nodeSelector: all()
               nodeAddressAutodetectionV4:
                 interface: "{{CNI_CALICO_INTERFACE}}"
+              linuxPolicySetupTimeoutSeconds: 0
+              multiInterfaceMode: None
+              windowsDataplane: Disabled
           apiServer:
             enabled: true
+          resources:
+             limits:
+               cpu: 250m
+               memory: 256Mi
+             requests:
+               cpu: 100m
+               memory: 128Mi
           tolerations:
           - effect: NoExecute
             operator: Exists

@@ -104,3 +104,7 @@
             OVN_REMOTE_OPENFLOW_INTERVAL: 180
             OVN_NORTHD_N_THREADS: 1
             ENABLE_COMPACT: false
+
+    - name: Sleep 90 second, init CNI KUBE OVN
+      pause:
+        seconds: 90

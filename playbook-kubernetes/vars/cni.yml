@@ -92,9 +92,9 @@ CNI:
         # cilium_kubeProxyReplacement: strict
         cilium_kubeProxyReplacement: true
 
-        cilium_hubble: true
-        cilium_hubble_relay: true
-        cilium_hubble_ui: true
+        cilium_hubble: false
+        cilium_hubble_relay: false
+        cilium_hubble_ui: false
 
         cilium_envoy: true
         cilium_envoy_repository: "harbor.iblog.pro/quayio/cilium/cilium-envoy"

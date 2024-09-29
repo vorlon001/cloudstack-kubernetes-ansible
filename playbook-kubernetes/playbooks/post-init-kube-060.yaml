@@ -37,5 +37,51 @@
             serviceCIDRv6: ""
             nodeCIDRMaskSizeIPv4: 24
             nodeCIDRMaskSizeIPv6: 64
+          agent:
+            installCNI:
+              resources:
+                 limits:
+                   cpu: 250m
+                   memory: 256Mi
+                 requests:
+                   cpu: 100m
+                   memory: 128Mi
+            antreaAgent:
+              resources:
+                 limits:
+                   cpu: 450m
+                   memory: 1024Mi
+                 requests:
+                   cpu: 200m
+                   memory: 128Mi
+            antreaOVS:
+              resources:
+                 limits:
+                   cpu: 450m
+                   memory: 1024Mi
+                 requests:
+                   cpu: 200m
+                   memory: 128Mi
+            antreaIPsec:
+              resources:
+                 limits:
+                 cpu: 450m
+                 memory: 1024Mi
+              requests:
+                 cpu: 100m
+                 memory: 128Mi
+          controller:
+            antreaController:
+              resources:
+                 limits:
+                   cpu: 450m
+                   memory: 1024Mi
+                 requests:
+                   cpu: 200m
+                   memory: 128Mi
+
+    - name: Sleep 90 second, init CNI ANTREA
+      pause:
+        seconds: 90
 
 
