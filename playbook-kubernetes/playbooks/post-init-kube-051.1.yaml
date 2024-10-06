@@ -158,7 +158,7 @@
 
     - debug: var=result.stdout_lines
 
-    - name: Sleep 90 second, init CNI
+    - name: Sleep 120 second, init CNI
       pause:
-        seconds: 90
+        seconds: 120
 

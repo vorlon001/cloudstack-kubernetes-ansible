@@ -1,0 +1,1289 @@
+2024-09-30 19:57:12,305 p=270562 u=root n=ansible | [WARNING]: Invalid characters were found in group names but not replaced, use -vvvv to see details
+
+2024-09-30 19:57:12,497 p=270562 u=root n=ansible | PLAY [Install systemd timesyncd] ************************************************************************************************************************************************************
+2024-09-30 19:57:12,503 p=270562 u=root n=ansible | TASK [Gathering Facts] **********************************************************************************************************************************************************************
+2024-09-30 19:57:13,853 p=270562 u=root n=ansible | ok: [node143]
+2024-09-30 19:57:13,859 p=270562 u=root n=ansible | ok: [node140]
+2024-09-30 19:57:13,896 p=270562 u=root n=ansible | ok: [node141]
+2024-09-30 19:57:13,898 p=270562 u=root n=ansible | ok: [node142]
+2024-09-30 19:57:13,924 p=270562 u=root n=ansible | ok: [node130]
+2024-09-30 19:57:15,184 p=270562 u=root n=ansible | ok: [node132]
+2024-09-30 19:57:15,239 p=270562 u=root n=ansible | ok: [node131]
+2024-09-30 19:57:15,242 p=270562 u=root n=ansible | ok: [node133]
+2024-09-30 19:57:15,247 p=270562 u=root n=ansible | TASK [Include all vars files.] **************************************************************************************************************************************************************
+2024-09-30 19:57:15,265 p=270562 u=root n=ansible | [WARNING]: While constructing a mapping from /KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/vars/cni.yml, line 61, column 9, found a duplicate dict key
+(cilium_envoy_repository). Using last defined value only.
+
+2024-09-30 19:57:15,266 p=270562 u=root n=ansible | [WARNING]: While constructing a mapping from /KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/vars/patch.yml, line 58, column 11, found a duplicate dict key
+(resources). Using last defined value only.
+
+2024-09-30 19:57:15,274 p=270562 u=root n=ansible | ok: [node140]
+2024-09-30 19:57:15,286 p=270562 u=root n=ansible | ok: [node141]
+2024-09-30 19:57:15,295 p=270562 u=root n=ansible | ok: [node142]
+2024-09-30 19:57:15,306 p=270562 u=root n=ansible | ok: [node143]
+2024-09-30 19:57:15,318 p=270562 u=root n=ansible | ok: [node130]
+2024-09-30 19:57:15,320 p=270562 u=root n=ansible | ok: [node131]
+2024-09-30 19:57:15,323 p=270562 u=root n=ansible | ok: [node132]
+2024-09-30 19:57:15,334 p=270562 u=root n=ansible | ok: [node133]
+2024-09-30 19:57:15,416 p=270562 u=root n=ansible | TASK [Install systemd timesyncd] ************************************************************************************************************************************************************
+2024-09-30 19:57:16,143 p=270562 u=root n=ansible | ok: [node130]
+2024-09-30 19:57:16,358 p=270562 u=root n=ansible | ok: [node140]
+2024-09-30 19:57:16,435 p=270562 u=root n=ansible | ok: [node142]
+2024-09-30 19:57:16,500 p=270562 u=root n=ansible | ok: [node143]
+2024-09-30 19:57:16,509 p=270562 u=root n=ansible | ok: [node141]
+2024-09-30 19:57:16,847 p=270562 u=root n=ansible | ok: [node131]
+2024-09-30 19:57:16,999 p=270562 u=root n=ansible | ok: [node132]
+2024-09-30 19:57:17,095 p=270562 u=root n=ansible | ok: [node133]
+2024-09-30 19:57:17,102 p=270562 u=root n=ansible | TASK [Execute the command in remote shell; timedatectl set-ntp true] ************************************************************************************************************************
+2024-09-30 19:57:17,452 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:57:17,463 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:57:17,476 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:57:17,476 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:57:17,478 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:57:17,788 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:57:17,796 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:57:17,799 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:57:17,820 p=270562 u=root n=ansible | TASK [debug] ********************************************************************************************************************************************************************************
+2024-09-30 19:57:17,865 p=270562 u=root n=ansible | ok: [node140] => {
+    "debug.stdout_lines": []
+}
+2024-09-30 19:57:17,874 p=270562 u=root n=ansible | ok: [node141] => {
+    "debug.stdout_lines": []
+}
+2024-09-30 19:57:17,882 p=270562 u=root n=ansible | ok: [node142] => {
+    "debug.stdout_lines": []
+}
+2024-09-30 19:57:17,891 p=270562 u=root n=ansible | ok: [node143] => {
+    "debug.stdout_lines": []
+}
+2024-09-30 19:57:17,892 p=270562 u=root n=ansible | ok: [node130] => {
+    "debug.stdout_lines": []
+}
+2024-09-30 19:57:17,898 p=270562 u=root n=ansible | ok: [node131] => {
+    "debug.stdout_lines": []
+}
+2024-09-30 19:57:17,906 p=270562 u=root n=ansible | ok: [node132] => {
+    "debug.stdout_lines": []
+}
+2024-09-30 19:57:17,918 p=270562 u=root n=ansible | ok: [node133] => {
+    "debug.stdout_lines": []
+}
+2024-09-30 19:57:17,923 p=270562 u=root n=ansible | TASK [Apply tags to tasks within included file] *********************************************************************************************************************************************
+2024-09-30 19:57:18,154 p=270562 u=root n=ansible | TASK [node-systemd-timesyncd : set time zone] ***********************************************************************************************************************************************
+2024-09-30 19:57:18,484 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:57:18,494 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:57:18,505 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:57:18,505 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:57:18,505 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:57:18,761 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:57:18,769 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:57:18,772 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:57:18,795 p=270562 u=root n=ansible | TASK [node-systemd-timesyncd : remove unneeded ntp clients] *********************************************************************************************************************************
+2024-09-30 19:57:19,222 p=270562 u=root n=ansible | ok: [node130]
+2024-09-30 19:57:19,233 p=270562 u=root n=ansible | ok: [node140]
+2024-09-30 19:57:19,242 p=270562 u=root n=ansible | ok: [node142]
+2024-09-30 19:57:19,243 p=270562 u=root n=ansible | ok: [node141]
+2024-09-30 19:57:19,243 p=270562 u=root n=ansible | ok: [node143]
+2024-09-30 19:57:19,629 p=270562 u=root n=ansible | ok: [node131]
+2024-09-30 19:57:19,631 p=270562 u=root n=ansible | ok: [node132]
+2024-09-30 19:57:19,631 p=270562 u=root n=ansible | ok: [node133]
+2024-09-30 19:57:19,637 p=270562 u=root n=ansible | TASK [node-systemd-timesyncd : install systemd] *********************************************************************************************************************************************
+2024-09-30 19:57:20,118 p=270562 u=root n=ansible | ok: [node130]
+2024-09-30 19:57:20,181 p=270562 u=root n=ansible | ok: [node141]
+2024-09-30 19:57:20,190 p=270562 u=root n=ansible | ok: [node140]
+2024-09-30 19:57:20,191 p=270562 u=root n=ansible | ok: [node142]
+2024-09-30 19:57:20,191 p=270562 u=root n=ansible | ok: [node143]
+2024-09-30 19:57:20,625 p=270562 u=root n=ansible | ok: [node131]
+2024-09-30 19:57:20,691 p=270562 u=root n=ansible | ok: [node133]
+2024-09-30 19:57:20,693 p=270562 u=root n=ansible | ok: [node132]
+2024-09-30 19:57:20,698 p=270562 u=root n=ansible | TASK [node-systemd-timesyncd : configure systemd-timesyncd] *********************************************************************************************************************************
+2024-09-30 19:57:21,321 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:57:21,331 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:57:21,339 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:57:21,340 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:57:21,340 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:57:21,845 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:57:21,846 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:57:21,847 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:57:21,873 p=270562 u=root n=ansible | TASK [node-systemd-timesyncd : enable systemd-timesyncd service and assure it is started] ***************************************************************************************************
+2024-09-30 19:57:22,460 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:57:22,474 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:57:22,488 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:57:22,489 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:57:22,490 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:57:22,875 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:57:22,876 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:57:22,876 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:57:22,916 p=270562 u=root n=ansible | TASK [Execute the command in remote shell; timedatectl set-ntp true] ************************************************************************************************************************
+2024-09-30 19:57:23,132 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:57:23,141 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:57:23,150 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:57:23,151 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:57:23,182 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:57:23,343 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:57:23,348 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:57:23,356 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:57:23,375 p=270562 u=root n=ansible | TASK [debug] ********************************************************************************************************************************************************************************
+2024-09-30 19:57:23,417 p=270562 u=root n=ansible | ok: [node140] => {
+    "debug.stdout_lines": [
+        "               Local time: Пн 2024-09-30 14:57:23 UTC",
+        "           Universal time: Пн 2024-09-30 14:57:23 UTC",
+        "                 RTC time: Пн 2024-09-30 14:57:23",
+        "                Time zone: Etc/UTC (UTC, +0000)",
+        "System clock synchronized: yes",
+        "              NTP service: active",
+        "          RTC in local TZ: no"
+    ]
+}
+2024-09-30 19:57:23,426 p=270562 u=root n=ansible | ok: [node141] => {
+    "debug.stdout_lines": [
+        "               Local time: Пн 2024-09-30 14:57:23 UTC",
+        "           Universal time: Пн 2024-09-30 14:57:23 UTC",
+        "                 RTC time: Пн 2024-09-30 14:57:23",
+        "                Time zone: Etc/UTC (UTC, +0000)",
+        "System clock synchronized: yes",
+        "              NTP service: active",
+        "          RTC in local TZ: no"
+    ]
+}
+2024-09-30 19:57:23,439 p=270562 u=root n=ansible | ok: [node142] => {
+    "debug.stdout_lines": [
+        "               Local time: Пн 2024-09-30 14:57:23 UTC",
+        "           Universal time: Пн 2024-09-30 14:57:23 UTC",
+        "                 RTC time: Пн 2024-09-30 14:57:23",
+        "                Time zone: Etc/UTC (UTC, +0000)",
+        "System clock synchronized: yes",
+        "              NTP service: active",
+        "          RTC in local TZ: no"
+    ]
+}
+2024-09-30 19:57:23,449 p=270562 u=root n=ansible | ok: [node143] => {
+    "debug.stdout_lines": [
+        "               Local time: Пн 2024-09-30 14:57:23 UTC",
+        "           Universal time: Пн 2024-09-30 14:57:23 UTC",
+        "                 RTC time: Пн 2024-09-30 14:57:23",
+        "                Time zone: Etc/UTC (UTC, +0000)",
+        "System clock synchronized: yes",
+        "              NTP service: active",
+        "          RTC in local TZ: no"
+    ]
+}
+2024-09-30 19:57:23,449 p=270562 u=root n=ansible | ok: [node130] => {
+    "debug.stdout_lines": [
+        "               Local time: Пн 2024-09-30 14:57:23 UTC",
+        "           Universal time: Пн 2024-09-30 14:57:23 UTC",
+        "                 RTC time: Пн 2024-09-30 14:57:23",
+        "                Time zone: Etc/UTC (UTC, +0000)",
+        "System clock synchronized: yes",
+        "              NTP service: active",
+        "          RTC in local TZ: no"
+    ]
+}
+2024-09-30 19:57:23,454 p=270562 u=root n=ansible | ok: [node131] => {
+    "debug.stdout_lines": [
+        "               Local time: Пн 2024-09-30 14:57:23 UTC",
+        "           Universal time: Пн 2024-09-30 14:57:23 UTC",
+        "                 RTC time: Пн 2024-09-30 14:57:23",
+        "                Time zone: Etc/UTC (UTC, +0000)",
+        "System clock synchronized: yes",
+        "              NTP service: active",
+        "          RTC in local TZ: no"
+    ]
+}
+2024-09-30 19:57:23,464 p=270562 u=root n=ansible | ok: [node132] => {
+    "debug.stdout_lines": [
+        "               Local time: Пн 2024-09-30 14:57:23 UTC",
+        "           Universal time: Пн 2024-09-30 14:57:23 UTC",
+        "                 RTC time: Пн 2024-09-30 14:57:22",
+        "                Time zone: Etc/UTC (UTC, +0000)",
+        "System clock synchronized: yes",
+        "              NTP service: active",
+        "          RTC in local TZ: no"
+    ]
+}
+2024-09-30 19:57:23,473 p=270562 u=root n=ansible | ok: [node133] => {
+    "debug.stdout_lines": [
+        "               Local time: Пн 2024-09-30 14:57:23 UTC",
+        "           Universal time: Пн 2024-09-30 14:57:23 UTC",
+        "                 RTC time: Пн 2024-09-30 14:57:23",
+        "                Time zone: Etc/UTC (UTC, +0000)",
+        "System clock synchronized: yes",
+        "              NTP service: active",
+        "          RTC in local TZ: no"
+    ]
+}
+2024-09-30 19:57:23,478 p=270562 u=root n=ansible | TASK [Apply tags to tasks within included file] *********************************************************************************************************************************************
+2024-09-30 19:57:23,720 p=270562 u=root n=ansible | TASK [node-update-off : run - sudo pam-auth-update --enable mkhomedir] **********************************************************************************************************************
+2024-09-30 19:57:23,940 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:57:23,950 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:57:23,961 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:57:23,962 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:57:23,983 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:57:24,158 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:57:24,170 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:57:24,176 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:57:24,181 p=270562 u=root n=ansible | TASK [node-update-off : debug] **************************************************************************************************************************************************************
+2024-09-30 19:57:24,217 p=270562 u=root n=ansible | ok: [node140] => {
+    "cat.stdout_lines": []
+}
+2024-09-30 19:57:24,227 p=270562 u=root n=ansible | ok: [node141] => {
+    "cat.stdout_lines": []
+}
+2024-09-30 19:57:24,238 p=270562 u=root n=ansible | ok: [node142] => {
+    "cat.stdout_lines": []
+}
+2024-09-30 19:57:24,246 p=270562 u=root n=ansible | ok: [node143] => {
+    "cat.stdout_lines": []
+}
+2024-09-30 19:57:24,247 p=270562 u=root n=ansible | ok: [node130] => {
+    "cat.stdout_lines": []
+}
+2024-09-30 19:57:24,259 p=270562 u=root n=ansible | ok: [node131] => {
+    "cat.stdout_lines": []
+}
+2024-09-30 19:57:24,268 p=270562 u=root n=ansible | ok: [node132] => {
+    "cat.stdout_lines": []
+}
+2024-09-30 19:57:24,277 p=270562 u=root n=ansible | ok: [node133] => {
+    "cat.stdout_lines": []
+}
+2024-09-30 19:57:24,284 p=270562 u=root n=ansible | TASK [node-update-off : run - sudo pam-auth-update --enable mkhomedir] **********************************************************************************************************************
+2024-09-30 19:57:24,507 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:57:24,517 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:57:24,527 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:57:24,527 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:57:24,543 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:57:24,730 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:57:24,742 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:57:24,743 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:57:24,767 p=270562 u=root n=ansible | TASK [node-update-off : debug] **************************************************************************************************************************************************************
+2024-09-30 19:57:24,816 p=270562 u=root n=ansible | ok: [node140] => {
+    "cat.stdout_lines": [
+        "APT::Periodic::Update-Package-Lists \"1\";",
+        "APT::Periodic::Unattended-Upgrade \"0\";"
+    ]
+}
+2024-09-30 19:57:24,827 p=270562 u=root n=ansible | ok: [node141] => {
+    "cat.stdout_lines": [
+        "APT::Periodic::Update-Package-Lists \"1\";",
+        "APT::Periodic::Unattended-Upgrade \"0\";"
+    ]
+}
+2024-09-30 19:57:24,837 p=270562 u=root n=ansible | ok: [node142] => {
+    "cat.stdout_lines": [
+        "APT::Periodic::Update-Package-Lists \"1\";",
+        "APT::Periodic::Unattended-Upgrade \"0\";"
+    ]
+}
+2024-09-30 19:57:24,847 p=270562 u=root n=ansible | ok: [node143] => {
+    "cat.stdout_lines": [
+        "APT::Periodic::Update-Package-Lists \"1\";",
+        "APT::Periodic::Unattended-Upgrade \"0\";"
+    ]
+}
+2024-09-30 19:57:24,848 p=270562 u=root n=ansible | ok: [node130] => {
+    "cat.stdout_lines": [
+        "APT::Periodic::Update-Package-Lists \"1\";",
+        "APT::Periodic::Unattended-Upgrade \"0\";"
+    ]
+}
+2024-09-30 19:57:24,855 p=270562 u=root n=ansible | ok: [node131] => {
+    "cat.stdout_lines": [
+        "APT::Periodic::Update-Package-Lists \"1\";",
+        "APT::Periodic::Unattended-Upgrade \"0\";"
+    ]
+}
+2024-09-30 19:57:24,865 p=270562 u=root n=ansible | ok: [node132] => {
+    "cat.stdout_lines": [
+        "APT::Periodic::Update-Package-Lists \"1\";",
+        "APT::Periodic::Unattended-Upgrade \"0\";"
+    ]
+}
+2024-09-30 19:57:24,875 p=270562 u=root n=ansible | ok: [node133] => {
+    "cat.stdout_lines": [
+        "APT::Periodic::Update-Package-Lists \"1\";",
+        "APT::Periodic::Unattended-Upgrade \"0\";"
+    ]
+}
+2024-09-30 19:57:24,913 p=270562 u=root n=ansible | TASK [Remove "snapd" package] ***************************************************************************************************************************************************************
+2024-09-30 19:57:24,942 p=270562 u=root n=ansible | skipping: [node140]
+2024-09-30 19:57:24,951 p=270562 u=root n=ansible | skipping: [node141]
+2024-09-30 19:57:24,960 p=270562 u=root n=ansible | skipping: [node142]
+2024-09-30 19:57:24,969 p=270562 u=root n=ansible | skipping: [node143]
+2024-09-30 19:57:24,978 p=270562 u=root n=ansible | skipping: [node130]
+2024-09-30 19:57:24,983 p=270562 u=root n=ansible | skipping: [node131]
+2024-09-30 19:57:24,992 p=270562 u=root n=ansible | skipping: [node132]
+2024-09-30 19:57:25,000 p=270562 u=root n=ansible | skipping: [node133]
+2024-09-30 19:57:25,006 p=270562 u=root n=ansible | TASK [Install a list of packages] ***********************************************************************************************************************************************************
+2024-09-30 19:57:31,284 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:57:31,299 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:57:31,309 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:57:31,310 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:57:33,102 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:57:38,054 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:57:38,505 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:57:38,515 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:57:38,521 p=270562 u=root n=ansible | TASK [Install a list of packages] ***********************************************************************************************************************************************************
+2024-09-30 19:57:38,548 p=270562 u=root n=ansible | skipping: [node140]
+2024-09-30 19:57:38,557 p=270562 u=root n=ansible | skipping: [node141]
+2024-09-30 19:57:38,566 p=270562 u=root n=ansible | skipping: [node142]
+2024-09-30 19:57:38,575 p=270562 u=root n=ansible | skipping: [node143]
+2024-09-30 19:57:38,588 p=270562 u=root n=ansible | skipping: [node130]
+2024-09-30 19:57:38,630 p=270562 u=root n=ansible | skipping: [node131]
+2024-09-30 19:57:38,637 p=270562 u=root n=ansible | skipping: [node132]
+2024-09-30 19:57:38,645 p=270562 u=root n=ansible | skipping: [node133]
+2024-09-30 19:57:38,675 p=270562 u=root n=ansible | TASK [Run a command ansible.posix.sysctl vm.max_map_count=262144] ***************************************************************************************************************************
+2024-09-30 19:57:38,977 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:57:38,985 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:57:38,994 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:57:38,994 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:57:38,994 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:57:39,224 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:57:39,224 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:57:39,228 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:57:39,250 p=270562 u=root n=ansible | TASK [Run patch /etc/default/grub] **********************************************************************************************************************************************************
+2024-09-30 19:57:39,482 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:57:39,493 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:57:39,504 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:57:39,505 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:57:39,520 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:57:39,714 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:57:39,715 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:57:39,722 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:57:39,742 p=270562 u=root n=ansible | TASK [debug] ********************************************************************************************************************************************************************************
+2024-09-30 19:57:39,785 p=270562 u=root n=ansible | ok: [node140] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:57:39,795 p=270562 u=root n=ansible | ok: [node141] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:57:39,804 p=270562 u=root n=ansible | ok: [node142] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:57:39,813 p=270562 u=root n=ansible | ok: [node143] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:57:39,815 p=270562 u=root n=ansible | ok: [node130] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:57:39,825 p=270562 u=root n=ansible | ok: [node131] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:57:39,834 p=270562 u=root n=ansible | ok: [node132] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:57:39,843 p=270562 u=root n=ansible | ok: [node133] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:57:39,851 p=270562 u=root n=ansible | TASK [Run patch /etc/default/grub] **********************************************************************************************************************************************************
+2024-09-30 19:57:39,879 p=270562 u=root n=ansible | skipping: [node140]
+2024-09-30 19:57:39,888 p=270562 u=root n=ansible | skipping: [node141]
+2024-09-30 19:57:39,897 p=270562 u=root n=ansible | skipping: [node142]
+2024-09-30 19:57:39,906 p=270562 u=root n=ansible | skipping: [node143]
+2024-09-30 19:57:39,915 p=270562 u=root n=ansible | skipping: [node130]
+2024-09-30 19:57:39,919 p=270562 u=root n=ansible | skipping: [node131]
+2024-09-30 19:57:39,928 p=270562 u=root n=ansible | skipping: [node132]
+2024-09-30 19:57:39,937 p=270562 u=root n=ansible | skipping: [node133]
+2024-09-30 19:57:39,942 p=270562 u=root n=ansible | TASK [debug] ********************************************************************************************************************************************************************************
+2024-09-30 19:57:39,982 p=270562 u=root n=ansible | skipping: [node140]
+2024-09-30 19:57:39,991 p=270562 u=root n=ansible | skipping: [node141]
+2024-09-30 19:57:40,001 p=270562 u=root n=ansible | skipping: [node142]
+2024-09-30 19:57:40,010 p=270562 u=root n=ansible | skipping: [node143]
+2024-09-30 19:57:40,011 p=270562 u=root n=ansible | skipping: [node130]
+2024-09-30 19:57:40,014 p=270562 u=root n=ansible | skipping: [node131]
+2024-09-30 19:57:40,023 p=270562 u=root n=ansible | skipping: [node132]
+2024-09-30 19:57:40,032 p=270562 u=root n=ansible | skipping: [node133]
+2024-09-30 19:57:40,038 p=270562 u=root n=ansible | TASK [Run patch /etc/needrestart/needrestart.conf] ******************************************************************************************************************************************
+2024-09-30 19:57:40,064 p=270562 u=root n=ansible | skipping: [node140]
+2024-09-30 19:57:40,073 p=270562 u=root n=ansible | skipping: [node141]
+2024-09-30 19:57:40,082 p=270562 u=root n=ansible | skipping: [node142]
+2024-09-30 19:57:40,091 p=270562 u=root n=ansible | skipping: [node143]
+2024-09-30 19:57:40,101 p=270562 u=root n=ansible | skipping: [node130]
+2024-09-30 19:57:40,109 p=270562 u=root n=ansible | skipping: [node131]
+2024-09-30 19:57:40,118 p=270562 u=root n=ansible | skipping: [node132]
+2024-09-30 19:57:40,127 p=270562 u=root n=ansible | skipping: [node133]
+2024-09-30 19:57:40,135 p=270562 u=root n=ansible | TASK [debug] ********************************************************************************************************************************************************************************
+2024-09-30 19:57:40,171 p=270562 u=root n=ansible | ok: [node140] => {
+    "logs.stdout_lines": "VARIABLE IS NOT DEFINED!"
+}
+2024-09-30 19:57:40,181 p=270562 u=root n=ansible | ok: [node141] => {
+    "logs.stdout_lines": "VARIABLE IS NOT DEFINED!"
+}
+2024-09-30 19:57:40,190 p=270562 u=root n=ansible | ok: [node142] => {
+    "logs.stdout_lines": "VARIABLE IS NOT DEFINED!"
+}
+2024-09-30 19:57:40,199 p=270562 u=root n=ansible | ok: [node143] => {
+    "logs.stdout_lines": "VARIABLE IS NOT DEFINED!"
+}
+2024-09-30 19:57:40,200 p=270562 u=root n=ansible | ok: [node130] => {
+    "logs.stdout_lines": "VARIABLE IS NOT DEFINED!"
+}
+2024-09-30 19:57:40,207 p=270562 u=root n=ansible | ok: [node131] => {
+    "logs.stdout_lines": "VARIABLE IS NOT DEFINED!"
+}
+2024-09-30 19:57:40,215 p=270562 u=root n=ansible | ok: [node132] => {
+    "logs.stdout_lines": "VARIABLE IS NOT DEFINED!"
+}
+2024-09-30 19:57:40,224 p=270562 u=root n=ansible | ok: [node133] => {
+    "logs.stdout_lines": "VARIABLE IS NOT DEFINED!"
+}
+2024-09-30 19:57:40,230 p=270562 u=root n=ansible | TASK [Run cat /etc/default/grub] ************************************************************************************************************************************************************
+2024-09-30 19:57:40,449 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:57:40,460 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:57:40,469 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:57:40,471 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:57:40,481 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:57:40,676 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:57:40,684 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:57:40,688 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:57:40,710 p=270562 u=root n=ansible | TASK [debug] ********************************************************************************************************************************************************************************
+2024-09-30 19:57:40,757 p=270562 u=root n=ansible | ok: [node140] => {
+    "logs.stdout_lines": [
+        "# If you change this file, run 'update-grub' afterwards to update",
+        "# /boot/grub/grub.cfg.",
+        "# For full documentation of the options in this file, see:",
+        "#   info -f grub -n 'Simple configuration'",
+        "",
+        "GRUB_DEFAULT=0",
+        "GRUB_TIMEOUT=5",
+        "GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`",
+        "GRUB_CMDLINE_LINUX_DEFAULT=\"\"",
+        "GRUB_CMDLINE_LINUX=\"console=tty0 console=ttyS0,115200 earlyprintk=ttyS0,115200 consoleblank=0 cgroup_enable=cpuset cgroup_enable=memory swapaccount=1 systemd.unified_cgroup_hierarchy=1\"",
+        "GRUB_TERMINAL=\"console serial\"",
+        "GRUB_SERIAL_COMMAND=\"serial --speed=115200\""
+    ]
+}
+2024-09-30 19:57:40,766 p=270562 u=root n=ansible | ok: [node141] => {
+    "logs.stdout_lines": [
+        "# If you change this file, run 'update-grub' afterwards to update",
+        "# /boot/grub/grub.cfg.",
+        "# For full documentation of the options in this file, see:",
+        "#   info -f grub -n 'Simple configuration'",
+        "",
+        "GRUB_DEFAULT=0",
+        "GRUB_TIMEOUT=5",
+        "GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`",
+        "GRUB_CMDLINE_LINUX_DEFAULT=\"\"",
+        "GRUB_CMDLINE_LINUX=\"console=tty0 console=ttyS0,115200 earlyprintk=ttyS0,115200 consoleblank=0 cgroup_enable=cpuset cgroup_enable=memory swapaccount=1 systemd.unified_cgroup_hierarchy=1\"",
+        "GRUB_TERMINAL=\"console serial\"",
+        "GRUB_SERIAL_COMMAND=\"serial --speed=115200\""
+    ]
+}
+2024-09-30 19:57:40,775 p=270562 u=root n=ansible | ok: [node142] => {
+    "logs.stdout_lines": [
+        "# If you change this file, run 'update-grub' afterwards to update",
+        "# /boot/grub/grub.cfg.",
+        "# For full documentation of the options in this file, see:",
+        "#   info -f grub -n 'Simple configuration'",
+        "",
+        "GRUB_DEFAULT=0",
+        "GRUB_TIMEOUT=5",
+        "GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`",
+        "GRUB_CMDLINE_LINUX_DEFAULT=\"\"",
+        "GRUB_CMDLINE_LINUX=\"console=tty0 console=ttyS0,115200 earlyprintk=ttyS0,115200 consoleblank=0 cgroup_enable=cpuset cgroup_enable=memory swapaccount=1 systemd.unified_cgroup_hierarchy=1\"",
+        "GRUB_TERMINAL=\"console serial\"",
+        "GRUB_SERIAL_COMMAND=\"serial --speed=115200\""
+    ]
+}
+2024-09-30 19:57:40,784 p=270562 u=root n=ansible | ok: [node143] => {
+    "logs.stdout_lines": [
+        "# If you change this file, run 'update-grub' afterwards to update",
+        "# /boot/grub/grub.cfg.",
+        "# For full documentation of the options in this file, see:",
+        "#   info -f grub -n 'Simple configuration'",
+        "",
+        "GRUB_DEFAULT=0",
+        "GRUB_TIMEOUT=5",
+        "GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`",
+        "GRUB_CMDLINE_LINUX_DEFAULT=\"\"",
+        "GRUB_CMDLINE_LINUX=\"console=tty0 console=ttyS0,115200 earlyprintk=ttyS0,115200 consoleblank=0 cgroup_enable=cpuset cgroup_enable=memory swapaccount=1 systemd.unified_cgroup_hierarchy=1\"",
+        "GRUB_TERMINAL=\"console serial\"",
+        "GRUB_SERIAL_COMMAND=\"serial --speed=115200\""
+    ]
+}
+2024-09-30 19:57:40,785 p=270562 u=root n=ansible | ok: [node130] => {
+    "logs.stdout_lines": [
+        "# If you change this file, run 'update-grub' afterwards to update",
+        "# /boot/grub/grub.cfg.",
+        "# For full documentation of the options in this file, see:",
+        "#   info -f grub -n 'Simple configuration'",
+        "",
+        "GRUB_DEFAULT=0",
+        "GRUB_TIMEOUT=5",
+        "GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`",
+        "GRUB_CMDLINE_LINUX_DEFAULT=\"\"",
+        "GRUB_CMDLINE_LINUX=\"console=tty0 console=ttyS0,115200 earlyprintk=ttyS0,115200 consoleblank=0 cgroup_enable=cpuset cgroup_enable=memory swapaccount=1 systemd.unified_cgroup_hierarchy=1\"",
+        "GRUB_TERMINAL=\"console serial\"",
+        "GRUB_SERIAL_COMMAND=\"serial --speed=115200\""
+    ]
+}
+2024-09-30 19:57:40,794 p=270562 u=root n=ansible | ok: [node131] => {
+    "logs.stdout_lines": [
+        "# If you change this file, run 'update-grub' afterwards to update",
+        "# /boot/grub/grub.cfg.",
+        "# For full documentation of the options in this file, see:",
+        "#   info -f grub -n 'Simple configuration'",
+        "",
+        "GRUB_DEFAULT=0",
+        "GRUB_TIMEOUT=5",
+        "GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`",
+        "GRUB_CMDLINE_LINUX_DEFAULT=\"\"",
+        "GRUB_CMDLINE_LINUX=\"console=tty0 console=ttyS0,115200 earlyprintk=ttyS0,115200 consoleblank=0 cgroup_enable=cpuset cgroup_enable=memory swapaccount=1 systemd.unified_cgroup_hierarchy=1\"",
+        "GRUB_TERMINAL=\"console serial\"",
+        "GRUB_SERIAL_COMMAND=\"serial --speed=115200\""
+    ]
+}
+2024-09-30 19:57:40,804 p=270562 u=root n=ansible | ok: [node132] => {
+    "logs.stdout_lines": [
+        "# If you change this file, run 'update-grub' afterwards to update",
+        "# /boot/grub/grub.cfg.",
+        "# For full documentation of the options in this file, see:",
+        "#   info -f grub -n 'Simple configuration'",
+        "",
+        "GRUB_DEFAULT=0",
+        "GRUB_TIMEOUT=5",
+        "GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`",
+        "GRUB_CMDLINE_LINUX_DEFAULT=\"\"",
+        "GRUB_CMDLINE_LINUX=\"console=tty0 console=ttyS0,115200 earlyprintk=ttyS0,115200 consoleblank=0 cgroup_enable=cpuset cgroup_enable=memory swapaccount=1 systemd.unified_cgroup_hierarchy=1\"",
+        "GRUB_TERMINAL=\"console serial\"",
+        "GRUB_SERIAL_COMMAND=\"serial --speed=115200\""
+    ]
+}
+2024-09-30 19:57:40,812 p=270562 u=root n=ansible | ok: [node133] => {
+    "logs.stdout_lines": [
+        "# If you change this file, run 'update-grub' afterwards to update",
+        "# /boot/grub/grub.cfg.",
+        "# For full documentation of the options in this file, see:",
+        "#   info -f grub -n 'Simple configuration'",
+        "",
+        "GRUB_DEFAULT=0",
+        "GRUB_TIMEOUT=5",
+        "GRUB_DISTRIBUTOR=`lsb_release -i -s 2> /dev/null || echo Debian`",
+        "GRUB_CMDLINE_LINUX_DEFAULT=\"\"",
+        "GRUB_CMDLINE_LINUX=\"console=tty0 console=ttyS0,115200 earlyprintk=ttyS0,115200 consoleblank=0 cgroup_enable=cpuset cgroup_enable=memory swapaccount=1 systemd.unified_cgroup_hierarchy=1\"",
+        "GRUB_TERMINAL=\"console serial\"",
+        "GRUB_SERIAL_COMMAND=\"serial --speed=115200\""
+    ]
+}
+2024-09-30 19:57:40,820 p=270562 u=root n=ansible | TASK [Run update-grub] **********************************************************************************************************************************************************************
+2024-09-30 19:57:41,909 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:57:41,918 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:57:41,966 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:57:41,967 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:57:42,546 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:57:43,010 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:57:43,013 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:57:43,014 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:57:43,019 p=270562 u=root n=ansible | TASK [debug] ********************************************************************************************************************************************************************************
+2024-09-30 19:57:43,059 p=270562 u=root n=ansible | ok: [node140] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:57:43,069 p=270562 u=root n=ansible | ok: [node141] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:57:43,078 p=270562 u=root n=ansible | ok: [node142] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:57:43,088 p=270562 u=root n=ansible | ok: [node143] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:57:43,088 p=270562 u=root n=ansible | ok: [node130] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:57:43,094 p=270562 u=root n=ansible | ok: [node131] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:57:43,103 p=270562 u=root n=ansible | ok: [node132] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:57:43,112 p=270562 u=root n=ansible | ok: [node133] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:57:43,117 p=270562 u=root n=ansible | TASK [Copy /etc/sysctl.d/99-kubernetes-cri.conf] ********************************************************************************************************************************************
+2024-09-30 19:57:43,490 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:57:43,501 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:57:43,511 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:57:43,511 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:57:43,541 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:57:43,895 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:57:43,896 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:57:43,897 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:57:43,928 p=270562 u=root n=ansible | TASK [reboot] *******************************************************************************************************************************************************************************
+2024-09-30 19:57:44,258 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:57:44,272 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:57:44,281 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:57:44,282 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:57:44,282 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:57:44,472 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:57:44,491 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:57:44,492 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:57:44,516 p=270562 u=root n=ansible | TASK [Wait for the reboot and reconnect] ****************************************************************************************************************************************************
+2024-09-30 19:57:54,860 p=270562 u=root n=ansible | ok: [node143]
+2024-09-30 19:57:54,872 p=270562 u=root n=ansible | ok: [node140]
+2024-09-30 19:57:54,881 p=270562 u=root n=ansible | ok: [node130]
+2024-09-30 19:57:54,882 p=270562 u=root n=ansible | ok: [node141]
+2024-09-30 19:57:54,882 p=270562 u=root n=ansible | ok: [node142]
+2024-09-30 19:58:05,087 p=270562 u=root n=ansible | ok: [node131]
+2024-09-30 19:58:05,097 p=270562 u=root n=ansible | ok: [node132]
+2024-09-30 19:58:05,102 p=270562 u=root n=ansible | ok: [node133]
+2024-09-30 19:58:05,108 p=270562 u=root n=ansible | TASK [Check the Uptime of the servers] ******************************************************************************************************************************************************
+2024-09-30 19:58:05,812 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:58:05,821 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:58:05,830 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:58:05,831 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:58:05,950 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:58:06,546 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:58:06,546 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:58:06,546 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:58:06,554 p=270562 u=root n=ansible | TASK [debug] ********************************************************************************************************************************************************************************
+2024-09-30 19:58:06,592 p=270562 u=root n=ansible | ok: [node140] => {
+    "Uptime": {
+        "changed": true,
+        "cmd": "uptime",
+        "delta": "0:00:00.004290",
+        "end": "2024-09-30 14:58:06.061247",
+        "failed": false,
+        "msg": "",
+        "rc": 0,
+        "start": "2024-09-30 14:58:06.056957",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": " 14:58:06 up 0 min,  2 users,  load average: 0,00, 0,00, 0,00",
+        "stdout_lines": [
+            " 14:58:06 up 0 min,  2 users,  load average: 0,00, 0,00, 0,00"
+        ]
+    }
+}
+2024-09-30 19:58:06,602 p=270562 u=root n=ansible | ok: [node141] => {
+    "Uptime": {
+        "changed": true,
+        "cmd": "uptime",
+        "delta": "0:00:00.003578",
+        "end": "2024-09-30 14:58:06.135325",
+        "failed": false,
+        "msg": "",
+        "rc": 0,
+        "start": "2024-09-30 14:58:06.131747",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": " 14:58:06 up 0 min,  2 users,  load average: 0,00, 0,00, 0,00",
+        "stdout_lines": [
+            " 14:58:06 up 0 min,  2 users,  load average: 0,00, 0,00, 0,00"
+        ]
+    }
+}
+2024-09-30 19:58:06,611 p=270562 u=root n=ansible | ok: [node142] => {
+    "Uptime": {
+        "changed": true,
+        "cmd": "uptime",
+        "delta": "0:00:00.004671",
+        "end": "2024-09-30 14:58:06.066428",
+        "failed": false,
+        "msg": "",
+        "rc": 0,
+        "start": "2024-09-30 14:58:06.061757",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": " 14:58:06 up 0 min,  2 users,  load average: 0,00, 0,00, 0,00",
+        "stdout_lines": [
+            " 14:58:06 up 0 min,  2 users,  load average: 0,00, 0,00, 0,00"
+        ]
+    }
+}
+2024-09-30 19:58:06,621 p=270562 u=root n=ansible | ok: [node143] => {
+    "Uptime": {
+        "changed": true,
+        "cmd": "uptime",
+        "delta": "0:00:00.004202",
+        "end": "2024-09-30 14:58:06.010723",
+        "failed": false,
+        "msg": "",
+        "rc": 0,
+        "start": "2024-09-30 14:58:06.006521",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": " 14:58:06 up 0 min,  2 users,  load average: 0,00, 0,00, 0,00",
+        "stdout_lines": [
+            " 14:58:06 up 0 min,  2 users,  load average: 0,00, 0,00, 0,00"
+        ]
+    }
+}
+2024-09-30 19:58:06,621 p=270562 u=root n=ansible | ok: [node130] => {
+    "Uptime": {
+        "changed": true,
+        "cmd": "uptime",
+        "delta": "0:00:00.003148",
+        "end": "2024-09-30 14:58:05.984156",
+        "failed": false,
+        "msg": "",
+        "rc": 0,
+        "start": "2024-09-30 14:58:05.981008",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": " 14:58:05 up 0 min,  2 users,  load average: 0,00, 0,00, 0,00",
+        "stdout_lines": [
+            " 14:58:05 up 0 min,  2 users,  load average: 0,00, 0,00, 0,00"
+        ]
+    }
+}
+2024-09-30 19:58:06,628 p=270562 u=root n=ansible | ok: [node131] => {
+    "Uptime": {
+        "changed": true,
+        "cmd": "uptime",
+        "delta": "0:00:00.003946",
+        "end": "2024-09-30 14:58:06.504265",
+        "failed": false,
+        "msg": "",
+        "rc": 0,
+        "start": "2024-09-30 14:58:06.500319",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": " 14:58:06 up 0 min,  2 users,  load average: 0,00, 0,00, 0,00",
+        "stdout_lines": [
+            " 14:58:06 up 0 min,  2 users,  load average: 0,00, 0,00, 0,00"
+        ]
+    }
+}
+2024-09-30 19:58:06,637 p=270562 u=root n=ansible | ok: [node132] => {
+    "Uptime": {
+        "changed": true,
+        "cmd": "uptime",
+        "delta": "0:00:00.003976",
+        "end": "2024-09-30 14:58:06.520423",
+        "failed": false,
+        "msg": "",
+        "rc": 0,
+        "start": "2024-09-30 14:58:06.516447",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": " 14:58:06 up 0 min,  2 users,  load average: 0,00, 0,00, 0,00",
+        "stdout_lines": [
+            " 14:58:06 up 0 min,  2 users,  load average: 0,00, 0,00, 0,00"
+        ]
+    }
+}
+2024-09-30 19:58:06,646 p=270562 u=root n=ansible | ok: [node133] => {
+    "Uptime": {
+        "changed": true,
+        "cmd": "uptime",
+        "delta": "0:00:00.004656",
+        "end": "2024-09-30 14:58:06.513540",
+        "failed": false,
+        "msg": "",
+        "rc": 0,
+        "start": "2024-09-30 14:58:06.508884",
+        "stderr": "",
+        "stderr_lines": [],
+        "stdout": " 14:58:06 up 0 min,  2 users,  load average: 0,00, 0,00, 0,00",
+        "stdout_lines": [
+            " 14:58:06 up 0 min,  2 users,  load average: 0,00, 0,00, 0,00"
+        ]
+    }
+}
+2024-09-30 19:58:06,652 p=270562 u=root n=ansible | TASK [Remove dependencies that are no longer required] **************************************************************************************************************************************
+2024-09-30 19:58:09,283 p=270562 u=root n=ansible | ok: [node140]
+2024-09-30 19:58:09,350 p=270562 u=root n=ansible | ok: [node142]
+2024-09-30 19:58:09,364 p=270562 u=root n=ansible | ok: [node141]
+2024-09-30 19:58:09,386 p=270562 u=root n=ansible | ok: [node143]
+2024-09-30 19:58:10,500 p=270562 u=root n=ansible | ok: [node130]
+2024-09-30 19:58:14,454 p=270562 u=root n=ansible | ok: [node132]
+2024-09-30 19:58:14,454 p=270562 u=root n=ansible | ok: [node131]
+2024-09-30 19:58:14,456 p=270562 u=root n=ansible | ok: [node133]
+2024-09-30 19:58:14,461 p=270562 u=root n=ansible | TASK [Copy ubuntu-sources.list.j2] **********************************************************************************************************************************************************
+2024-09-30 19:58:14,496 p=270562 u=root n=ansible | skipping: [node140]
+2024-09-30 19:58:14,504 p=270562 u=root n=ansible | skipping: [node141]
+2024-09-30 19:58:14,513 p=270562 u=root n=ansible | skipping: [node142]
+2024-09-30 19:58:14,521 p=270562 u=root n=ansible | skipping: [node143]
+2024-09-30 19:58:14,521 p=270562 u=root n=ansible | skipping: [node130]
+2024-09-30 19:58:14,530 p=270562 u=root n=ansible | skipping: [node131]
+2024-09-30 19:58:14,539 p=270562 u=root n=ansible | skipping: [node132]
+2024-09-30 19:58:14,547 p=270562 u=root n=ansible | skipping: [node133]
+2024-09-30 19:58:14,552 p=270562 u=root n=ansible | TASK [Copy debian-sources.list.j2] **********************************************************************************************************************************************************
+2024-09-30 19:58:14,979 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:58:14,988 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:58:14,998 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:58:14,998 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:58:15,012 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:58:15,438 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:58:15,439 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:58:15,440 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:58:15,463 p=270562 u=root n=ansible | TASK [Install a list of packages] ***********************************************************************************************************************************************************
+2024-09-30 19:58:18,400 p=270562 u=root n=ansible | ok: [node130]
+2024-09-30 19:58:18,675 p=270562 u=root n=ansible | ok: [node140]
+2024-09-30 19:58:18,742 p=270562 u=root n=ansible | ok: [node141]
+2024-09-30 19:58:18,748 p=270562 u=root n=ansible | ok: [node142]
+2024-09-30 19:58:18,850 p=270562 u=root n=ansible | ok: [node143]
+2024-09-30 19:58:20,638 p=270562 u=root n=ansible | ok: [node131]
+2024-09-30 19:58:20,972 p=270562 u=root n=ansible | ok: [node132]
+2024-09-30 19:58:21,264 p=270562 u=root n=ansible | ok: [node133]
+2024-09-30 19:58:21,269 p=270562 u=root n=ansible | TASK [Run patch /etc/locale.gen] ************************************************************************************************************************************************************
+2024-09-30 19:58:21,487 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:58:21,497 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:58:21,508 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:58:21,508 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:58:21,529 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:58:21,712 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:58:21,726 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:58:21,766 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:58:21,788 p=270562 u=root n=ansible | TASK [debug] ********************************************************************************************************************************************************************************
+2024-09-30 19:58:21,845 p=270562 u=root n=ansible | ok: [node140] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:21,853 p=270562 u=root n=ansible | ok: [node141] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:21,863 p=270562 u=root n=ansible | ok: [node142] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:21,873 p=270562 u=root n=ansible | ok: [node143] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:21,873 p=270562 u=root n=ansible | ok: [node130] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:21,880 p=270562 u=root n=ansible | ok: [node131] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:21,889 p=270562 u=root n=ansible | ok: [node132] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:21,899 p=270562 u=root n=ansible | ok: [node133] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:21,905 p=270562 u=root n=ansible | TASK [Run patch /etc/locale.gen] ************************************************************************************************************************************************************
+2024-09-30 19:58:22,133 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:58:22,143 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:58:22,152 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:58:22,154 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:58:22,165 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:58:22,357 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:58:22,361 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:58:22,371 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:58:22,393 p=270562 u=root n=ansible | TASK [debug] ********************************************************************************************************************************************************************************
+2024-09-30 19:58:22,440 p=270562 u=root n=ansible | ok: [node140] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:22,451 p=270562 u=root n=ansible | ok: [node141] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:22,460 p=270562 u=root n=ansible | ok: [node142] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:22,469 p=270562 u=root n=ansible | ok: [node143] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:22,469 p=270562 u=root n=ansible | ok: [node130] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:22,479 p=270562 u=root n=ansible | ok: [node131] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:22,490 p=270562 u=root n=ansible | ok: [node132] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:22,498 p=270562 u=root n=ansible | ok: [node133] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:22,504 p=270562 u=root n=ansible | TASK [Run dpkg-reconfigure --frontend=noninteractive locales] *******************************************************************************************************************************
+2024-09-30 19:58:23,124 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:58:23,133 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:58:23,144 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:58:23,145 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:58:23,145 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:58:23,798 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:58:23,803 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:58:23,859 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:58:23,865 p=270562 u=root n=ansible | TASK [debug] ********************************************************************************************************************************************************************************
+2024-09-30 19:58:23,900 p=270562 u=root n=ansible | ok: [node140] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:23,915 p=270562 u=root n=ansible | ok: [node141] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:23,924 p=270562 u=root n=ansible | ok: [node142] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:23,933 p=270562 u=root n=ansible | ok: [node143] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:23,934 p=270562 u=root n=ansible | ok: [node130] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:23,940 p=270562 u=root n=ansible | ok: [node131] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:23,951 p=270562 u=root n=ansible | ok: [node132] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:23,959 p=270562 u=root n=ansible | ok: [node133] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:23,965 p=270562 u=root n=ansible | TASK [Run echo "nameserver 192.168.1.10" >>/etc/resolv.conf] ********************************************************************************************************************************
+2024-09-30 19:58:24,187 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:58:24,196 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:58:24,206 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:58:24,207 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:58:24,222 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:58:24,400 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:58:24,405 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:58:24,418 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:58:24,440 p=270562 u=root n=ansible | TASK [debug] ********************************************************************************************************************************************************************************
+2024-09-30 19:58:24,495 p=270562 u=root n=ansible | ok: [node140] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:24,505 p=270562 u=root n=ansible | ok: [node141] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:24,514 p=270562 u=root n=ansible | ok: [node142] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:24,523 p=270562 u=root n=ansible | ok: [node143] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:24,524 p=270562 u=root n=ansible | ok: [node130] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:24,531 p=270562 u=root n=ansible | ok: [node131] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:24,540 p=270562 u=root n=ansible | ok: [node132] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:24,549 p=270562 u=root n=ansible | ok: [node133] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:24,554 p=270562 u=root n=ansible | TASK [Run dpkg-reconfigure --frontend=noninteractive locales] *******************************************************************************************************************************
+2024-09-30 19:58:25,162 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:58:25,172 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:58:25,183 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:58:25,192 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:58:25,204 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:58:25,733 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:58:25,745 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:58:25,746 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:58:25,752 p=270562 u=root n=ansible | TASK [debug] ********************************************************************************************************************************************************************************
+2024-09-30 19:58:25,788 p=270562 u=root n=ansible | ok: [node140] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:25,797 p=270562 u=root n=ansible | ok: [node141] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:25,806 p=270562 u=root n=ansible | ok: [node142] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:25,815 p=270562 u=root n=ansible | ok: [node143] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:25,815 p=270562 u=root n=ansible | ok: [node130] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:25,825 p=270562 u=root n=ansible | ok: [node131] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:25,835 p=270562 u=root n=ansible | ok: [node132] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:25,844 p=270562 u=root n=ansible | ok: [node133] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:25,849 p=270562 u=root n=ansible | TASK [Update and upgrade apt packages] ******************************************************************************************************************************************************
+2024-09-30 19:58:26,440 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:58:26,551 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:58:26,561 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:58:26,562 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:58:26,562 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:58:27,086 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:58:27,152 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:58:27,153 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:58:27,159 p=270562 u=root n=ansible | TASK [Install a list of packages] ***********************************************************************************************************************************************************
+2024-09-30 19:58:31,853 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:58:31,894 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:58:31,916 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:58:31,932 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:58:33,023 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:58:37,444 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:58:37,504 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:58:37,597 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:58:37,602 p=270562 u=root n=ansible | TASK [Copy modules-load.d-containerd.conf] **************************************************************************************************************************************************
+2024-09-30 19:58:37,999 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:58:38,009 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:58:38,018 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:58:38,018 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:58:38,056 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:58:38,496 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:58:38,496 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:58:38,497 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:58:38,527 p=270562 u=root n=ansible | TASK [Run modprobe overlay] *****************************************************************************************************************************************************************
+2024-09-30 19:58:38,795 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:58:38,806 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:58:38,815 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:58:38,815 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:58:38,829 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:58:39,013 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:58:39,015 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:58:39,022 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:58:39,027 p=270562 u=root n=ansible | TASK [debug] ********************************************************************************************************************************************************************************
+2024-09-30 19:58:39,062 p=270562 u=root n=ansible | ok: [node140] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:39,077 p=270562 u=root n=ansible | ok: [node141] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:39,087 p=270562 u=root n=ansible | ok: [node142] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:39,096 p=270562 u=root n=ansible | ok: [node143] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:39,097 p=270562 u=root n=ansible | ok: [node130] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:39,104 p=270562 u=root n=ansible | ok: [node131] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:39,113 p=270562 u=root n=ansible | ok: [node132] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:39,122 p=270562 u=root n=ansible | ok: [node133] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:39,127 p=270562 u=root n=ansible | TASK [Run modprobe br_netfilter] ************************************************************************************************************************************************************
+2024-09-30 19:58:39,363 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:58:39,372 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:58:39,381 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:58:39,381 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:58:39,392 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:58:39,603 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:58:39,614 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:58:39,615 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:58:39,636 p=270562 u=root n=ansible | TASK [debug] ********************************************************************************************************************************************************************************
+2024-09-30 19:58:39,686 p=270562 u=root n=ansible | ok: [node140] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:39,695 p=270562 u=root n=ansible | ok: [node141] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:39,704 p=270562 u=root n=ansible | ok: [node142] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:39,714 p=270562 u=root n=ansible | ok: [node143] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:39,714 p=270562 u=root n=ansible | ok: [node130] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:39,721 p=270562 u=root n=ansible | ok: [node131] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:39,730 p=270562 u=root n=ansible | ok: [node132] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:39,739 p=270562 u=root n=ansible | ok: [node133] => {
+    "logs.stdout_lines": []
+}
+2024-09-30 19:58:39,745 p=270562 u=root n=ansible | TASK [Copy modules-load.d-containerd.conf] **************************************************************************************************************************************************
+2024-09-30 19:58:40,153 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:58:40,164 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:58:40,174 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:58:40,175 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:58:40,178 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:58:40,612 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:58:40,613 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:58:40,614 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:58:40,636 p=270562 u=root n=ansible | TASK [Copy modules-load.d-containerd.conf] **************************************************************************************************************************************************
+2024-09-30 19:58:41,053 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:58:41,062 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:58:41,071 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:58:41,072 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:58:41,087 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:58:41,503 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:58:41,505 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:58:41,506 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:58:41,528 p=270562 u=root n=ansible | TASK [Run sysctl --system] ******************************************************************************************************************************************************************
+2024-09-30 19:58:41,768 p=270562 u=root n=ansible | changed: [node140]
+2024-09-30 19:58:41,777 p=270562 u=root n=ansible | changed: [node141]
+2024-09-30 19:58:41,786 p=270562 u=root n=ansible | changed: [node142]
+2024-09-30 19:58:41,787 p=270562 u=root n=ansible | changed: [node143]
+2024-09-30 19:58:41,798 p=270562 u=root n=ansible | changed: [node130]
+2024-09-30 19:58:41,989 p=270562 u=root n=ansible | changed: [node131]
+2024-09-30 19:58:41,993 p=270562 u=root n=ansible | changed: [node132]
+2024-09-30 19:58:42,004 p=270562 u=root n=ansible | changed: [node133]
+2024-09-30 19:58:42,026 p=270562 u=root n=ansible | TASK [debug] ********************************************************************************************************************************************************************************
+2024-09-30 19:58:42,071 p=270562 u=root n=ansible | ok: [node140] => {
+    "logs.stdout_lines": [
+        "* Applying /usr/lib/sysctl.d/50-pid-max.conf ...",
+        "* Applying /etc/sysctl.d/99-kubernetes-cri.conf ...",
+        "* Applying /usr/lib/sysctl.d/99-protect-links.conf ...",
+        "* Applying /etc/sysctl.d/99-sysctl.conf ...",
+        "* Applying /etc/sysctl.conf ...",
+        "kernel.pid_max = 4194304",
+        "net.bridge.bridge-nf-call-iptables = 1",
+        "net.ipv4.ip_forward = 1",
+        "net.bridge.bridge-nf-call-ip6tables = 1",
+        "fs.protected_fifos = 1",
+        "fs.protected_hardlinks = 1",
+        "fs.protected_regular = 2",
+        "fs.protected_symlinks = 1",
+        "vm.max_map_count = 262144",
+        "vm.max_map_count = 262144"
+    ]
+}
+2024-09-30 19:58:42,086 p=270562 u=root n=ansible | ok: [node141] => {
+    "logs.stdout_lines": [
+        "* Applying /usr/lib/sysctl.d/50-pid-max.conf ...",
+        "* Applying /etc/sysctl.d/99-kubernetes-cri.conf ...",
+        "* Applying /usr/lib/sysctl.d/99-protect-links.conf ...",
+        "* Applying /etc/sysctl.d/99-sysctl.conf ...",
+        "* Applying /etc/sysctl.conf ...",
+        "kernel.pid_max = 4194304",
+        "net.bridge.bridge-nf-call-iptables = 1",
+        "net.ipv4.ip_forward = 1",
+        "net.bridge.bridge-nf-call-ip6tables = 1",
+        "fs.protected_fifos = 1",
+        "fs.protected_hardlinks = 1",
+        "fs.protected_regular = 2",
+        "fs.protected_symlinks = 1",
+        "vm.max_map_count = 262144",
+        "vm.max_map_count = 262144"
+    ]
+}
+2024-09-30 19:58:42,115 p=270562 u=root n=ansible | ok: [node142] => {
+    "logs.stdout_lines": [
+        "* Applying /usr/lib/sysctl.d/50-pid-max.conf ...",
+        "* Applying /etc/sysctl.d/99-kubernetes-cri.conf ...",
+        "* Applying /usr/lib/sysctl.d/99-protect-links.conf ...",
+        "* Applying /etc/sysctl.d/99-sysctl.conf ...",
+        "* Applying /etc/sysctl.conf ...",
+        "kernel.pid_max = 4194304",
+        "net.bridge.bridge-nf-call-iptables = 1",
+        "net.ipv4.ip_forward = 1",
+        "net.bridge.bridge-nf-call-ip6tables = 1",
+        "fs.protected_fifos = 1",
+        "fs.protected_hardlinks = 1",
+        "fs.protected_regular = 2",
+        "fs.protected_symlinks = 1",
+        "vm.max_map_count = 262144",
+        "vm.max_map_count = 262144"
+    ]
+}
+2024-09-30 19:58:42,124 p=270562 u=root n=ansible | ok: [node143] => {
+    "logs.stdout_lines": [
+        "* Applying /usr/lib/sysctl.d/50-pid-max.conf ...",
+        "* Applying /etc/sysctl.d/99-kubernetes-cri.conf ...",
+        "* Applying /usr/lib/sysctl.d/99-protect-links.conf ...",
+        "* Applying /etc/sysctl.d/99-sysctl.conf ...",
+        "* Applying /etc/sysctl.conf ...",
+        "kernel.pid_max = 4194304",
+        "net.bridge.bridge-nf-call-iptables = 1",
+        "net.ipv4.ip_forward = 1",
+        "net.bridge.bridge-nf-call-ip6tables = 1",
+        "fs.protected_fifos = 1",
+        "fs.protected_hardlinks = 1",
+        "fs.protected_regular = 2",
+        "fs.protected_symlinks = 1",
+        "vm.max_map_count = 262144",
+        "vm.max_map_count = 262144"
+    ]
+}
+2024-09-30 19:58:42,124 p=270562 u=root n=ansible | ok: [node130] => {
+    "logs.stdout_lines": [
+        "* Applying /usr/lib/sysctl.d/50-pid-max.conf ...",
+        "* Applying /etc/sysctl.d/99-kubernetes-cri.conf ...",
+        "* Applying /usr/lib/sysctl.d/99-protect-links.conf ...",
+        "* Applying /etc/sysctl.d/99-sysctl.conf ...",
+        "* Applying /etc/sysctl.conf ...",
+        "kernel.pid_max = 4194304",
+        "net.bridge.bridge-nf-call-iptables = 1",
+        "net.ipv4.ip_forward = 1",
+        "net.bridge.bridge-nf-call-ip6tables = 1",
+        "fs.protected_fifos = 1",
+        "fs.protected_hardlinks = 1",
+        "fs.protected_regular = 2",
+        "fs.protected_symlinks = 1",
+        "vm.max_map_count = 262144",
+        "vm.max_map_count = 262144"
+    ]
+}
+2024-09-30 19:58:42,124 p=270562 u=root n=ansible | ok: [node131] => {
+    "logs.stdout_lines": [
+        "* Applying /usr/lib/sysctl.d/50-pid-max.conf ...",
+        "* Applying /etc/sysctl.d/99-kubernetes-cri.conf ...",
+        "* Applying /usr/lib/sysctl.d/99-protect-links.conf ...",
+        "* Applying /etc/sysctl.d/99-sysctl.conf ...",
+        "* Applying /etc/sysctl.conf ...",
+        "kernel.pid_max = 4194304",
+        "net.bridge.bridge-nf-call-iptables = 1",
+        "net.ipv4.ip_forward = 1",
+        "net.bridge.bridge-nf-call-ip6tables = 1",
+        "fs.protected_fifos = 1",
+        "fs.protected_hardlinks = 1",
+        "fs.protected_regular = 2",
+        "fs.protected_symlinks = 1",
+        "vm.max_map_count = 262144",
+        "vm.max_map_count = 262144"
+    ]
+}
+2024-09-30 19:58:42,140 p=270562 u=root n=ansible | ok: [node132] => {
+    "logs.stdout_lines": [
+        "* Applying /usr/lib/sysctl.d/50-pid-max.conf ...",
+        "* Applying /etc/sysctl.d/99-kubernetes-cri.conf ...",
+        "* Applying /usr/lib/sysctl.d/99-protect-links.conf ...",
+        "* Applying /etc/sysctl.d/99-sysctl.conf ...",
+        "* Applying /etc/sysctl.conf ...",
+        "kernel.pid_max = 4194304",
+        "net.bridge.bridge-nf-call-iptables = 1",
+        "net.ipv4.ip_forward = 1",
+        "net.bridge.bridge-nf-call-ip6tables = 1",
+        "fs.protected_fifos = 1",
+        "fs.protected_hardlinks = 1",
+        "fs.protected_regular = 2",
+        "fs.protected_symlinks = 1",
+        "vm.max_map_count = 262144",
+        "vm.max_map_count = 262144"
+    ]
+}
+2024-09-30 19:58:42,149 p=270562 u=root n=ansible | ok: [node133] => {
+    "logs.stdout_lines": [
+        "* Applying /usr/lib/sysctl.d/50-pid-max.conf ...",
+        "* Applying /etc/sysctl.d/99-kubernetes-cri.conf ...",
+        "* Applying /usr/lib/sysctl.d/99-protect-links.conf ...",
+        "* Applying /etc/sysctl.d/99-sysctl.conf ...",
+        "* Applying /etc/sysctl.conf ...",
+        "kernel.pid_max = 4194304",
+        "net.bridge.bridge-nf-call-iptables = 1",
+        "net.ipv4.ip_forward = 1",
+        "net.bridge.bridge-nf-call-ip6tables = 1",
+        "fs.protected_fifos = 1",
+        "fs.protected_hardlinks = 1",
+        "fs.protected_regular = 2",
+        "fs.protected_symlinks = 1",
+        "vm.max_map_count = 262144",
+        "vm.max_map_count = 262144"
+    ]
+}
+2024-09-30 19:58:42,155 p=270562 u=root n=ansible | TASK [Copy IMAGES/kubeadm.amd64.v1.31.1] ****************************************************************************************************************************************************
+2024-09-30 19:58:42,227 p=270562 u=root n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2024-09-30 19:58:42,227 p=270562 u=root n=ansible | fatal: [node140]: FAILED! => {"changed": false, "msg": "Could not find or access 'IMAGES/crictl-v1.31.1-linux-amd64.tar.gz'\nSearched in:\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/playbooks/files/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/playbooks/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/files/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2024-09-30 19:58:42,240 p=270562 u=root n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2024-09-30 19:58:42,241 p=270562 u=root n=ansible | fatal: [node141]: FAILED! => {"changed": false, "msg": "Could not find or access 'IMAGES/crictl-v1.31.1-linux-amd64.tar.gz'\nSearched in:\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/playbooks/files/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/playbooks/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/files/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2024-09-30 19:58:42,255 p=270562 u=root n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2024-09-30 19:58:42,256 p=270562 u=root n=ansible | fatal: [node142]: FAILED! => {"changed": false, "msg": "Could not find or access 'IMAGES/crictl-v1.31.1-linux-amd64.tar.gz'\nSearched in:\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/playbooks/files/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/playbooks/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/files/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2024-09-30 19:58:42,256 p=270562 u=root n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2024-09-30 19:58:42,257 p=270562 u=root n=ansible | fatal: [node143]: FAILED! => {"changed": false, "msg": "Could not find or access 'IMAGES/crictl-v1.31.1-linux-amd64.tar.gz'\nSearched in:\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/playbooks/files/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/playbooks/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/files/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2024-09-30 19:58:42,274 p=270562 u=root n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2024-09-30 19:58:42,274 p=270562 u=root n=ansible | fatal: [node130]: FAILED! => {"changed": false, "msg": "Could not find or access 'IMAGES/crictl-v1.31.1-linux-amd64.tar.gz'\nSearched in:\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/playbooks/files/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/playbooks/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/files/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2024-09-30 19:58:42,320 p=270562 u=root n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2024-09-30 19:58:42,320 p=270562 u=root n=ansible | fatal: [node131]: FAILED! => {"changed": false, "msg": "Could not find or access 'IMAGES/crictl-v1.31.1-linux-amd64.tar.gz'\nSearched in:\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/playbooks/files/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/playbooks/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/files/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2024-09-30 19:58:42,321 p=270562 u=root n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2024-09-30 19:58:42,321 p=270562 u=root n=ansible | fatal: [node132]: FAILED! => {"changed": false, "msg": "Could not find or access 'IMAGES/crictl-v1.31.1-linux-amd64.tar.gz'\nSearched in:\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/playbooks/files/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/playbooks/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/files/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2024-09-30 19:58:42,344 p=270562 u=root n=ansible | An exception occurred during task execution. To see the full traceback, use -vvv. The error was: If you are using a module and expect the file to exist on the remote, see the remote_src option
+2024-09-30 19:58:42,345 p=270562 u=root n=ansible | fatal: [node133]: FAILED! => {"changed": false, "msg": "Could not find or access 'IMAGES/crictl-v1.31.1-linux-amd64.tar.gz'\nSearched in:\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/playbooks/files/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/playbooks/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/files/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz\n\t/KVM/GITHUB/vorlon001/cloudstack-kubernetes-ansible/playbook-kubernetes/IMAGES/crictl-v1.31.1-linux-amd64.tar.gz on the Ansible Controller.\nIf you are using a module and expect the file to exist on the remote, see the remote_src option"}
+2024-09-30 19:58:42,349 p=270562 u=root n=ansible | PLAY RECAP **********************************************************************************************************************************************************************************
+2024-09-30 19:58:42,350 p=270562 u=root n=ansible | node130                    : ok=54   changed=29   unreachable=0    failed=1    skipped=6    rescued=0    ignored=0   
+2024-09-30 19:58:42,350 p=270562 u=root n=ansible | node131                    : ok=54   changed=29   unreachable=0    failed=1    skipped=6    rescued=0    ignored=0   
+2024-09-30 19:58:42,350 p=270562 u=root n=ansible | node132                    : ok=54   changed=29   unreachable=0    failed=1    skipped=6    rescued=0    ignored=0   
+2024-09-30 19:58:42,350 p=270562 u=root n=ansible | node133                    : ok=54   changed=29   unreachable=0    failed=1    skipped=6    rescued=0    ignored=0   
+2024-09-30 19:58:42,351 p=270562 u=root n=ansible | node140                    : ok=54   changed=29   unreachable=0    failed=1    skipped=6    rescued=0    ignored=0   
+2024-09-30 19:58:42,351 p=270562 u=root n=ansible | node141                    : ok=54   changed=29   unreachable=0    failed=1    skipped=6    rescued=0    ignored=0   
+2024-09-30 19:58:42,351 p=270562 u=root n=ansible | node142                    : ok=54   changed=29   unreachable=0    failed=1    skipped=6    rescued=0    ignored=0   
+2024-09-30 19:58:42,351 p=270562 u=root n=ansible | node143                    : ok=54   changed=29   unreachable=0    failed=1    skipped=6    rescued=0    ignored=0   

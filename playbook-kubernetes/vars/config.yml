@@ -136,7 +136,7 @@ KubeletConfiguration:
     rotateCertificates: true
     serverTLSBootstrap: false
     serializeImagePulls: false
-    tlsMinVersion: "VersionTLS12"
+    tlsMinVersion: "VersionTLS13"
     imageGCHighThresholdPercent: 55
     imageGCLowThresholdPercent: 50
     kubeletCgroups: /kubelet.slice
@@ -210,6 +210,9 @@ KubeProxyConfiguration:
     # https://kubernetes.io/docs/reference/command-line-tools-reference/kube-proxy/
     mode: ipvs
     metricsBindAddress: 0.0.0.0:10249
+    healthzBindAddress: 0.0.0.0:10256
+    enableProfiling: false
+
 
 kubernetes_pki:
   - /etc/kubernetes/pki/sa.pub

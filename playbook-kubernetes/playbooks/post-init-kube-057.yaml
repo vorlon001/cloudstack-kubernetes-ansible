@@ -73,9 +73,9 @@
       register: result
     - debug: var=result.stdout_lines
 
-    - name: Sleep 60 second, init CNI
+    - name: Sleep 90 second, init CNI
       pause:
-        seconds: 60
+        seconds: 90
 
     - name: Create MetalLB IP Pool
       kubernetes.core.k8s:

@@ -1,0 +1,161 @@
+    - name: Deploy Cilium Tetragon
+      environment:
+        KUBECONFIG: /etc/kubernetes/admin.conf
+      community.kubernetes.helm:
+        name: tetragon
+        chart_ref: "cloudstack/tetragon"
+        release_state: present
+        update_repo_cache: true
+        release_namespace: "kube-system"
+        create_namespace: yes
+        chart_version: "1.1.2"
+        values:
+            # Global settings
+            enabled: true
+            priorityClassName: "cluster-observability-pods"
+            imagePullPolicy: IfNotPresent
+            serviceAccount:
+              create: true
+            tolerations:
+              - operator: Exists
+            affinity: {}
+            dnsPolicy: Default
+            exportDirectory: "/var/run/cilium/tetragon"
+            hostNetwork: true
+            tetragon:
+              enabled: true
+              image:
+                repository: harbor.iblog.pro/quayio/cilium/tetragon
+                tag: v1.2.0
+              resources:
+               limits:
+                 cpu: 250m
+                 memory: 256Mi
+               requests:
+                 cpu: 100m
+                 memory: 128Mi
+              securityContext:
+                privileged: true
+              debug: false
+              exportFilename: tetragon.log
+              exportFilePerm: "600"
+              exportFileMaxSizeMB: 10
+              exportFileMaxBackups: 5
+              exportFileCompress: false
+              exportRateLimit: -1
+              exportAllowList: |-
+                {"event_set":["PROCESS_EXEC", "PROCESS_EXIT", "PROCESS_KPROBE", "PROCESS_UPROBE", "PROCESS_TRACEPOINT", "PROCESS_LSM"]}
+              exportDenyList: |-
+                {"health_check":true}
+                {"namespace":["", "cilium", "kube-system"]}
+              fieldFilters: ""
+              redactionFilters: ""
+              enableK8sAPI: true
+              enableProcessCred: false
+              enableProcessNs: false
+              btf: ""
+              commandOverride: []
+              argsOverride: []
+              prometheus:
+                enabled: true
+                address: ""
+                port: 2112
+                metricsLabelFilter: "namespace,workload,pod,binary"
+                serviceMonitor:
+                  enabled: false
+                  labelsOverride: {}
+                  extraLabels: {}
+                  scrapeInterval: "10s"
+              grpc:
+                enabled: true
+                address: "localhost:54321"
+              gops:
+                enabled: true
+                address: "localhost"
+                port: 8118
+              pprof:
+                enabled: false
+                address: "localhost"
+                port: 6060
+              enablePolicyFilter: True
+              enablePolicyFilterDebug: false
+              enableMsgHandlingLatency: false
+              healthGrpc:
+                enabled: true
+                port: 6789
+                interval: 10
+              hostProcPath: "/proc"
+              ociHookSetup:
+                enabled: false
+              eventCacheRetries: 15
+              eventCacheRetryDelay: 2
+              enableKeepSensorsOnExit: false
+            tetragonOperator:
+              enabled: true
+              priorityClassName: "cluster-observability-pods"
+              serviceAccount:
+                create: true
+              securityContext: {}
+              podSecurityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - "ALL"
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 128Mi
+                requests:
+                  cpu: 10m
+                  memory: 64Mi
+              # -- resources for the Tetragon Operator Deployment update strategy
+              strategy: {}
+              # -- Steer the Tetragon Operator Deployment Pod placement via nodeSelector, tolerations and affinity rules.
+              nodeSelector: {}
+              tolerations:
+                - operator: Exists
+              affinity: {}
+              image:
+                override: ~
+                repository: harbor.iblog.pro/quayio/cilium/tetragon-operator
+                tag: v1.2.0
+                pullPolicy: IfNotPresent
+              forceUpdateCRDs: false
+              podInfo:
+                enabled: false
+              tracingPolicy:
+                enabled: true
+              prometheus:
+                enabled: true
+                address: ""
+                port: 2113
+                serviceMonitor:
+                  enabled: false
+            export:
+              # "stdout". "" to disable.
+              mode: "stdout"
+              resources: {}
+              securityContext: {}
+              filenames:
+                - tetragon.log
+              stdout:
+                extraEnv: []
+                enabledCommand: true
+                enabledArgs: true
+                commandOverride: []
+                argsOverride: []
+                extraVolumeMounts: []
+                image:
+                  override: ~
+                  repository: harbor.iblog.pro/quayio/cilium/hubble-export-stdout
+                  tag: v1.0.4
+            crds:
+              installMethod: "operator"
+            rthooks:
+              enabled: false
+    - name: Sleep 90 second, Deploy Cilium Tetragon
+      pause:
+        seconds: 90
+
+
+
