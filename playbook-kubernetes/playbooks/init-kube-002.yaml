@@ -10,14 +10,14 @@
       template:
         src: "check_apiserver.sh.j2"
         dest: /etc/keepalived/check_apiserver.sh
-        mode: '0777'
+        mode: '0700'
       when:
         - inventory_hostname in groups['master']
     - name: Copy keepalived.conf
       template:
         src: "keepalived.conf.j2"
         dest: /etc/keepalived/keepalived.conf
-        mode: '0644'
+        mode: '0600'
       when:
         - inventory_hostname in groups['master']
     - name: Start service keepalived

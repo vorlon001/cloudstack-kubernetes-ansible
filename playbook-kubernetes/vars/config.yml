@@ -86,7 +86,8 @@ KUBEADM_ClusterConfiguration:
         - name: metrics
           value: extensive
         - name: quota-backend-bytes
-          value: "33554432"
+          #$((1024*1024*1024)) 1073741824
+          value: "1073741824"
     scheduler:
       extraArgs:
       - name: bind-address

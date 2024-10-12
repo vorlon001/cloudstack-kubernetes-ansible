@@ -8,8 +8,8 @@ KubeApiserver:
               memory: "128Mi"
               cpu: "250m"
             limits:
-              memory: "512Mi"
-              cpu: "500m"
+              memory: "2048Mi"
+              cpu: "2000m"
 
 KubeControllerManager:
     spec:
@@ -20,8 +20,8 @@ KubeControllerManager:
               memory: "128Mi"
               cpu: "250m"
             limits:
-              memory: "512Mi"
-              cpu: "500m"
+              memory: "2048Mi"
+              cpu: "2000m"
 
 KubeScheduler:
     spec:
@@ -32,8 +32,8 @@ KubeScheduler:
               memory: "512Mi"
               cpu: "500m"
             limits:
-              memory: "1024Mi"
-              cpu: "1000m"
+              memory: "2048Mi"
+              cpu: "2000m"
 
 KubeСoredns:
     spec:

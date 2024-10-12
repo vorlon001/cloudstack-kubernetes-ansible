@@ -1,0 +1,467 @@
+
+
+    - name: Deploy ArgoCD
+      environment:
+        KUBECONFIG: /etc/kubernetes/admin.conf
+      community.kubernetes.helm:
+        name: cloudstack-argocd
+        chart_ref: "cloudstack/argo-cd"
+        release_state: present
+        update_repo_cache: true
+        release_namespace: "argocd"
+        create_namespace: yes
+        chart_version: "7.6.8"
+        values:
+            # Global settings
+            global:
+              domain: argocd.iblog.pro
+              # -- Common labels for the all resources
+              additionalLabels: {}
+                # app: argo-cd
+              revisionHistoryLimit: 10  # Default image used by all components
+              image:
+                # -- If defined, a repository applied to all Argo CD deployments
+                repository: harbor.iblog.pro/quayio/argoproj/argocd
+              # Default logging options used by all components
+              logging:
+                # -- Set the global logging format. Either: `text` or `json`
+                format: text
+                # -- Set the global logging level. One of: `debug`, `info`, `warn` or `error`
+                level: info
+              # -- Toggle and define pod-level security context.
+              # @default -- `{}` (See [values.yaml])
+              securityContext:
+                runAsUser: 6666
+                runAsGroup: 6666
+                fsGroup: 6666
+              # -- Mapping between IP and hostnames that will be injected as entries in the pod's hosts files
+              hostAliases: []
+              # - ip: 10.20.30.40
+              #   hostnames:
+              #   - git.myhostname
+              # -- Default priority class for all components
+              priorityClassName: "high-priority"
+              # Default affinity preset for all components
+              affinity:
+                # -- Default pod anti-affinity rules. Either: `none`, `soft` or `hard`
+                podAntiAffinity: soft
+              # -- Deployment strategy for the all deployed Deployments
+              deploymentStrategy:
+                type: RollingUpdate
+                rollingUpdate:
+                  maxSurge: 25%
+                  maxUnavailable: 25%
+            ## Argo Configs
+            configs:
+              # General Argo CD configuration
+              ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/argocd-cm.yaml
+              cm:
+                # -- Create the argocd-cm configmap for [declarative setup]
+                create: true
+                # Dex configuration
+                # dex.config: |
+                #   connectors:
+                #     # GitHub example
+                #     - type: github
+                #       id: github
+                #       name: GitHub
+                #       config:
+                #         clientID: aabbccddeeff00112233
+                #         clientSecret: $dex.github.clientSecret # Alternatively $<some_K8S_secret>:dex.github.clientSecret
+                #         orgs:
+                #         - name: your-github-org
+                # OIDC configuration as an alternative to dex (optional).
+                # oidc.config: |
+                #   name: AzureAD
+                #   issuer: https://login.microsoftonline.com/TENANT_ID/v2.0
+                #   clientID: CLIENT_ID
+                #   clientSecret: $oidc.azuread.clientSecret
+                #   rootCA: |
+                #     -----BEGIN CERTIFICATE-----
+                #     ... encoded certificate data here ...
+                #     -----END CERTIFICATE-----
+                #   requestedIDTokenClaims:
+                #     groups:
+                #       essential: true
+                #   requestedScopes:
+                #     - openid
+                #     - profile
+                #     - email
+                # Extension Configuration
+                ## Ref: https://argo-cd.readthedocs.io/en/latest/developer-guide/extensions/proxy-extensions/
+                # extension.config: |
+                #   extensions:
+                #   - name: httpbin
+                #     backend:
+                #       connectionTimeout: 2s
+                #       keepAlive: 15s
+                #       idleConnectionTimeout: 60s
+                #       maxIdleConnections: 30
+                #       services:
+                #       - url: http://httpbin.org
+                #         headers:
+                #         - name: some-header
+                #           value: '$some.argocd.secret.key'
+                #         cluster:
+                #           name: some-cluster
+                #           server: https://some-cluster
+              # GnuPG public keys for commit verification
+              ## Ref: https://argo-cd.readthedocs.io/en/stable/user-guide/gpg-verification/
+              gpg:
+                # -- Annotations to be added to argocd-gpg-keys-cm configmap
+                annotations: {}
+                # -- [GnuPG] public keys to add to the keyring
+                # @default -- `{}` (See [values.yaml])
+                ## Note: Public keys should be exported with `gpg --export --armor <KEY>`
+                keys: {}
+                  # 4AEE18F83AFDEB23: |
+                  #   -----BEGIN PGP PUBLIC KEY BLOCK-----
+                  #   ...
+                  #   -----END PGP PUBLIC KEY BLOCK-----
+              # SSH known hosts for Git repositories
+              ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/declarative-setup/#ssh-known-host-public-keys
+              ssh:
+                # -- Annotations to be added to argocd-ssh-known-hosts-cm configmap
+                annotations: {}
+                # -- Known hosts to be added to the known host list by default.
+                # @default -- See [values.yaml]
+                # knownHosts: |
+                #   [ssh.github.com]:443 ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOMqqnkVzrm0SdG6UOoqKLsabgH5C9okWi0dh2l9GKJl
+              # ConfigMap for Config Management Plugins
+              # Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/config-management-plugins/
+              cmp:
+                # -- Create the argocd-cmp-cm configmap
+                create: false
+                # -- Annotations to be added to argocd-cmp-cm configmap
+                annotations: {}
+                # -- Plugin yaml files to be added to argocd-cmp-cm
+                plugins: {}
+              clusterCredentials: {}
+                # mycluster:
+                #   server: https://mycluster.example.com
+                #   labels: {}
+                #   annotations: {}
+                #   config:
+                #     bearerToken: "<authentication token>"
+                #     tlsClientConfig:
+                #       insecure: false
+                #       caData: "<base64 encoded certificate>"
+              # -- Repository credentials to be used as Templates for other repos
+              ## Creates a secret for each key/value specified below to create repository credentials
+              credentialTemplates: {}
+                # github-enterprise-creds-1:
+                #   url: https://github.com/argoproj
+                #   githubAppID: 1
+                #   githubAppInstallationID: 2
+                #   githubAppEnterpriseBaseUrl: https://ghe.example.com/api/v3
+                #   githubAppPrivateKey: |
+                #     -----BEGIN OPENSSH PRIVATE KEY-----
+                #     ...
+                #     -----END OPENSSH PRIVATE KEY-----
+                # https-creds:
+                #   url: https://github.com/argoproj
+                #   password: my-password
+                #   username: my-username
+                # ssh-creds:
+                #  url: git@github.com:argoproj-labs
+                #  sshPrivateKey: |
+                #    -----BEGIN OPENSSH PRIVATE KEY-----
+                #    ...
+                #    -----END OPENSSH PRIVATE KEY-----
+              # -- Annotations to be added to `configs.credentialTemplates` Secret
+              credentialTemplatesAnnotations: {}
+              # -- Repositories list to be used by applications
+              ## Creates a secret for each key/value specified below to create repositories
+              ## Note: the last example in the list would use a repository credential template, configured under "configs.credentialTemplates".
+              repositories: {}
+                # istio-helm-repo:
+                #   url: https://storage.googleapis.com/istio-prerelease/daily-build/master-latest-daily/charts
+                #   name: istio.io
+                #   type: helm
+                # private-helm-repo:
+                #   url: https://my-private-chart-repo.internal
+                #   name: private-repo
+                #   type: helm
+                #   password: my-password
+                #   username: my-username
+                # private-repo:
+                #   url: https://github.com/argoproj/private-repo
+              # -- Annotations to be added to `configs.repositories` Secret
+              repositoriesAnnotations: {}
+            ## Application controller
+            controller:
+              # -- Application controller name string
+              name: application-controller
+              # -- The number of application controller pods to run.
+              # Additional replicas will cause sharding of managed clusters across number of replicas.
+              ## With dynamic cluster distribution turned on, sharding of the clusters will gracefully
+              ## rebalance if the number of replica's changes or one becomes unhealthy. (alpha)
+              replicas: 3
+              ## Application controller Pod Disruption Budget
+              ## Ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+              pdb:
+                # -- Deploy a [PodDisruptionBudget] for the application controller
+                enabled: true
+                minAvailable: 1
+              ## Application controller image
+              image:
+                # -- Repository to use for the application controller
+                # @default -- `""` (defaults to global.image.repository)
+                repository: ""
+                # -- Tag to use for the application controller
+                # @default -- `""` (defaults to global.image.tag)
+                tag: ""
+                # -- Image pull policy for the application controller
+                # @default -- `""` (defaults to global.image.imagePullPolicy)
+                imagePullPolicy: ""
+              # -- Init containers to add to the application controller pod
+              ## If your target Kubernetes cluster(s) require a custom credential (exec) plugin
+              ## you could use this (and the same in the server pod) to provide such executable
+              ## Ref: https://kubernetes.io/docs/reference/access-authn-authz/authentication/#client-go-credential-plugins
+              ## Note: Supports use of custom Helm templates
+              initContainers: []
+              #  - name: download-tools
+              #    image: alpine:3
+              #    command: [sh, -c]
+              #    args:
+              #      - wget -qO kubelogin.zip https://github.com/Azure/kubelogin/releases/download/v0.0.25/kubelogin-linux-amd64.zip &&
+              #        unzip kubelogin.zip && mv bin/linux_amd64/kubelogin /custom-tools/
+              #    volumeMounts:
+              #      - mountPath: /custom-tools
+              #        name: custom-tools
+              ## Application controller emptyDir volumes
+              emptyDir:
+                # -- EmptyDir size limit for application controller
+                # @default -- `""` (defaults not set if not specified i.e. no size limit)
+                sizeLimit: ""
+                # sizeLimit: "1Gi"
+              # -- Resource limits and requests for the application controller pods
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 1024Mi
+                requests:
+                  cpu: 250m
+                  memory: 256Mi
+              # -- Priority class for the application controller pods
+              # @default -- `""` (defaults to global.priorityClassName)
+              priorityClassName: ""
+              # -- Assign custom [affinity] rules to the deployment
+              # @default -- `{}` (defaults to global.affinity preset)
+              affinity: {}
+            ## Dex
+            dex:
+              # -- Enable dex
+              enabled: true
+              # -- Dex name
+              name: dex-server
+              ## Dex Pod Disruption Budget
+              ## Ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+              pdb:
+                # -- Deploy a [PodDisruptionBudget] for the Dex server
+                enabled: true
+                # -- Labels to be added to Dex server pdb
+                labels: {}
+                # -- Annotations to be added to Dex server pdb
+                annotations: {}
+                # -- Number of pods that are available after eviction as number or percentage (eg.: 50%)
+                # @default -- `""` (defaults to 0 if not specified)
+                minAvailable: "1"
+              ## Dex image
+              image:
+                # -- Dex image repository
+                repository: harbor.iblog.pro/ghcrio/dexidp/dex
+                # -- Dex image tag
+                tag: v2.38.0
+                # -- Dex imagePullPolicy
+                # @default -- `""` (defaults to global.image.imagePullPolicy)
+                imagePullPolicy: ""
+              # -- Resource limits and requests for dex
+              resources: 
+                limits:
+                  cpu: 200m
+                  memory: 256Mi
+                requests:
+                  cpu: 10m
+                  memory: 32Mi
+              # -- Priority class for the dex pods
+              # @default -- `""` (defaults to global.priorityClassName)
+              priorityClassName: ""
+            ## Notifications controller
+            notifications:
+              # -- Enable notifications controller
+              enabled: true
+              # -- Notifications controller name string
+              name: notifications-controller
+              # -- The number of server pods to run
+              replicas: 3
+              ## Argo CD server Pod Disruption Budget
+              ## Ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+              pdb:
+                # -- Deploy a [PodDisruptionBudget] for the Argo CD server
+                enabled: true
+                # -- Labels to be added to Argo CD server pdb
+                labels: {}
+                # -- Annotations to be added to Argo CD server pdb
+                annotations: {}
+                # -- Number of pods that are available after eviction as number or percentage (eg.: 50%)
+                # @default -- `""` (defaults to 0 if not specified)
+                minAvailable: "1"
+              # -- Resource limits and requests for the application controller pods
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 1024Mi
+                requests:
+                  cpu: 250m
+                  memory: 256Mi
+            ## Redis
+            redis:
+              # -- Enable redis
+              enabled: true
+              ## Redis image
+              image:
+                # -- Redis repository
+                repository: harbor.iblog.pro/dockerio/library/redis
+                # -- Redis tag
+                tag: 7.2.4-alpine
+                # -- Redis image pull policy
+                # @default -- `""` (defaults to global.image.imagePullPolicy)
+                imagePullPolicy: ""
+              ## Prometheus redis-exporter sidecar
+              exporter:
+                # -- Enable Prometheus redis-exporter sidecar
+                enabled: true
+                # -- Environment variables to pass to the Redis exporter
+                env: []
+                ## Prometheus redis-exporter image
+                image:
+                  # -- Repository to use for the redis-exporter
+                  repository: harbor.iblog.pro/dockerio/bitnami/redis-exporter
+                  # -- Tag to use for the redis-exporter
+                  tag: 1.58.0
+                  # -- Image pull policy for the redis-exporter
+                  # @default -- `""` (defaults to global.image.imagePullPolicy)
+                  imagePullPolicy: ""
+                # -- Resource limits and requests for redis-exporter sidecar
+                resources:
+                  limits:
+                    cpu: 50m
+                    memory: 64Mi
+                  requests:
+                    cpu: 10m
+                    memory: 32Mi
+              # -- Resource limits and requests for redis
+              resources:
+               limits:
+                 cpu: 200m
+                 memory: 128Mi
+               requests:
+                 cpu: 100m
+                 memory: 64Mi
+            ## Redis-HA subchart replaces custom redis deployment when `redis-ha.enabled=true`
+            # Ref: https://github.com/DandyDeveloper/charts/blob/master/charts/redis-ha/values.yaml
+            redis-ha:
+              # -- Enables the Redis HA subchart and disables the custom Redis single node deployment
+              enabled: false
+            ## Server
+            server:
+              # -- Argo CD server name
+              name: server
+              # -- The number of server pods to run
+              replicas: 3
+              ## Argo CD server Pod Disruption Budget
+              ## Ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+              pdb:
+                # -- Deploy a [PodDisruptionBudget] for the Argo CD server
+                enabled: true
+                # -- Labels to be added to Argo CD server pdb
+                labels: {}
+                # -- Annotations to be added to Argo CD server pdb
+                annotations: {}
+                # -- Number of pods that are available after eviction as number or percentage (eg.: 50%)
+                # @default -- `""` (defaults to 0 if not specified)
+                minAvailable: "1"
+              # -- Resource limits and requests for the Argo CD server
+              resources:
+                limits:
+                  cpu: 300m
+                  memory: 512Mi
+                requests:
+                  cpu: 50m
+                  memory: 64Mi
+              # Argo CD server ingress configuration
+              ingress:
+                # -- Enable an ingress resource for the Argo CD server
+                enabled: true
+                # -- Specific implementation for ingress controller. One of `generic`, `aws` or `gke`
+                ## Additional configuration might be required in related configuration sections
+                controller: generic
+                # -- Additional ingress labels
+                labels: {}
+                # -- Additional ingress annotations
+                ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/ingress/#option-1-ssl-passthrough
+                annotations: {}
+                  # nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+                  # nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+                # -- Defines which ingress controller will implement the resource
+                ingressClassName: "ingress-nginx-1"
+                # -- Argo CD server hostname
+                # @default -- `""` (defaults to global.domain)
+                hostname: ""
+            ## Repo Server
+            repoServer:
+              # -- Repo server name
+              name: repo-server
+              # -- The number of repo server pods to run
+              replicas: 3
+              ## Repo server Pod Disruption Budget
+              ## Ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+              pdb:
+                # -- Deploy a [PodDisruptionBudget] for the repo server
+                enabled: true
+                # -- Labels to be added to repo server pdb
+                labels: {}
+                # -- Annotations to be added to repo server pdb
+                annotations: {}
+                # -- Number of pods that are available after eviction as number or percentage (eg.: 50%)
+                # @default -- `""` (defaults to 0 if not specified)
+                minAvailable: "1"
+              # -- Resource limits and requests for the application controller pods
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 1024Mi
+                requests:
+                  cpu: 250m
+                  memory: 256Mi
+            ## ApplicationSet controller
+            applicationSet:
+              # -- ApplicationSet controller name string
+              name: applicationset-controller
+              # -- The number of ApplicationSet controller pods to run
+              replicas: 3
+              ## Repo server Pod Disruption Budget
+              ## Ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+              pdb:
+                # -- Deploy a [PodDisruptionBudget] for the repo server
+                enabled: true
+                # -- Labels to be added to repo server pdb
+                labels: {}
+                # -- Annotations to be added to repo server pdb
+                annotations: {}
+                # -- Number of pods that are available after eviction as number or percentage (eg.: 50%)
+                # @default -- `""` (defaults to 0 if not specified)
+                minAvailable: "1"
+              # -- Resource limits and requests for the application controller pods
+              resources:
+                limits:
+                  cpu: 1000m
+                  memory: 1024Mi
+                requests:
+                  cpu: 250m
+                  memory: 256Mi
+
+    - name: Sleep 60 second, Deploy ArgCD
+      pause:
+        seconds: 60

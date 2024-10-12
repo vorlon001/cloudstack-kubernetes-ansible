@@ -99,7 +99,7 @@ nodeMonitorGracePeriod: "5s"
 #VIPIP_KEEPALIVE: "192.168.200.186"
 APISERVER_DEST_PORT: 6443
 keepalived_auth_type: AH
-keepalived_auth_pass: "e470f1261"
+keepalived_auth_pass: "e470f126"
 KEEPALIVE_id: 51
 
 kubernetesVersion: "{{ KUBERNETES_VERSION }}"

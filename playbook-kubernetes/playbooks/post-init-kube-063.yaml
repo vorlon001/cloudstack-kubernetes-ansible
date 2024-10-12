@@ -2,7 +2,7 @@
       environment:
         KUBECONFIG: /etc/kubernetes/admin.conf
       community.kubernetes.helm:
-        name: tetragon
+        name:  cloudstack-tetragon
         chart_ref: "cloudstack/tetragon"
         release_state: present
         update_repo_cache: true

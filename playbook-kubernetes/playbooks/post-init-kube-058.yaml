@@ -35,8 +35,8 @@
                 cpu: 100m
                 memory: 90Mi
             replicaCount: 2
-            minAvailable: 2
-            maxUnavailable: 2
+            minAvailable: 1
+            maxUnavailable: 1
             autoscaling:
               enabled: false
               minReplicas: 1

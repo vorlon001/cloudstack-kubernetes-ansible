@@ -21,7 +21,6 @@
 
   - block:
      - import_tasks: playbooks/post-init-kube-051.1.yaml
-     - import_tasks: playbooks/post-init-kube-063.yaml
     when:
      - DEPLOY_CNI_CILIUM|bool == true
      - CNI_CILIUM_MULTICLASTER|bool == false
@@ -46,6 +45,22 @@
      - import_tasks: playbooks/post-init-kube-062.yaml
     when:
      - DEPLOY_CNI_CALICO|bool == true
+
+  - block:
+     - import_tasks: playbooks/post-init-kube-063.yaml
+    when:
+     - DEPLOY_TETRAGON|bool == true
+
+  - block:
+     - import_tasks: playbooks/post-init-kube-064.yaml
+    when:
+     - DEPLOY_KYVERNO|bool == true
+
+  - block:
+     - import_tasks: playbooks/post-init-kube-065.yaml
+    when:
+     - DEPLOY_ARGOCD|bool == true
+
 
   - block:
      - import_tasks: playbooks/post-init-kube-053.yaml
