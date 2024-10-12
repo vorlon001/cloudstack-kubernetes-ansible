@@ -18,8 +18,12 @@
           tunnelProtocol: "{{CNI.CILIUM.cilium_tunnelProtocol}}"
           l7Proxy: "{{CNI.CILIUM.cilium_l7Proxy}}"
           localRedirectPolicy: false
+          # https://docs.cilium.io/en/stable/network/kubernetes/bandwidth-manager/
+          bandwidthManager:
+            enabled: true
           bpf:
             masquerade: true
+          # https://docs.cilium.io/en/stable/network/servicemesh/ingress/#installation
           ingressController:
             enabled: "{{CNI.CILIUM.cilium_ingressController}}"
             loadbalancerMode: "{{CNI.CILIUM.cilium_ingressController_loadbalancerMode}}"
