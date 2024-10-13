@@ -1,4 +1,5 @@
 
+
 Kubeadm config add config from:
 - https://habr.com/ru/articles/699074/
 - https://habr.com/ru/articles/741178/
