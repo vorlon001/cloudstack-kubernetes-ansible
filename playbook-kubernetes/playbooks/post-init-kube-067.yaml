@@ -1,0 +1,157 @@
+
+     - name: Run apt install -y git
+       ansible.builtin.shell: apt install -y git
+       args:
+         executable: /bin/bash
+       register: logs
+       failed_when: "'FAILED' in command_result.stderr"
+       ignore_errors: true
+     - debug: var=logs.stdout_lines
+
+     - name: Run kubectl create ns fission
+       ansible.builtin.shell: kubectl create ns fission
+       args:
+         executable: /bin/bash
+       register: logs
+       failed_when: "'FAILED' in command_result.stderr"
+       ignore_errors: true
+     - debug: var=logs.stdout_lines
+
+     - name: Run kubectl create -k "......................."
+       ansible.builtin.shell: kubectl create -k "github.com/fission/fission/crds/v1?ref=v1.20.5"
+       args:
+         executable: /bin/bash
+       register: logs
+       failed_when: "'FAILED' in command_result.stderr"
+       ignore_errors: true
+     - debug: var=logs.stdout_lines
+
+     - name: Deploy Fission
+       environment:
+         KUBECONFIG: /etc/kubernetes/admin.conf
+       community.kubernetes.helm:
+         name: fission-operator
+         chart_ref: "cloudstack/fission-all"
+         release_state: present
+         update_repo_cache: true
+         release_namespace: "fission-operator"
+         create_namespace: yes
+         chart_version: "v1.20.5"
+         values:
+            # Global settings
+            serviceType: ClusterIP
+            routerServiceType: LoadBalancer
+            repository: harbor.iblog.pro/ghcrio
+            image: fission/fission-bundle
+            priorityClassName: ""
+            defaultNamespace: "fission"
+            builderNamespace: "fission-builder"
+            functionNamespace: "fission-function"
+            createNamespace: true
+            enableIstio: false
+            fetcher:
+              image: harbor.iblog.pro/dockerio/fission/fetcher
+              imageTag: v1.20.5
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 512Mi
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+            executor:
+              priorityClassName: ""
+              podReadyTimeout: 300s
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 512Mi
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+            router:
+              priorityClassName: ""
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 512Mi
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+            webhook:
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 512Mi
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+            storagesvc:
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 512Mi
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+            kafka:
+              enabled: false
+            persistence:
+              enabled: true
+              storageClass: "managed-nfs-storage"
+              accessMode: ReadWriteOnce
+              size: 8Gi
+            logger:
+              influxdbAdmin: "admin"
+              fluentdImageRepository: harbor.iblog.pro/dockerio
+              fluentdImage: fluent/fluent-bit
+            influxdb:
+              enabled: false
+            busyboxImage: harbor.iblog.pro/dockerio/library/busybox
+            canaryDeployment:
+              enabled: false
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 512Mi
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+            ## Message Queue Trigger Kind, KEDA: enable and configuration
+            ##
+            mqt_keda:
+              enabled: true
+              connector_images:
+                kafka:
+                  image: harbor.iblog.pro/ghcrio/fission/keda-kafka-http-connector
+                rabbitmq:
+                  image: harbor.iblog.pro/ghcrio/fission/keda-rabbitmq-http-connector
+                awskinesis:
+                  image: harbor.iblog.pro/ghcrio/fission/keda-aws-kinesis-http-connector
+                aws_sqs:
+                  image: harbor.iblog.pro/ghcrio/fission/keda-aws-sqs-http-connector
+                nats_steaming:
+                  image: harbor.iblog.pro/ghcrio/fission/keda-nats-streaming-http-connector
+                nats_jetstream:
+                  image: harbor.iblog.pro/ghcrio/fission/keda-nats-jetstream-http-connector
+                gcp_pubsub:
+                  image: harbor.iblog.pro/ghcrio/fission/keda-gcp-pubsub-http-connector
+                redis:
+                  image: harbor.iblog.pro/ghcrio/fission/keda-redis-http-connector
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 512Mi
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+            pprof:
+              enabled: false
+            runtimePodSpec:
+              enabled: false
+            builderPodSpec:
+              enabled: false
+
+     - name: Sleep 60 second, Deploy Fission
+       pause:
+         seconds: 60

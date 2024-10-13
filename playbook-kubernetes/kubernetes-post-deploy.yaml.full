@@ -96,16 +96,3 @@
 
   - block:
      - import_tasks:  playbooks/post-init-kube-066.yaml
-
-
-  - block:
-     - import_tasks:  playbooks/post-init-kube-066.yaml
-    when:
-     - DEPLOY_Trivy|bool == true
-
-
-  - block:
-     - import_tasks:  playbooks/post-init-kube-067.yaml
-    when:
-     - DEPLOY_Fission|bool == true
-

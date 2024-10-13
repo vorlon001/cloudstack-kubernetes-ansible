@@ -1,0 +1,34 @@
+
+  - block:
+
+     - name: Run task echo .......
+       ansible.builtin.shell: echo "host is {{item}}"
+       args:
+         executable: /bin/bash
+       with_items:  "{{ groups['master'] }}"
+       register: logs
+
+     - debug: msg="item.item={{item.item}}, item.stdout={{item.stdout}}, item.changed={{item.changed}}"
+       with_items: "{{logs.results}}"
+
+
+     - name: Run task kubectl label node........
+       ansible.builtin.shell: kubectl label node {{item}} node-role.kubernetes.io/master=
+       args:
+         executable: /bin/bash
+       with_items:  "{{ groups['master'] }}"
+       register: logs
+
+     - debug: msg="item.item={{item.item}}, item.stdout={{item.stdout}}, item.changed={{item.changed}}"
+       with_items: "{{logs.results}}"
+
+     - name: Run kubectl taint nodes --all node-role.kubernetes.io/master-
+       ansible.builtin.shell: kubectl taint nodes --all node-role.kubernetes.io/master-
+       args:
+         executable: /bin/bash
+       register: logs
+       failed_when: "'FAILED' in command_result.stderr"
+       ignore_errors: true
+     - debug: var=logs.stdout_lines
+
+

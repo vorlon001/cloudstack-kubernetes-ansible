@@ -1,0 +1,48 @@
+    - name: Deploy Trivy
+      environment:
+        KUBECONFIG: /etc/kubernetes/admin.conf
+      community.kubernetes.helm:
+        name: trivy-operator
+        chart_ref: "cloudstack/trivy-operator"
+        release_state: present
+        update_repo_cache: true
+        release_namespace: "trivy-system"
+        create_namespace: yes
+        chart_version: "0.24.1"
+        values:
+            # Global settings
+            operator:
+              replicas: 2
+              builtInServerRegistryInsecure: true
+            image:
+              registry: "harbor.iblog.pro/ghcrio"
+              repository: "aquasecurity/trivy-operator"
+            trivy:
+              image:
+                registry: harbor.iblog.pro/ghcrio
+                repository: aquasecurity/trivy
+              dbRegistry: "harbor.iblog.pro/ghcrio"
+              dbRepository: "aquasecurity/trivy-db"
+              javaDbRegistry: "harbor.iblog.pro/ghcrio"
+              javaDbRepository: "aquasecurity/trivy-java-db"
+              dbRepositoryInsecure: "true"
+            compliance:
+              failEntriesLimit: 10
+              reportType: summary
+              cron: 0 */6 * * *
+              specs:
+                - k8s-cis-1.23
+                - k8s-nsa-1.0
+                - k8s-pss-baseline-0.1
+                - k8s-pss-restricted-0.1
+            resources: {}
+            policiesBundle:
+              registry: ghcr.io
+              repository: aquasecurity/trivy-checks
+            nodeCollector:
+              registry: ghcr.io
+              repository: aquasecurity/node-collector
+
+    - name: Sleep 60 second, Deploy Trivy
+      pause:
+        seconds: 60

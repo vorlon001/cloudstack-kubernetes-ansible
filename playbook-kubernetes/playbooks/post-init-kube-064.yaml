@@ -57,7 +57,7 @@
                   repository: kyverno/kyvernopre
               container:
                 image:
-                  registry: ghcr.io
+                  registry: harbor.iblog.pro/ghcrio
                   repository: kyverno/kyverno
                 resources:
                   # -- Pod resource limits
@@ -76,7 +76,7 @@
             # Background controller configuration
             backgroundController:
               image:
-                registry: ghcr.io
+                registry: harbor.iblog.pro/ghcrio
                 repository: kyverno/background-controller
               replicas: 2
               priorityClassName: 'system-cluster-critical'
@@ -96,7 +96,7 @@
             cleanupController:
               image:
                 # -- Image registry
-                registry: ghcr.io
+                registry: harbor.iblog.pro/ghcrio
                 # -- Image repository
                 repository: kyverno/cleanup-controller
               replicas: 2
@@ -117,7 +117,7 @@
             reportsController:
               image:
                 # -- Image registry
-                registry: ghcr.io
+                registry: harbor.iblog.pro/ghcrio
                 # -- Image repository
                 repository: kyverno/reports-controller
               replicas: 2

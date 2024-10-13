@@ -137,3 +137,18 @@
      - import_tasks: playbooks/init-kube-011.yaml
     when:
      - SEC_PATCH_KUBERNETES|bool == true
+
+- name: Kubernetes set labels, taint
+  hosts: bootstrap
+  port: 22
+  gather_facts: True
+  become: true
+  pre_tasks:
+    - name: Include all vars files.
+      ansible.builtin.include_vars:
+        dir: vars
+  tasks:
+  - block:
+     - import_tasks: playbooks/init-kube-012.yaml
+    when:
+     - INIT_KUBERNETES|bool == true
