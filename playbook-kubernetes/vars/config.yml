@@ -1,7 +1,7 @@
 KUBEADM_CERTSANs: &KUBEADM_CERTSANs
-  - "k8s.cloud.local"
-  - "192.168.200.190"
-  - "k8s.iblog.pro"
+  - k8s.cloud.local
+  - 192.168.200.190
+  - k8s.iblog.pro
 
 KUBEADM_Patch_init: "no"
 
@@ -9,10 +9,7 @@ KUBEADM_Patch_init: "no"
 # https://kubernetes.io/docs/reference/config-api/apiserver-config.v1beta1/
 KUBEADM_ClusterConfiguration:
     apiServer:
-      certSANs:
-      - k8s.cloud.local
-      - 192.168.200.190
-      - k8s.iblog.pro
+      certSANs: *KUBEADM_CERTSANs
       extraArgs:
       - name: audit-log-format
         value: json

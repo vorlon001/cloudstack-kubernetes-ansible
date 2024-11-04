@@ -4,13 +4,13 @@ set -x
 # ./kubeadm.amd64.v1.25.0 config images list
 #https://storage.googleapis.com/kubernetes-release/release/v1.26.0-rc.0/bin/linux/amd64/kubelet
 
-export kube_version="v1.31.1"
-export kube_version2="1.31.1"
+export kube_version="v1.31.2"
+export kube_version2="1.31.2"
 export crictl_version="v1.31.1"
-export containerd_version="1.7.22"
+export containerd_version="1.7.23"
 export image_arch="amd64"
-export runc_version="1.1.13"
-export cni_version="1.5.1"
+export runc_version="1.2.0"
+export cni_version="1.6.0"
 export k8s_regestry="harbor.iblog.pro/registry.k8s.io"
 export etcd_version="3.5.16"
 

@@ -1,0 +1,39 @@
+    - name: Deploy ISTIO
+      environment:
+        KUBECONFIG: /etc/kubernetes/admin.conf
+      community.kubernetes.helm:
+        name: cloudstack-istio-system
+        chart_ref: "cloudstack/istio-operator"
+        release_state: present
+        update_repo_cache: true
+        release_namespace: "istio-system"
+        create_namespace: yes
+        chart_version: "1.23.3"
+        values:
+            # Global settings
+            image:
+              repository: harbor.iblog.pro/ghcrio/banzaicloud/istio-operator
+              tag: "v2.17.4"
+            prometheusMetrics:
+              authProxy:
+                image:
+                  repository: harbor.iblog.pro/gcrio/kubebuilder/kube-rbac-proxy
+                  tag: "v0.8.0"
+
+    - name: Create a k8s namespace
+      kubernetes.core.k8s:
+        state: present
+        apply: true
+        definition:
+          apiVersion: install.istio.io/v1alpha1
+          kind: IstioOperator
+          metadata:
+            namespace: istio-system
+            name: example-istiocontrolplane
+          spec:
+            hub: harbor.iblog.pro/dockerio/istio
+            profile: demo
+
+    - name: Sleep 60 second, Deploy ISTIO
+      pause:
+        seconds: 60

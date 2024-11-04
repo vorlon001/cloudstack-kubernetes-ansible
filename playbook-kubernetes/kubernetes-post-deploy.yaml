@@ -109,3 +109,14 @@
     when:
      - DEPLOY_Fission|bool == true
 
+
+  - block:
+     - import_tasks:  playbooks/post-init-kube-068.yaml
+    when:
+     - DEPLOY_ISTIO|bool == true
+
+
+  - block:
+     - import_tasks:  playbooks/post-init-kube-069.yaml
+    when:
+     - DEPLOY_ENVOYGATEWAY|bool == true

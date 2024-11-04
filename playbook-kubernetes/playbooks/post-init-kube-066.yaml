@@ -14,6 +14,10 @@
             operator:
               replicas: 2
               builtInServerRegistryInsecure: true
+              # -- scannerReportTTL the flag to set how long a report should exist. "" means that the ScannerReportTTL feature is disabled # 24h default
+              scannerReportTTL: "24h"
+              # -- cacheReportTTL the flag to set how long a cluster sbom report should exist. "" means that the cacheReportTTL feature is disabled
+              cacheReportTTL: "120h"
             image:
               registry: "harbor.iblog.pro/ghcrio"
               repository: "aquasecurity/trivy-operator"
@@ -29,7 +33,9 @@
             compliance:
               failEntriesLimit: 10
               reportType: summary
-              cron: 0 */6 * * *
+              cron: "*/30 * * * *"
+              # default corn
+              #  cron: 0 */6 * * *
               specs:
                 - k8s-cis-1.23
                 - k8s-nsa-1.0
