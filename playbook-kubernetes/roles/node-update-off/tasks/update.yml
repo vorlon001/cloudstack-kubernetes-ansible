@@ -1,13 +1,34 @@
 - block:
   - block:
 
-    - name: run - sudo pam-auth-update --enable mkhomedir
+    - name: run - update /etc/apt/apt.conf.d/20auto-upgrades, set APT::Periodic::Unattended-Upgrade=0
       ansible.builtin.shell: sed  -i 's|APT::Periodic::Unattended-Upgrade "1";|APT::Periodic::Unattended-Upgrade "0";|' /etc/apt/apt.conf.d/20auto-upgrades
       args:
         executable: /bin/bash
       register: cat
     - debug: var=cat.stdout_lines
 
+    - name: run - update /etc/apt/apt.conf.d/20auto-upgrades, set APT::Periodic::Update-Package-Lists=0
+      ansible.builtin.shell: sed  -i 's|APT::Periodic::Update-Package-Lists "1";|APT::Periodic::Update-Package-Lists "0";|' /etc/apt/apt.conf.d/20auto-upgrades
+      args:
+        executable: /bin/bash
+      register: cat
+    - debug: var=cat.stdout_lines
+
+
+    - name: run - update /etc/apt/apt.conf.d/20auto-upgrades, set APT::Periodic::Update-Package-Lists=0
+      ansible.builtin.shell: echo 'APT::Periodic::AutocleanInterval "0";'> /etc/apt/apt.conf.d/20auto-upgrades
+      args:
+        executable: /bin/bash
+      register: cat
+    - debug: var=cat.stdout_lines
+
+    - name: run - update /etc/apt/apt.conf.d/20auto-upgrades, set APT::Periodic::Update-Package-Lists=0
+      ansible.builtin.shell: echo 'APT::Periodic::Download-Upgradeable-Packages "0";'> /etc/apt/apt.conf.d/20auto-upgrades
+      args:
+        executable: /bin/bash
+      register: cat
+    - debug: var=cat.stdout_lines
 
     - name: run - sudo pam-auth-update --enable mkhomedir
       ansible.builtin.shell: cat  /etc/apt/apt.conf.d/20auto-upgrades

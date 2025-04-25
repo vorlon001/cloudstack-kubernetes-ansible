@@ -73,7 +73,7 @@
       register: result
     - debug: var=result.stdout_lines
 
-    - name: Sleep 90 second, init CNI
+    - name: Sleep 90 second, init MetalLB
       pause:
         seconds: 90
 

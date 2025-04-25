@@ -90,6 +90,12 @@
       when:
       - inventory_hostname in groups['masterjoin']
 
+    - name: Run copy kubescheduler-config.yaml /etc/kubernetes/
+      template:
+        src: "kubescheduler-config.yaml.j2"
+        dest: /etc/kubernetes/kubescheduler-config.yaml
+        mode: '0644'
+
     - name: Run mkdir -p /etc/kubernetes/kubeadm/patches/
       ansible.builtin.shell: mkdir -p /etc/kubernetes/kubeadm/patches/
       args:

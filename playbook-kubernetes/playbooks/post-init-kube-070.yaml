@@ -1,0 +1,73 @@
+    - name: Deploy ENVOY GATEWAY
+      environment:
+        KUBECONFIG: /etc/kubernetes/admin.conf
+      community.kubernetes.helm:
+        name: cloudstack-envoy-gateway
+        chart_ref: "cloudstack/gateway-helm"
+        release_state: present
+        update_repo_cache: true
+        release_namespace: "envoy-gateway-system"
+        create_namespace: yes
+        chart_version: "v1.1.2"
+        values:
+            # Global settings
+            global:
+              images:
+                envoyGateway:
+                  image: harbor.iblog.pro/docker.io/envoyproxy/gateway:v1.1.2
+                ratelimit:
+                  image: "harbor.iblog.pro/dockerio/envoyproxy/ratelimit:26f28d78"
+            deployment:
+              replicas: 2
+              pod:
+                affinity:
+                  podAntiAffinity:
+                    requiredDuringSchedulingIgnoredDuringExecution:
+                    - labelSelector:
+                        matchExpressions:
+                        - key: control-plane
+                          operator: In
+                          values:
+                          - envoy-gateway
+                      topologyKey: "kubernetes.io/hostname"
+              envoyGateway:
+                resources:
+                  limits:
+                    cpu: 500m
+                    memory: 1024Mi
+                  requests:
+                    cpu: 100m
+                    memory: 256Mi
+
+              service:
+                # Type of service. Set to "None" to disable the service entirely
+                type: LoadBalancer
+                ports:
+                - name: status-port
+                  port: 15021
+                  protocol: TCP
+                  targetPort: 15021
+                - name: http2
+                  port: 80
+                  protocol: TCP
+                  targetPort: 80
+                - name: https
+                  port: 443
+                  protocol: TCP
+                  targetPort: 443
+              resources:
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+                limits:
+                  cpu: 2000m
+                  memory: 1024Mi
+              autoscaling:
+                enabled: true
+                minReplicas: 2
+                maxReplicas: 5
+                targetCPUUtilizationPercentage: 80
+
+    - name: Sleep 60 second, ENVOY GATEWAY
+      pause:
+        seconds: 60

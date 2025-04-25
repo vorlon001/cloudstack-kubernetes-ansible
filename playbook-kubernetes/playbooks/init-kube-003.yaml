@@ -81,6 +81,12 @@
         dest: /etc/kubernetes/policies/audit-policy.yaml
         mode: '0644'
 
+    - name: Run copy kubescheduler-config.yaml /etc/kubernetes/
+      template:
+        src: "kubescheduler-config.yaml.j2"
+        dest: /etc/kubernetes/kubescheduler-config.yaml
+        mode: '0644'
+
     - name: Copy kubeadm.yml
       template:
         src: "kubeadm.yml.{{KUBEADM_CONFIG_VERSION}}.j2"

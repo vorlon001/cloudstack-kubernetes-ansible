@@ -1,10 +1,6 @@
-
     - name: Create cert manager
       kubernetes.core.k8s:
         state: present
         apply: true
         template:
           path: 'POST-INIT/cert-manager.yaml.j2'
-
-
-

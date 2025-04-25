@@ -1,43 +1,132 @@
-    - name: Deploy ENVOY GATEWAY
-      environment:
-        KUBECONFIG: /etc/kubernetes/admin.conf
-      community.kubernetes.helm:
-        name: cloudstack-envoy-gateway
-        chart_ref: "cloudstack/gateway-helm"
-        release_state: present
-        update_repo_cache: true
-        release_namespace: "envoy-gateway-system"
-        create_namespace: yes
-        chart_version: "v1.1.2"
-        values:
-            # Global settings
-            global:
-              images:
-                envoyGateway:
-                  image: harbor.iblog.pro/dockerio/envoyproxy/gateway:v1.1.2
-                ratelimit:
-                  image: "harbor.iblog.pro/dockerio/envoyproxy/ratelimit:26f28d78"
-            deployment:
-              replicas: 2
-              pod:
-                affinity:
-                  podAntiAffinity:
-                    requiredDuringSchedulingIgnoredDuringExecution:
-                    - labelSelector:
-                        matchExpressions:
-                        - key: control-plane
-                          operator: In
-                          values:
-                          - envoy-gateway
-                      topologyKey: "kubernetes.io/hostname"
-              envoyGateway:
-                resources:
-                  limits:
-                    cpu: 500m
-                    memory: 1024Mi
-                  requests:
-                    cpu: 100m
-                    memory: 256Mi
-    - name: Sleep 60 second, ENVOY GATEWAY
+#    - name: Create a k8s namespace
+#      kubernetes.core.k8s:
+#        state: present
+#        apply: true
+#        definition:
+#          apiVersion: install.istio.io/v1alpha1
+#          kind: IstioOperator
+#          metadata:
+#            namespace: istio-system
+#            name: example-istiocontrolplane
+#          spec:
+#            hub: harbor.iblog.pro/docker.io/istio
+#            profile: demo
+
+    - name: Create IstioOperator
+      kubernetes.core.k8s:
+        state: present
+        apply: true
+        definition:
+          apiVersion: install.istio.io/v1alpha1
+          kind: IstioOperator
+          metadata:
+            namespace: istio-system
+            name: istio-ingressgateway
+          spec:
+            hub: harbor.iblog.pro/dockerio/istio
+          #  tag: latest
+            meshConfig:
+              accessLogFile: /dev/stdout
+              accessLogEncoding: JSON
+              tcpKeepalive:
+                  time: 60s
+          #    trustDomain:  k8s.iblog.pro.local -> ????
+          #    enableTracing: true
+            values:
+              global:
+                  jwtPolicy: thrid-party-jwt
+          #        proxy:
+          #            clusterDomain: k8s.iblog.pro.local
+          #            excludeIPRanges: "192.168.201.0/24"
+              gateways:
+          #      spec:
+          #        containers:
+          #        - name: istio-proxy
+          #          image: harbor.iblog.pro/dockerio/istio/proxyv2:1.23.3
+                istio-egressgateway:
+                  enabled: false
+                istio-ingressgateway:
+                  enabled: true
+          #        podAntiAffinityTermLabelSelector:
+          #          - key: app
+          #            operator: In
+          #            values: istio-ingressgateway ERROR! нет поля
+          #            topologyKey: "failure-domain.beta.kubernetes.io/zone"
+            components:
+              base:
+                enabled: true
+              pilot:
+                enabled: true
+                k8s:
+                  hpaSpec:
+                    minReplicas: 2
+                  resources:
+                    requests:
+                      cpu: 100m
+                      memory: 150Mi
+              ingressGateways:
+                - name: istio-ingressgateway
+                  enabled: true
+                  k8s:
+                    hpaSpec:
+                      minReplicas: 2 # default 1
+                    resources:
+                      limits:
+                        cpu: 300m
+                        memory: 256Mi
+                      requests:
+                        cpu: 100m
+                        memory: 128Mi
+                    service:
+                      ports:
+                        # Whatever is listed as the first port in a Service of
+                        # type LoadBalancer is picked to be the port used for
+                        # health checks. 10001 is the port of httpd-healthcheck.
+                        - name: httpd-healthcheck
+                          port: 10001
+                          targetPort: 10001
+                        - name: http
+                          port: 80
+                          targetPort: 8080
+                        - name: https
+                          port: 443
+                          targetPort: 8443
+                        # Istio readiness port of gateways
+                        - name: status-port
+                          port: 15021
+                          targetPort: 15021
+                - name: istio-ingressgateway-two
+                  enabled: true
+                  k8s:
+                    hpaSpec:
+                      minReplicas: 2 # default 1
+                    resources:
+                      limits:
+                        cpu: 300m
+                        memory: 256Mi
+                      requests:
+                        cpu: 100m
+                        memory: 128Mi
+                    service:
+                      ports:
+                        # Whatever is listed as the first port in a Service of
+                        # type LoadBalancer is picked to be the port used for
+                        # health checks. 10001 is the port of httpd-healthcheck.
+                        - name: httpd-healthcheck
+                          port: 10001
+                          targetPort: 10001
+                        - name: http
+                          port: 80
+                          targetPort: 8080
+                        - name: https
+                          port: 443
+                          targetPort: 8443
+                        # Istio readiness port of gateways
+                        - name: status-port
+                          port: 15021
+                          targetPort: 15021
+
+
+    - name: Sleep 60 second, Deploy ISTIO
       pause:
         seconds: 60

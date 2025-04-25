@@ -39,6 +39,23 @@ KUBEADM_ClusterConfiguration:
         value: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_ECDSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_RSA_WITH_CHACHA20_POLY1305,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384
       - name: tls-min-version
         value: VersionTLS13
+      - name: service-node-port-range
+        value: 30000-32767
+      - name: authorization-mode
+        value: Node,RBAC
+      - name: kubelet-preferred-address-types
+        value: "InternalDNS,InternalIP,Hostname,ExternalDNS,ExternalIP"
+      - name: default-not-ready-toleration-seconds
+        value: "300"
+      - name: default-unreachable-toleration-seconds
+        value: "300"
+      - name: enable-aggregator-routing
+        value: "False"
+      - name: anonymous-auth
+        value: "True"
+      - name: event-ttl
+        value: 1h0m0s
+
       extraVolumes:
       - hostPath: /etc/kubernetes/policies
         mountPath: /etc/kubernetes/policies
@@ -49,6 +66,11 @@ KUBEADM_ClusterConfiguration:
         mountPath: /var/log/kube-audit
         name: logs
         pathType: DirectoryOrCreate
+      - name: usr-share-ca-certificates
+        hostPath: /usr/share/ca-certificates
+        mountPath: /usr/share/ca-certificates
+        readOnly: true
+
     # 87600h0m0s:10years, 438000h0m0s:50years
     caCertificateValidityPeriod: 438000h0m0s
     # 8760h0m0s:1years, 87600h0m0s:10years
@@ -66,6 +88,13 @@ KUBEADM_ClusterConfiguration:
         value: 40s
       - name: profiling
         value: "false"
+      - name: leader-elect-lease-duration
+        value: 15s
+      - name: leader-elect-renew-deadline
+        value: 10s
+      - name: configure-cloud-routes
+        value: "false"
+
     # RSA-2048|RSA-3072|RSA-4096|ECDSA-P256
     encryptionAlgorithm: ECDSA-P256
     dns: {}
@@ -91,6 +120,13 @@ KUBEADM_ClusterConfiguration:
         value: 0.0.0.0
       - name: profiling
         value: "false"
+      - name: config
+        value: "/etc/kubernetes/kubescheduler-config.yaml"
+      extraVolumes:
+      - name: kubescheduler-config
+        hostPath: /etc/kubernetes/kubescheduler-config.yaml
+        mountPath: /etc/kubernetes/kubescheduler-config.yaml
+        readOnly: true
 
 
 KubeletConfiguration:
@@ -210,6 +246,23 @@ KubeProxyConfiguration:
     metricsBindAddress: 0.0.0.0:10249
     healthzBindAddress: 0.0.0.0:10256
     enableProfiling: false
+    iptables:
+      masqueradeAll: False
+      masqueradeBit: 14
+      minSyncPeriod: 0s
+      syncPeriod: 30s
+    ipvs:
+      excludeCIDRs: []
+      minSyncPeriod: 0s
+      scheduler: rr
+      syncPeriod: 30s
+      strictARP: False
+      tcpTimeout: 0s
+      tcpFinTimeout: 0s
+      udpTimeout: 0s
+    clientConnection:
+      burst: 10
+      qps: 5
 
 
 kubernetes_pki:

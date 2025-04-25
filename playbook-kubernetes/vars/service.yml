@@ -1,11 +1,11 @@
 CERMANAGER:
-    cainjector_image: "harbor.iblog.pro/quayio/jetstack/cert-manager-cainjector:v1.14.3"
-    controller_image: "harbor.iblog.pro/quayio/jetstack/cert-manager-controller:v1.14.3"
-    webhook_image: "harbor.iblog.pro/quayio/jetstack/cert-manager-webhook:v1.14.3"
+    cainjector_image: "harbor.iblog.pro/quay.io/jetstack/cert-manager-cainjector:v1.14.3"
+    controller_image: "harbor.iblog.pro/quay.io/jetstack/cert-manager-controller:v1.14.3"
+    webhook_image: "harbor.iblog.pro/quay.io/jetstack/cert-manager-webhook:v1.14.3"
     acme_image: quay.io/jetstack/cert-manager-acmesolver:v1.14.3
 
 METRICSERVER:
     # image: harbor.iblog.pro/registryk8sio/metrics-server/metrics-server:v0.6.4
-    image: harbor.iblog.pro/registryk8sio/metrics-server/metrics-server:v0.7.2
+    image: harbor.iblog.pro/registry.k8s.io/metrics-server/metrics-server:v0.7.2
     template: POST-INIT/v0.7.2.high-availability.yaml.j2
 

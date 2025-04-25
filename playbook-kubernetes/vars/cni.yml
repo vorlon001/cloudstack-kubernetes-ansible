@@ -82,7 +82,20 @@ CNI:
         spire_agent_repository: "{{CNI_CILIUM_spire_agent_repository}}"
         spire_server_repository: "{{CNI_CILIUM_spire_server_repository}}"
 
+        # -- Tunneling protocol to use in tunneling mode and for ad-hoc tunnels.
+        # Possible values:
+        #   - ""
+        #   - vxlan
+        #   - geneve     
+        # @default -- `"vxlan"`
         cilium_tunnelProtocol: "vxlan"
+        # -- Enable native-routing mode or tunneling mode.
+        # Possible values:
+        #   - ""
+        #   - native
+        #   - tunnel
+        # @default -- `"tunnel"`
+        cilium_routingMode: "tunnel"
         cilium_l7Proxy: true
         cilium_ingressController: true
         cilium_ingressController_loadbalancerMode: "dedicated"
@@ -97,7 +110,6 @@ CNI:
         cilium_hubble_ui: false
 
         cilium_envoy: true
-        cilium_envoy_repository: "harbor.iblog.pro/quayio/cilium/cilium-envoy"
 
         # cilium_loadBalancer_l7_backend: "envoy"
         cilium_loadBalancer_l7_backend: "disabled"

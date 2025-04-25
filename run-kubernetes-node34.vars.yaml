@@ -21,21 +21,22 @@ DEPLOY_NFS_HELM: true
 DEPLOY_PriorityClass: true
 
 DEPLOY_METRICSERVER: true
-DEPLOY_CERMANAGER: false
+DEPLOY_CERMANAGER: true
 
 DEPLOY_CNI_CILIUM: false
 DEPLOY_CNI_ANTREA: true
 DEPLOY_CNI_KUBEOVN: false
 DEPLOY_CNI_CALICO: false
 
-DEPLOY_ARGOCD: true
-DEPLOY_TETRAGON: true
-DEPLOY_KYVERNO: true
-DEPLOY_METALLB: true
-DEPLOY_Nginx_Ingress: true
-DEPLOY_Trivy: true
-DEPLOY_Fission: true
+DEPLOY_ARGOCD: false
+DEPLOY_TETRAGON: false
+DEPLOY_KYVERNO: false
+DEPLOY_METALLB: false
+DEPLOY_Nginx_Ingress: false
+DEPLOY_Trivy: false
+DEPLOY_Fission: false
 DEPLOY_ISTIO: false
+DEPLOY_IstioOperator: false
 DEPLOY_ENVOYGATEWAY: false
 
 KUBERNETES_VIP: "192.168.200.186"
@@ -59,13 +60,13 @@ CNI_ANTREA_chart_ref: "cloudstack/antrea"
 CNI_ANTREA_release_state: present
 CNI_ANTREA_release_namespace: kube-system
 CNI_ANTREA_create_namespace: no
-CNI_ANTREA_chart_version: 2.1.0
-CNI_ANTREA_agentImage_repository: "harbor.iblog.pro/dockerio/antrea/antrea-agent-ubuntu"
+CNI_ANTREA_chart_version: 2.3.0
+CNI_ANTREA_agentImage_repository: "harbor.iblog.pro/docker.io/antrea/antrea-agent-ubuntu"
 CNI_ANTREA_agentImage_pullPolicy: "IfNotPresent"
-CNI_ANTREA_agentImage_tag: "v2.1.0"
-CNI_ANTREA_controllerImage_repository: "harbor.iblog.pro/dockerio/antrea/antrea-controller-ubuntu"
+CNI_ANTREA_agentImage_tag: "v2.3.0"
+CNI_ANTREA_controllerImage_repository: "harbor.iblog.pro/docker.io/antrea/antrea-controller-ubuntu"
 CNI_ANTREA_controllerImage_pullPolicy: "IfNotPresent"
-CNI_ANTREA_controllerImage_tag: "v2.1.0"
+CNI_ANTREA_controllerImage_tag: "v2.3.0"
 
 
 CNI_KUBEOVN_MASTERS: "192.168.200.180,192.168.200.181,192.168.200.182"
@@ -75,7 +76,7 @@ CNI_KUBEOVN_release_namespace: kube-system
 CNI_KUBEOVN_create_namespace: no
 
 CNI_KUBEOVN_chart_version: "v1.12.25"
-CNI_KUBEOVN_chart_global_registry: "harbor.iblog.pro/dockerio/kubeovn"
+CNI_KUBEOVN_chart_global_registry: "harbor.iblog.pro/docker.io/kubeovn"
 
 CNI_KUBEOVN_chart_kubeovn_repository: "kube-ovn"
 CNI_KUBEOVN_chart_kubeovn_dpdkRepository: "kube-ovn-dpdk"
@@ -107,24 +108,24 @@ CNI_CILIUM_chart_ref: "cloudstack/cilium"
 CNI_CILIUM_release_state: present
 CNI_CILIUM_release_namespace: kube-system
 CNI_CILIUM_create_namespace: yes
-CNI_CILIUM_chart_version: 1.16.2
+CNI_CILIUM_chart_version: 1.16.6
 
 CNI_CILIUM_clusterPoolIPv4PodCIDRList: "10.96.0.0/17"
 CNI_CILIUM_clusterPoolIPv4MaskSize: "24"
 
-CNI_CILIUM_cilium_repository: "harbor.iblog.pro/quayio/cilium/cilium"
-CNI_CILIUM_certgen_repository: "harbor.iblog.pro/quayio/cilium/certgen"
-CNI_CILIUM_hubble_relay_repository: "harbor.iblog.pro/quayio/cilium/hubble-relay"
-CNI_CILIUM_hubble_ui_backend_repository: "harbor.iblog.pro/quayio/cilium/hubble-ui-backend"
-CNI_CILIUM_hubble_ui_repository: "harbor.iblog.pro/quayio/cilium/hubble-ui"
-CNI_CILIUM_cilium_envoy_repository: "harbor.iblog.pro/quayio/cilium/cilium-envoy"
-CNI_CILIUM_cilium_etcd_operator_repository: "harbor.iblog.pro/quayio/cilium/cilium-etcd-operator"
-CNI_CILIUM_operator_repository: "harbor.iblog.pro/quayio/cilium/operator"
-CNI_CILIUM_startup_script_repository: "harbor.iblog.pro/quayio/cilium/startup-script"
-CNI_CILIUM_clustermesh_apiserver_repository: "harbor.iblog.pro/quayio/cilium/clustermesh-apiserver"
-CNI_CILIUM_busybox_repository: "harbor.iblog.pro/dockerio/library/busybox"
-CNI_CILIUM_spire_agent_repository: "harbor.iblog.pro/ghcrio/spiffe/spire-agent"
-CNI_CILIUM_spire_server_repository: "harbor.iblog.pro/ghcrio/spiffe/spire-server"
+CNI_CILIUM_cilium_repository: "harbor.iblog.pro/quay.io/cilium/cilium"
+CNI_CILIUM_certgen_repository: "harbor.iblog.pro/quay.io/cilium/certgen"
+CNI_CILIUM_hubble_relay_repository: "harbor.iblog.pro/quay.io/cilium/hubble-relay"
+CNI_CILIUM_hubble_ui_backend_repository: "harbor.iblog.pro/quay.io/cilium/hubble-ui-backend"
+CNI_CILIUM_hubble_ui_repository: "harbor.iblog.pro/quay.io/cilium/hubble-ui"
+CNI_CILIUM_cilium_envoy_repository: "harbor.iblog.pro/quay.io/cilium/cilium-envoy"
+CNI_CILIUM_cilium_etcd_operator_repository: "harbor.iblog.pro/quay.io/cilium/cilium-etcd-operator"
+CNI_CILIUM_operator_repository: "harbor.iblog.pro/quay.io/cilium/operator"
+CNI_CILIUM_startup_script_repository: "harbor.iblog.pro/quay.io/cilium/startup-script"
+CNI_CILIUM_clustermesh_apiserver_repository: "harbor.iblog.pro/quay.io/cilium/clustermesh-apiserver"
+CNI_CILIUM_busybox_repository: "harbor.iblog.pro/docker.io/library/busybox"
+CNI_CILIUM_spire_agent_repository: "harbor.iblog.pro/ghcr.io/spiffe/spire-agent"
+CNI_CILIUM_spire_server_repository: "harbor.iblog.pro/ghcr.io/spiffe/spire-server"
 
 
 
@@ -133,21 +134,21 @@ CNI_CALICO_BLOCKSIZE: 26
 CNI_CALICO_CIDR: "10.97.0.0/17"
 CNI_CALICO_INTERFACE: "(enp1s0.800)"
 CNI_CALICO_namespace: kube-system
-CNI_CALICO_registry: harbor.iblog.pro/dockerio/
-CNI_CALICO_tigeraOperator_image: quayio/tigera/operator
+CNI_CALICO_registry: harbor.iblog.pro/docker.io/
+CNI_CALICO_tigeraOperator_image: quay.io/tigera/operator
 CNI_CALICO_otigeraOperator_version: v1.34.5
 CNI_CALICO_tigeraOperator_registry: harbor.iblog.pro
-CNI_CALICO_ctl_image: harbor.iblog.pro/dockerio/calico/ctl
+CNI_CALICO_ctl_image: harbor.iblog.pro/docker.io/calico/ctl
 CNI_CALICO_ctl_tag: v3.28.2
 
 CNI_METALLB_chart_version: "0.14.8"
 CNI_METALLB_prometheus_repository: harbor.iblog.pro/gcrio/kubebuilder/kube-rbac-proxy
 CNI_METALLB_prometheus_tag: "v0.12.0"
-CNI_METALLB_controller_repository: harbor.iblog.pro/quayio/metallb/controller
+CNI_METALLB_controller_repository: harbor.iblog.pro/quay.io/metallb/controller
 CNI_METALLB_controller_tag: "v0.14.8"
-CNI_METALLB_speaker_repository: harbor.iblog.pro/quayio/metallb/speaker
+CNI_METALLB_speaker_repository: harbor.iblog.pro/quay.io/metallb/speaker
 CNI_METALLB_speaker_tag: "v0.14.8"
-CNI_METALLB_frr_repository: harbor.iblog.pro/quayio/frrouting/frr
+CNI_METALLB_frr_repository: harbor.iblog.pro/quay.io/frrouting/frr
 CNI_METALLB_frr_tag: "9.1.0"
 
 METALLB_BLOCK1: 11.0.0.0/22

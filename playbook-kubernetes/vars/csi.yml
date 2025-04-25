@@ -14,29 +14,29 @@ CSI:
         chart_version: "v4.6.0"
         helm_values:
           image:
-              baseRepo: harbor.iblog.pro/registryk8sio
+              baseRepo: harbor.iblog.pro/registry.k8s.io
               nfs:
-                  repository: harbor.iblog.pro/registryk8sio/sig-storage/nfsplugin
+                  repository: harbor.iblog.pro/registry.k8s.io/sig-storage/nfsplugin
                   tag: v4.6.0
                   pullPolicy: IfNotPresent
               csiProvisioner:
-                  repository: harbor.iblog.pro/registryk8sio/sig-storage/csi-provisioner
+                  repository: harbor.iblog.pro/registry.k8s.io/sig-storage/csi-provisioner
                   tag: v4.0.0
                   pullPolicy: IfNotPresent
               csiSnapshotter:
-                  repository: harbor.iblog.pro/registryk8sio/sig-storage/csi-snapshotter
+                  repository: harbor.iblog.pro/registry.k8s.io/sig-storage/csi-snapshotter
                   tag: v6.3.3
                   pullPolicy: IfNotPresent
               livenessProbe:
-                  repository: harbor.iblog.pro/registryk8sio/sig-storage/livenessprobe
+                  repository: harbor.iblog.pro/registry.k8s.io/sig-storage/livenessprobe
                   tag: v2.12.0
                   pullPolicy: IfNotPresent
               nodeDriverRegistrar:
-                  repository: harbor.iblog.pro/registryk8sio/sig-storage/csi-node-driver-registrar
+                  repository: harbor.iblog.pro/registry.k8s.io/sig-storage/csi-node-driver-registrar
                   tag: v2.10.0
                   pullPolicy: IfNotPresent
               externalSnapshotter:
-                  repository: harbor.iblog.pro/registryk8sio/sig-storage/snapshot-controller
+                  repository: harbor.iblog.pro/registry.k8s.io/sig-storage/snapshot-controller
                   tag: v6.3.3
                   pullPolicy: IfNotPresent
 

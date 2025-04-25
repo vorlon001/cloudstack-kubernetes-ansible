@@ -11,6 +11,18 @@
         chart_version: "1.23.3"
         values:
             # Global settings
+            defaults:
+              hub: harbor.iblog.pro/docker.io/istio
+              tag: 1.23.3
+              pilot:
+                autoscaleEnabled: true
+                autoscaleMin: 2
+                autoscaleMax: 5
+                autoscaleBehavior: {}
+                replicaCount: 2
+                rollingMaxSurge: 100%
+                rollingMaxUnavailable: 25%
+
             image:
               repository: harbor.iblog.pro/ghcrio/banzaicloud/istio-operator
               tag: "v2.17.4"
@@ -20,20 +32,3 @@
                   repository: harbor.iblog.pro/gcrio/kubebuilder/kube-rbac-proxy
                   tag: "v0.8.0"
 
-    - name: Create a k8s namespace
-      kubernetes.core.k8s:
-        state: present
-        apply: true
-        definition:
-          apiVersion: install.istio.io/v1alpha1
-          kind: IstioOperator
-          metadata:
-            namespace: istio-system
-            name: example-istiocontrolplane
-          spec:
-            hub: harbor.iblog.pro/dockerio/istio
-            profile: demo
-
-    - name: Sleep 60 second, Deploy ISTIO
-      pause:
-        seconds: 60

@@ -243,22 +243,22 @@
       register: logs
     - debug: var=logs.stdout_lines
 
-    - name: Run sed -i -e "s|            SystemdCgroup = false|            SystemdCgroup = true|" /etc/containerd/config.toml
-      ansible.builtin.shell: sed -i -e "s|            SystemdCgroup = false|            SystemdCgroup = true|" /etc/containerd/config.toml
+    - name: Run sed -i -e "s|SystemdCgroup = false|SystemdCgroup = true|" /etc/containerd/config.toml
+      ansible.builtin.shell: sed -i -e "s|SystemdCgroup = false|SystemdCgroup = true|" /etc/containerd/config.toml
       args:
         executable: /bin/bash
       register: logs
     - debug: var=logs.stdout_lines
 
-    - name: Run sed -i -e 's|    sandbox_image = "registry.k8s.io/pause:3.8"|    sandbox_image = "harbor.iblog.pro/registry.k8s.io/pause:3.10"|' /etc/containerd/config.toml
-      ansible.builtin.shell: sed -i -e 's|    sandbox_image = "registry.k8s.io/pause:3.8"|    sandbox_image = "harbor.iblog.pro/registry.k8s.io/pause:3.10"|' /etc/containerd/config.toml
+    - name: Run sed -i -e "s|sandbox = 'registry.k8s.io/pause:3.10'|sandbox = 'harbor.iblog.pro/registry.k8s.io/pause:3.10'|" /etc/containerd/config.toml
+      ansible.builtin.shell: sed -i -e "s|sandbox = 'registry.k8s.io/pause:3.10'|sandbox = 'harbor.iblog.pro/registry.k8s.io/pause:3.10'|" /etc/containerd/config.toml
       args:
         executable: /bin/bash
       register: logs
     - debug: var=logs.stdout_lines
 
-    - name: Run sed -i -e 's|      config_path = ""|      config_path = "/etc/containerd/certs.d"|' /etc/containerd/config.toml
-      ansible.builtin.shell: sed -i -e 's|      config_path = ""|      config_path = "/etc/containerd/certs.d"|' /etc/containerd/config.toml
+    - name: Run sed -i -e 's|config_path = ""|config_path = "/etc/containerd/certs.d"|' /etc/containerd/config.toml
+      ansible.builtin.shell: sed -i -e 's|config_path = ""|config_path = "/etc/containerd/certs.d"|' /etc/containerd/config.toml
       args:
         executable: /bin/bash
       register: logs
@@ -289,12 +289,12 @@
         enabled: true
 
 
-    - name: Run cat /etc/containerd/config.toml | grep SystemdCgroup
-      ansible.builtin.shell: cat /etc/containerd/config.toml | grep SystemdCgroup
-      args:
-        executable: /bin/bash
-      register: logs
-    - debug: var=logs.stdout_lines
+#    - name: Run cat /etc/containerd/config.toml | grep SystemdCgroup
+#      ansible.builtin.shell: cat /etc/containerd/config.toml | grep SystemdCgroup
+#      args:
+#        executable: /bin/bash
+#      register: logs
+#    - debug: var=logs.stdout_lines
 
 
     - name: Run ctr images pull {{TEST_HARBOR}}

@@ -94,14 +94,10 @@
      - DEPLOY_Nginx_Ingress|bool == true
 
 
-  - block:
-     - import_tasks:  playbooks/post-init-kube-066.yaml
-
-
-  - block:
-     - import_tasks:  playbooks/post-init-kube-066.yaml
-    when:
-     - DEPLOY_Trivy|bool == true
+#  - block:
+#     - import_tasks:  playbooks/post-init-kube-066.yaml
+#    when:
+#     - DEPLOY_Trivy|bool == true
 
 
   - block:
@@ -118,5 +114,10 @@
 
   - block:
      - import_tasks:  playbooks/post-init-kube-069.yaml
+    when:
+     - DEPLOY_IstioOperator|bool == true
+
+  - block:
+     - import_tasks:  playbooks/post-init-kube-070.yaml
     when:
      - DEPLOY_ENVOYGATEWAY|bool == true
