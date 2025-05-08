@@ -7,7 +7,7 @@ set -x
 export kube_version="v1.33.0"
 export kube_version2="1.33.0"
 export crictl_version="v1.33.0"
-export containerd_version="2.0.5"
+export containerd_version="2.1.0"
 export image_arch="amd64"
 export runc_version="1.2.6"
 export cni_version="1.6.2"
@@ -51,3 +51,18 @@ wget -q --show-progress --https-only --timestamping https://github.com/etcd-io/e
 #wget -q --show-progress --https-only --timestamping -O kubernetes-server-linux-amd64.${kube_version2}.tar.gz https://storage.googleapis.com/kubernetes-release/release/v${kube_version2}/kubernetes-server-linux-amd64.tar.gz
 
 wget -q --show-progress --https-only --timestamping -O kubernetes-server-linux-amd64.${kube_version2}.tar.gz https://dl.k8s.io/v${kube_version2}/kubernetes-server-linux-amd64.tar.gz
+
+
+
+
+(
+  ARCH=$(uname -m)
+  URL=https://storage.googleapis.com/gvisor/releases/release/latest/${ARCH}
+  wget ${URL}/runsc ${URL}/runsc.sha512 \
+    ${URL}/containerd-shim-runsc-v1 ${URL}/containerd-shim-runsc-v1.sha512
+  sha512sum -c runsc.sha512 \
+    -c containerd-shim-runsc-v1.sha512
+  rm -f *.sha512
+  chmod a+rx runsc containerd-shim-runsc-v1
+#  sudo mv runsc containerd-shim-runsc-v1 /usr/local/bin
+)
