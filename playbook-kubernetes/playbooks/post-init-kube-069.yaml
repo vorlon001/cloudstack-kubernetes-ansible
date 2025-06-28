@@ -1,131 +1,67 @@
-#    - name: Create a k8s namespace
-#      kubernetes.core.k8s:
-#        state: present
-#        apply: true
-#        definition:
-#          apiVersion: install.istio.io/v1alpha1
-#          kind: IstioOperator
-#          metadata:
-#            namespace: istio-system
-#            name: example-istiocontrolplane
-#          spec:
-#            hub: harbor.iblog.pro/docker.io/istio
-#            profile: demo
 
-    - name: Create IstioOperator
+
+    - name: Copy istioctl
+      ansible.builtin.copy:
+        src: "UTILS/{{ISTIOCTL_FILE}}"
+        dest: "/tmp/{{ISTIOCTL_FILE}}"
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: install istioctl
+      environment:
+        ISTIOCTL_VERSION: "{{ISTIOCTL_VERSION}}"
+        ISTIOCTL_FILE: "{{ISTIOCTL_FILE}}"
+      ansible.builtin.shell: |
+              cd /tmp
+              ls -la
+              tar zxvfC {{ISTIOCTL_FILE}} /usr/bin/
+              chmod +x /usr/bin/istioctl
+      register: result
+    - debug: var=result.stdout_lines
+
+    - name: Run copy istio-operator.yaml.j2 /etc/kubernetes/istio-operator.yaml
+      template:
+        src: "istio-operator.yaml.j2"
+        dest: /etc/kubernetes/istio-operator.yaml
+        mode: '0600'
+      register: logs
+    - debug: var=logs.stdout_lines
+
+    - name: Create a k8s namespace istio-ingressgateway-system
       kubernetes.core.k8s:
+        name: istio-ingressgateway-system
+        api_version: v1
+        kind: Namespace
         state: present
-        apply: true
-        definition:
-          apiVersion: install.istio.io/v1alpha1
-          kind: IstioOperator
-          metadata:
-            namespace: istio-system
-            name: istio-ingressgateway
-          spec:
-            hub: harbor.iblog.pro/dockerio/istio
-          #  tag: latest
-            meshConfig:
-              accessLogFile: /dev/stdout
-              accessLogEncoding: JSON
-              tcpKeepalive:
-                  time: 60s
-          #    trustDomain:  k8s.iblog.pro.local -> ????
-          #    enableTracing: true
-            values:
-              global:
-                  jwtPolicy: thrid-party-jwt
-          #        proxy:
-          #            clusterDomain: k8s.iblog.pro.local
-          #            excludeIPRanges: "192.168.201.0/24"
-              gateways:
-          #      spec:
-          #        containers:
-          #        - name: istio-proxy
-          #          image: harbor.iblog.pro/dockerio/istio/proxyv2:1.23.3
-                istio-egressgateway:
-                  enabled: false
-                istio-ingressgateway:
-                  enabled: true
-          #        podAntiAffinityTermLabelSelector:
-          #          - key: app
-          #            operator: In
-          #            values: istio-ingressgateway ERROR! нет поля
-          #            topologyKey: "failure-domain.beta.kubernetes.io/zone"
-            components:
-              base:
-                enabled: true
-              pilot:
-                enabled: true
-                k8s:
-                  hpaSpec:
-                    minReplicas: 2
-                  resources:
-                    requests:
-                      cpu: 100m
-                      memory: 150Mi
-              ingressGateways:
-                - name: istio-ingressgateway
-                  enabled: true
-                  k8s:
-                    hpaSpec:
-                      minReplicas: 2 # default 1
-                    resources:
-                      limits:
-                        cpu: 300m
-                        memory: 256Mi
-                      requests:
-                        cpu: 100m
-                        memory: 128Mi
-                    service:
-                      ports:
-                        # Whatever is listed as the first port in a Service of
-                        # type LoadBalancer is picked to be the port used for
-                        # health checks. 10001 is the port of httpd-healthcheck.
-                        - name: httpd-healthcheck
-                          port: 10001
-                          targetPort: 10001
-                        - name: http
-                          port: 80
-                          targetPort: 8080
-                        - name: https
-                          port: 443
-                          targetPort: 8443
-                        # Istio readiness port of gateways
-                        - name: status-port
-                          port: 15021
-                          targetPort: 15021
-                - name: istio-ingressgateway-two
-                  enabled: true
-                  k8s:
-                    hpaSpec:
-                      minReplicas: 2 # default 1
-                    resources:
-                      limits:
-                        cpu: 300m
-                        memory: 256Mi
-                      requests:
-                        cpu: 100m
-                        memory: 128Mi
-                    service:
-                      ports:
-                        # Whatever is listed as the first port in a Service of
-                        # type LoadBalancer is picked to be the port used for
-                        # health checks. 10001 is the port of httpd-healthcheck.
-                        - name: httpd-healthcheck
-                          port: 10001
-                          targetPort: 10001
-                        - name: http
-                          port: 80
-                          targetPort: 8080
-                        - name: https
-                          port: 443
-                          targetPort: 8443
-                        # Istio readiness port of gateways
-                        - name: status-port
-                          port: 15021
-                          targetPort: 15021
 
+    - name: Create a k8s namespace istio-ingressgateway-private
+      kubernetes.core.k8s:
+        name: istio-ingressgateway-private
+        api_version: v1
+        kind: Namespace
+        state: present
+
+    - name: Create a k8s namespace istio-ingressgateway-public
+      kubernetes.core.k8s:
+        name: istio-ingressgateway-public
+        api_version: v1
+        kind: Namespace
+        state: present
+
+    - name: Run istioctl manifest generate -f /etc/kubernetes/istio-operator.yaml > /etc/kubernetes/istio-manifest-full.yaml
+      ansible.builtin.shell: cd /root; istioctl manifest generate -f /etc/kubernetes/istio-operator.yaml > /etc/kubernetes/istio-manifest-full.yaml
+      args:
+         executable: /bin/bash
+      register: logs
+    - debug: var=logs.stdout_lines
+
+    - name: Run istioctl manifest generate install -f /etc/kubernetes/istio-operator.yaml
+      ansible.builtin.shell: cd /root; istioctl manifest install -f /etc/kubernetes/istio-operator.yaml -y
+      args:
+         executable: /bin/bash
+      register: logs
+    - debug: var=logs.stdout_lines
 
     - name: Sleep 60 second, Deploy ISTIO
       pause:

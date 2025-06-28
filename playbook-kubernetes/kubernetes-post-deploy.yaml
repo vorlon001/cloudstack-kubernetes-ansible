@@ -61,12 +61,6 @@
     when:
      - DEPLOY_ARGOCD|bool == true
 
-
-  - block:
-     - import_tasks: playbooks/post-init-kube-053.yaml
-    when:
-     - DEPLOY_CSI_NFS|bool == true
-
   - block:
      - import_tasks: playbooks/post-init-kube-059.yaml
     when:
@@ -105,11 +99,6 @@
     when:
      - DEPLOY_Fission|bool == true
 
-
-  - block:
-     - import_tasks:  playbooks/post-init-kube-068.yaml
-    when:
-     - DEPLOY_ISTIO|bool == true
 
 
   - block:

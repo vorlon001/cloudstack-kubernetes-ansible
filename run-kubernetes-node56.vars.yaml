@@ -15,7 +15,6 @@ SEC_PATCH_KUBERNETES: true
 
 DEPLOY_HELM: true
 
-DEPLOY_CSI_NFS: false
 DEPLOY_NFS_HELM: true
 
 DEPLOY_PriorityClass: true
@@ -32,10 +31,9 @@ DEPLOY_ARGOCD: false
 DEPLOY_TETRAGON: false
 DEPLOY_KYVERNO: false
 DEPLOY_METALLB: true
-DEPLOY_Nginx_Ingress: true
+DEPLOY_Nginx_Ingress: false
 DEPLOY_Trivy: false
 DEPLOY_Fission: false
-DEPLOY_ISTIO: true
 DEPLOY_IstioOperator: true
 DEPLOY_ENVOYGATEWAY: true
 
@@ -60,13 +58,13 @@ CNI_ANTREA_chart_ref: "cloudstack/antrea"
 CNI_ANTREA_release_state: present
 CNI_ANTREA_release_namespace: kube-system
 CNI_ANTREA_create_namespace: no
-CNI_ANTREA_chart_version: 2.2.0
+CNI_ANTREA_chart_version: 2.3.0
 CNI_ANTREA_agentImage_repository: "harbor.iblog.pro/docker.io/antrea/antrea-agent-ubuntu"
 CNI_ANTREA_agentImage_pullPolicy: "IfNotPresent"
-CNI_ANTREA_agentImage_tag: "v2.2.0"
+CNI_ANTREA_agentImage_tag: "v2.3.0"
 CNI_ANTREA_controllerImage_repository: "harbor.iblog.pro/docker.io/antrea/antrea-controller-ubuntu"
 CNI_ANTREA_controllerImage_pullPolicy: "IfNotPresent"
-CNI_ANTREA_controllerImage_tag: "v2.2.0"
+CNI_ANTREA_controllerImage_tag: "v2.3.0"
 
 CNI_KUBEOVN_MASTERS: "192.168.200.130,192.168.200.131,192.168.200.132"
 CNI_KUBEOVN_chart_ref: "cloudstack/kube-ovn"
@@ -107,7 +105,7 @@ CNI_CILIUM_chart_ref: "cloudstack/cilium"
 CNI_CILIUM_release_state: present
 CNI_CILIUM_release_namespace: kube-system
 CNI_CILIUM_create_namespace: yes
-CNI_CILIUM_chart_version: 1.17.3
+CNI_CILIUM_chart_version: 1.17.5
 
 CNI_CILIUM_clusterPoolIPv4PodCIDRList: "10.97.0.0/17"
 CNI_CILIUM_clusterPoolIPv4MaskSize: "24"

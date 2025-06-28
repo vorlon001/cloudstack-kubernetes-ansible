@@ -9,21 +9,6 @@
       register: result
     - debug: var=result.stdout_lines
 
-    - name: Create RuntimeClass gVisor
-      kubernetes.core.k8s:
-        state: present
-        definition:
-      kubernetes.core.k8s:
-        state: present
-        apply: true
-        definition:
-            apiVersion: node.k8s.io/v1
-            kind: RuntimeClass
-            metadata:
-              name: gvisor
-            handler: runsc
-
-
     - name: Copy Helm
       ansible.builtin.copy:
         src: "UTILS/{{HELMFILE}}"
@@ -51,4 +36,5 @@
       kubernetes.core.helm_repository:
         name: "{{HELM_CHARTMUSEUM_NAME}}"
         repo_url: "{{HELM_CHARTMUSEUM}}"
+
 

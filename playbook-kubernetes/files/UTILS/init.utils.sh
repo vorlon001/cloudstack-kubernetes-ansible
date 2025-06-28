@@ -1,13 +1,13 @@
 #!/usr/bin/bash
 
 set -x
-export HELMVERSION="3.16.1"
+export HELMVERSION="3.18.3"
 export platform="amd64"
 
 export HELMFILE="helm-v${HELMVERSION}-linux-${platform}.tar.gz"
 curl -o ${HELMFILE} https://get.helm.sh/${HELMFILE}
 
-kustomize_version=( "5.4.3" "5.3.0" "5.2.1" "5.1.1" "5.0.3" "4.5.7" "4.5.5" "4.5.3" "4.4.1" "4.0.5" "3.10.0" "3.9.4" "3.8.10")
+kustomize_version=( "5.7.0" "5.6.0" "5.5.0" "5.4.3" "5.3.0" "5.2.1" "5.1.1" "5.0.3" "4.5.7" "4.5.5" "4.5.3" "4.4.1" "4.0.5" "3.10.0" "3.9.4" "3.8.10")
 
 
 for item in ${kustomize_version[*]}
@@ -41,3 +41,13 @@ curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/d
 
 
 wget  -O nerdctl-1.7.6-linux-amd64.tar.gz https://github.com/containerd/nerdctl/releases/download/v1.7.6/nerdctl-1.7.6-linux-amd64.tar.gz
+
+
+
+
+wget https://github.com/istio/istio/releases/download/1.26.2/istioctl-1.26.2-linux-amd64.tar.gz
+
+wget https://github.com/arttor/helmify/releases/download/v0.4.18/helmify_Linux_x86_64.tar.gz
+
+
+wget https://github.com/helmfile/helmfile/releases/download/v1.1.2/helmfile_1.1.2_linux_amd64.tar.gz

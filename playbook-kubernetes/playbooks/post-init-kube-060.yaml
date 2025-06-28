@@ -22,6 +22,13 @@
           trafficEncapMode: "encap"
           tunnelType: "geneve"
           trafficEncryptionMode: "none"
+          featureGates:
+            BGPPolicy: true
+            NodeLatencyMonitor: true
+            NodeNetworkPolicy: true
+            SecondaryNetwork: true
+            ServiceExternalIP: true
+            AntreaIPAM: true
           antreaProxy:
             enable: true
             proxyAll: false
@@ -32,7 +39,7 @@
             defaultLoadBalancerMode: "nat"
           nodeIPAM:
             enable: false
-            clusterCIDRs: []
+            clusterCIDRs: [ "" ]
             serviceCIDR: ""
             serviceCIDRv6: ""
             nodeCIDRMaskSizeIPv4: 24

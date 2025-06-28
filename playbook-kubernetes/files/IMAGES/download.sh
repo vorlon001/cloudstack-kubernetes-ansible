@@ -4,15 +4,16 @@ set -x
 # ./kubeadm.amd64.v1.25.0 config images list
 #https://storage.googleapis.com/kubernetes-release/release/v1.26.0-rc.0/bin/linux/amd64/kubelet
 
-export kube_version="v1.33.0"
-export kube_version2="1.33.0"
+export kube_version="v1.33.2"
+export kube_version2="1.33.2"
 export crictl_version="v1.33.0"
-export containerd_version="2.1.0"
+export containerd_version="2.1.3"
 export image_arch="amd64"
-export runc_version="1.2.6"
-export cni_version="1.6.2"
+export runc_version="1.3.0"
+export cni_version="1.7.1"
 export k8s_regestry="harbor.iblog.pro/registry.k8s.io"
-export etcd_version="3.5.21"
+export etcd_version="3.6.1"
+export kata_version="3.18.0"
 
 wget -q --show-progress --https-only --timestamping https://github.com/containerd/containerd/releases/download/v${containerd_version}/containerd-${containerd_version}-linux-amd64.tar.gz
 wget -q --show-progress --https-only --timestamping https://github.com/opencontainers/runc/releases/download/v${runc_version}/runc.${image_arch}
@@ -52,7 +53,7 @@ wget -q --show-progress --https-only --timestamping https://github.com/etcd-io/e
 
 wget -q --show-progress --https-only --timestamping -O kubernetes-server-linux-amd64.${kube_version2}.tar.gz https://dl.k8s.io/v${kube_version2}/kubernetes-server-linux-amd64.tar.gz
 
-
+wget -q --show-progress --https-only --timestamping -O kata-static-amd64.tar.xz https://github.com/kata-containers/kata-containers/releases/download/${kata_version}/kata-static-${kata_version}-amd64.tar.xz
 
 
 (

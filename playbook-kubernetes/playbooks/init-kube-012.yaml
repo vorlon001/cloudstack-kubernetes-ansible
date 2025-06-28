@@ -32,3 +32,25 @@
      - debug: var=logs.stdout_lines
 
 
+
+
+     - name: Run task kubectl label node........
+       ansible.builtin.shell: kubectl label node {{item}} node-role.kubernetes.io/worker=
+       args:
+         executable: /bin/bash
+       with_items:  "{{ groups['worker'] }}"
+       register: logs
+
+     - debug: msg="item.item={{item.item}}, item.stdout={{item.stdout}}, item.changed={{item.changed}}"
+       with_items: "{{logs.results}}"
+
+     - name: Run task kubectl label node........
+       ansible.builtin.shell: kubectl label node {{item}} ingress=on
+       args:
+         executable: /bin/bash
+       with_items:  "{{ groups['worker'] }}"
+       register: logs
+
+     - debug: msg="item.item={{item.item}}, item.stdout={{item.stdout}}, item.changed={{item.changed}}"
+       with_items: "{{logs.results}}"
+

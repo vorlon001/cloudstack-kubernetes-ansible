@@ -40,7 +40,8 @@
             enabled: false
           ipMasqAgent:
             enabled: false
-          ipv4NativeRoutingCIDR: "192.168.200.0/24"
+ #         ipv4NativeRoutingCIDR: "192.168.200.0/24"
+          ipv4NativeRoutingCIDR: ""
           ipv6NativeRoutingCIDR: ""
           hostPort:
             enabled: false
@@ -66,7 +67,7 @@
 #                  clusterPoolIPv4MaskSize: "{{CNI.CILIUM.clusterPoolIPv4MaskSize}}"
 # fatal: [node130]: FAILED! => {"changed": false, "command": "/usr/bin/helm --version=1.16.1 upgrade -i --reset-values --create-namespace -f=/tmp/tmp34z_scqh.yml cloudstack-cilium cloudstack/cilium", "msg": "Failure when executing Helm >
           debug:
-            enabled: false
+            enabled: true
           monitor:
             enabled: false
           image:
