@@ -200,6 +200,8 @@
         group: root
         mode: '0777'
         backup: yes
+      when:
+         - DEPLOY_GVISOR|bool == true
 
     - name: Copy containerd-shim-runsc-v1
       ansible.builtin.copy:
@@ -209,6 +211,9 @@
         group: root
         mode: '0777'
         backup: yes
+      when:
+         - DEPLOY_GVISOR|bool == true
+
 
     - name: Run tar Cxzvf /usr/local /tmp/containerd-{{ containerd_version }}-linux-amd64.tar.gz
       ansible.builtin.shell: tar Cxzvf /usr/local /tmp/containerd-{{ containerd_version }}-linux-amd64.tar.gz
@@ -240,6 +245,29 @@
         executable: /bin/bash
       register: logs
     - debug: var=logs.stdout_lines
+
+
+    - name: Copy kata-containers
+      ansible.builtin.copy:
+        src: IMAGES/kata-static-amd64.tar.xz
+        dest: /tmp/kata-static-amd64.tar.xz
+        owner: root
+        group: root
+        mode: '0777'
+        backup: yes
+      when:
+         - DEPLOY_KATA|bool == true
+
+    - name: Run tar -xvf /tmp/kata-static-amd64.tar.xz -C /
+      ansible.builtin.shell: tar -xvf /tmp/kata-static-amd64.tar.xz -C /
+      args:
+        executable: /bin/bash
+      register: logs
+      when:
+         - DEPLOY_KATA|bool == true
+    - debug: var=logs.stdout_lines
+      when:
+         - DEPLOY_KATA|bool == true
 
     - name: Run mkdir -p /etc/containerd
       ansible.builtin.shell: mkdir -p /etc/containerd
@@ -304,7 +332,48 @@
       args:
         executable: /bin/bash
       register: logs
+      when:
+         - DEPLOY_GVISOR|bool == true
     - debug: var=logs.stdout_lines
+      when:
+         - DEPLOY_GVISOR|bool == true
+
+    - name: Add config containerd kata-containers
+      shell:
+        cmd: |
+          cat <<EOF>>/etc/containerd/config.toml
+          [plugins."io.containerd.cri.v1.runtime".containerd.runtimes.kata-clh]
+          runtime_type = "io.containerd.kata-clh.v2"
+          runtime_path = "/opt/kata/bin/containerd-shim-kata-v2"
+          privileged_without_host_devices = true
+          pod_annotations = ["io.katacontainers.*"]
+          [plugins."io.containerd.cri.v1.runtime".containerd.runtimes.kata-clh.options]
+          ConfigPath = "/opt/kata/share/defaults/kata-containers/configuration-clh.toml"
+          [plugins."io.containerd.cri.v1.runtime".containerd.runtimes.kata-cloud-hypervisor]
+          runtime_type = "io.containerd.kata-cloud-hypervisor.v2"
+          runtime_path = "/opt/kata/runtime-rs/bin/containerd-shim-kata-v2"
+          privileged_without_host_devices = true
+          pod_annotations = ["io.katacontainers.*"]
+          [plugins."io.containerd.cri.v1.runtime".containerd.runtimes.kata-cloud-hypervisor.options]
+          ConfigPath = "/opt/kata/share/defaults/kata-containers/runtime-rs/configuration-cloud-hypervisor.toml"
+          [plugins."io.containerd.cri.v1.runtime".containerd.runtimes.kata-qemu]
+          runtime_type = "io.containerd.kata-qemu.v2"
+          runtime_path = "/opt/kata/bin/containerd-shim-kata-v2"
+          privileged_without_host_devices = true
+          pod_annotations = ["io.katacontainers.*"]
+          [plugins."io.containerd.cri.v1.runtime".containerd.runtimes.kata-qemu.options]
+          ConfigPath = "/opt/kata/share/defaults/kata-containers/configuration-qemu.toml"
+          EOF
+      args:
+        executable: /bin/bash
+      register: logs
+      when:
+         - DEPLOY_KATA|bool == true
+    - debug: var=logs.stdout_lines
+      when:
+         - DEPLOY_KATA|bool == true
+
+
 
     - name: systemd daemon_reload
       ansible.builtin.systemd:
@@ -337,13 +406,30 @@
       register: logs
     - debug: var=logs.stdout_lines
 
-
     - name: Run ctr images ls
       ansible.builtin.shell: ctr images ls
       args:
         executable: /bin/bash
       register: logs
     - debug: var=logs.stdout_lines
+
+
+
+    - name: Run ctr test gvisor|kata
+      ansible.builtin.shell: |
+              ctr image pull harbor.iblog.pro/test/ubuntu:main.ubuntu.24.04
+              ctr run --runtime io.containerd.runsc.v1 -t --rm harbor.iblog.pro/test/ubuntu:main.ubuntu.24.04 hello uname -r
+              ctr run --runtime io.containerd.run.runsc.v1 -t --rm harbor.iblog.pro/test/ubuntu:main.ubuntu.24.04 gvisord uname -r
+              ctr run --runtime "io.containerd.kata.v2" -t --rm harbor.iblog.pro/test/ubuntu:main.ubuntu.24.04 hello uname -r
+      args:
+        executable: /bin/bash
+      register: logs
+      when:
+         - DEPLOY_KATA|bool == true
+    - debug: var=logs.stdout_lines
+      when:
+         - DEPLOY_KATA|bool == true
+
 
     - name: Copy etc-crictl.yaml.j2
       template:

@@ -35,6 +35,9 @@ DEPLOY_Fission: false
 DEPLOY_IstioOperator: true
 DEPLOY_ENVOYGATEWAY: true
 
+DEPLOY_GVISOR: false
+DEPLOY_KATA: false
+
 KUBERNETES_VIP: "192.168.200.187"
 UBUNTU_VERSION: noble
 #noble

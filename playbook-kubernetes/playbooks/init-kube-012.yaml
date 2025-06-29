@@ -54,3 +54,25 @@
      - debug: msg="item.item={{item.item}}, item.stdout={{item.stdout}}, item.changed={{item.changed}}"
        with_items: "{{logs.results}}"
 
+
+     - name: Run task kubectl label node katacontainers.io/gvisor=on
+       ansible.builtin.shell: kubectl label node {{item}} katacontainers.io/gvisor=on
+       args:
+         executable: /bin/bash
+       with_items:  "{{ groups['worker'] }}"
+       register: logs
+
+     - debug: msg="item.item={{item.item}}, item.stdout={{item.stdout}}, item.changed={{item.changed}}"
+       with_items: "{{logs.results}}"
+
+
+     - name: Run task kubectl label node katacontainers.io/kata-runtime=on
+       ansible.builtin.shell: kubectl label node {{item}} katacontainers.io/kata-runtime=on
+       args:
+         executable: /bin/bash
+       with_items:  "{{ groups['worker'] }}"
+       register: logs
+
+     - debug: msg="item.item={{item.item}}, item.stdout={{item.stdout}}, item.changed={{item.changed}}"
+       with_items: "{{logs.results}}"
+

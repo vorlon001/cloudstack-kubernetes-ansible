@@ -22,7 +22,6 @@ Slice=containerd.slice
 
 #uncomment to enable the experimental sbservice (sandboxed) version of containerd/cri integration
 #Environment="ENABLE_CRI_SANDBOXES=sandboxed"
-Environment="PATH=/opt/kata/bin/:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/cni/bin/"
 ExecStartPre=-/sbin/modprobe overlay
 ExecStart=/usr/local/bin/containerd
 

@@ -1,0 +1,95 @@
+#    - name: Create cert manager
+#      kubernetes.core.k8s:
+#        state: present
+#        apply: true
+#        template:
+#          path: 'POST-INIT/cert-manager.yaml.j2'
+
+
+    - name: Deploy cert manager
+      environment:
+        KUBECONFIG: /etc/kubernetes/admin.conf
+      community.kubernetes.helm:
+        name: cert-manager
+        chart_ref: "cloudstack/cert-manager"
+        release_state: present
+        update_repo_cache: true
+        release_namespace: "certmanager"
+        create_namespace: yes
+        chart_version: "v1.17.1"
+        values:
+            replicaCount: 2
+            strategy:
+               type: RollingUpdate
+               rollingUpdate:
+                 maxSurge: 0
+                 maxUnavailable: 1
+            podDisruptionBudget:
+              enabled: true
+              minAvailable: 1
+            image:
+              repository: harbor.iblog.pro/quayio/jetstack/cert-manager-controller
+            namespace: ""
+            affinity: {}
+            webhook:
+              replicaCount: 2
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 32Mi
+                limits:
+                  cpu: 100m
+                  memory: 128Mi
+              affinity: {}
+              podDisruptionBudget:
+                enabled: true
+                minAvailable: 1
+              image:
+                repository: quay.io/jetstack/cert-manager-webhook
+              tolerations: []
+            cainjector:
+              enabled: true
+              replicaCount: 2
+              affinity: {}
+              image:
+                repository: harbor.iblog.pro/quayio/jetstack/cert-manager-cainjector
+              strategy:
+                 type: RollingUpdate
+                 rollingUpdate:
+                   maxSurge: 0
+                   maxUnavailable: 1
+              tolerations: []
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 32Mi
+                limits:
+                  cpu: 100m
+                  memory: 128Mi
+            startupapicheck:
+              resources:
+                requests:
+                  cpu: 10m
+                  memory: 32Mi
+                limits:
+                  cpu: 100m
+                  memory: 128Mi
+              affinity: {}
+              tolerations: []
+              image:
+                repository: harbor.iblog.pro/quayio/jetstack/cert-manager-startupapicheck
+            acmesolver:
+              image:
+                repository: harbor.iblog.pro/quayio/jetstack/cert-manager-acmesolver
+
+
+
+
+
+
+    - name: Sleep 60 second, Deploy Trivy
+      pause:
+        seconds: 60
+
+
+

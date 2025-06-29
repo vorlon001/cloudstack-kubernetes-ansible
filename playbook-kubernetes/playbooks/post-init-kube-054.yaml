@@ -7,6 +7,8 @@
           path: 'POST-INIT/PriorityClass.yaml.j2'
 
     - name: Create RuntimeClass gVisor
+      when:
+         - DEPLOY_GVISOR|bool == true
       kubernetes.core.k8s:
         state: present
         definition:
@@ -19,5 +21,77 @@
             metadata:
               name: gvisor
             handler: runsc
+            scheduling:
+              nodeSelector:
+                katacontainers.io/gvisor: "on"
 
+
+    - name: Create RuntimeClass kata-cloud-hypervisor
+      kubernetes.core.k8s:
+        state: present
+        definition:
+      kubernetes.core.k8s:
+        state: present
+        apply: true
+        definition:
+            apiVersion: node.k8s.io/v1
+            kind: RuntimeClass
+            metadata:
+              name: kata-cloud-hypervisor
+            handler: kata-cloud-hypervisor
+            overhead:
+              podFixed:
+                cpu: 250m
+                memory: 130Mi
+            scheduling:
+              nodeSelector:
+                katacontainers.io/kata-runtime: "on"
+      when:
+         - DEPLOY_KATA|bool == true
+
+    - name: Create RuntimeClass kata-clh
+      kubernetes.core.k8s:
+        state: present
+        definition:
+      kubernetes.core.k8s:
+        state: present
+        apply: true
+        definition:
+            apiVersion: node.k8s.io/v1
+            kind: RuntimeClass
+            metadata:
+              name: kata-clh
+            handler: kata-clh
+            overhead:
+              podFixed:
+                cpu: 250m
+                memory: 130Mi
+            scheduling:
+              nodeSelector:
+                katacontainers.io/kata-runtime: "on"
+      when:
+         - DEPLOY_KATA|bool == true
+
+    - name: Create RuntimeClass kata-qemu
+      kubernetes.core.k8s:
+        state: present
+        definition:
+      kubernetes.core.k8s:
+        state: present
+        apply: true
+        definition:
+            apiVersion: node.k8s.io/v1
+            kind: RuntimeClass
+            metadata:
+              name: kata-qemu
+            handler: kata-qemu
+            overhead:
+              podFixed:
+                cpu: 250m
+                memory: 130Mi
+            scheduling:
+              nodeSelector:
+                katacontainers.io/kata-runtime: "on"
+      when:
+         - DEPLOY_KATA|bool == true
 
