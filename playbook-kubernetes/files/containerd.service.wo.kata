@@ -18,7 +18,7 @@ Documentation=https://containerd.io
 After=network.target local-fs.target
 
 [Service]
-Slice=containerd.slice
+Slice=kubelet.slice
 
 #uncomment to enable the experimental sbservice (sandboxed) version of containerd/cri integration
 #Environment="ENABLE_CRI_SANDBOXES=sandboxed"

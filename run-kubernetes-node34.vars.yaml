@@ -54,7 +54,7 @@ serviceSubnet: "10.96.128.0/17"
 VIPIP_KEEPALIVE: "192.168.200.186"
 CONTROL_PLANE_IP: 192.168.200.186
 
-etcdquotaBackendBytes: "33554432"
+etcdquotaBackendBytes: "33554432000"
 
 CNI_ANTREA_chart_ref: "cloudstack/antrea"
 CNI_ANTREA_release_state: present
@@ -75,7 +75,7 @@ CNI_KUBEOVN_release_state: present
 CNI_KUBEOVN_release_namespace: kube-system
 CNI_KUBEOVN_create_namespace: no
 
-CNI_KUBEOVN_chart_version: "v1.12.25"
+CNI_KUBEOVN_chart_version: "v1.12.29"
 CNI_KUBEOVN_chart_global_registry: "harbor.iblog.pro/docker.io/kubeovn"
 
 CNI_KUBEOVN_chart_kubeovn_repository: "kube-ovn"
@@ -108,7 +108,7 @@ CNI_CILIUM_chart_ref: "cloudstack/cilium"
 CNI_CILIUM_release_state: present
 CNI_CILIUM_release_namespace: kube-system
 CNI_CILIUM_create_namespace: yes
-CNI_CILIUM_chart_version: 1.16.6
+CNI_CILIUM_chart_version: 1.17.5
 
 CNI_CILIUM_clusterPoolIPv4PodCIDRList: "10.96.0.0/17"
 CNI_CILIUM_clusterPoolIPv4MaskSize: "24"
@@ -141,13 +141,13 @@ CNI_CALICO_tigeraOperator_registry: harbor.iblog.pro
 CNI_CALICO_ctl_image: harbor.iblog.pro/docker.io/calico/ctl
 CNI_CALICO_ctl_tag: v3.28.2
 
-CNI_METALLB_chart_version: "0.14.8"
+CNI_METALLB_chart_version: "0.14.9"
 CNI_METALLB_prometheus_repository: harbor.iblog.pro/gcrio/kubebuilder/kube-rbac-proxy
 CNI_METALLB_prometheus_tag: "v0.12.0"
 CNI_METALLB_controller_repository: harbor.iblog.pro/quay.io/metallb/controller
-CNI_METALLB_controller_tag: "v0.14.8"
+CNI_METALLB_controller_tag: "v0.14.9"
 CNI_METALLB_speaker_repository: harbor.iblog.pro/quay.io/metallb/speaker
-CNI_METALLB_speaker_tag: "v0.14.8"
+CNI_METALLB_speaker_tag: "v0.14.9"
 CNI_METALLB_frr_repository: harbor.iblog.pro/quay.io/frrouting/frr
 CNI_METALLB_frr_tag: "9.1.0"
 

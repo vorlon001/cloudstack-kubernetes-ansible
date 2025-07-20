@@ -140,11 +140,14 @@ KUBEADM_ClusterConfiguration:
         mountPath: /etc/kubernetes/kubescheduler-config.yaml
         readOnly: true
 
-
+# https://kubernetes.io/docs/reference/config-api/kubelet-config.v1beta1/
 KubeletConfiguration:
     # https://kubernetes.io/docs/reference/command-line-tools-reference/kubelet/
     registerNode: true
     cgroupDriver: "systemd"
+    cgroupRoot: "/"
+    kubeReservedCgroup: "/kubelet.slice"
+    kubeletCgroups: "/kubelet.slice"
     cgroupsPerQOS: true
     clusterDomain: "cluster.local"
     cpuManagerReconcilePeriod: "0s"
@@ -185,7 +188,6 @@ KubeletConfiguration:
     tlsMinVersion: "VersionTLS13"
     imageGCHighThresholdPercent: 55
     imageGCLowThresholdPercent: 50
-    kubeletCgroups: /kubelet.slice
     authentication:
         anonymous:
             enabled: false
